@@ -1,0 +1,14 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (C:\Users\micha\Desktop\fhprojects\cenger_moholi_mmp2a\Project\vs2017\..\temp\) contains files shared from another project (Assignment4.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Game.cpp
+c:\users\micha\desktop\fhprojects\cenger_moholi_mmp2a\project\source\game.cpp(40): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  GameObjectManager.cpp
+  GameState.cpp
+  GameStateManager.cpp
+  MapLoader.cpp
+c:\users\micha\desktop\fhprojects\cenger_moholi_mmp2a\project\source\maploader.cpp(23): warning C4244: 'initializing': conversion from 'sf::Int64' to 'unsigned int', possible loss of data
+  SoundManager.cpp
+c:\users\micha\desktop\fhprojects\cenger_moholi_mmp2a\project\source\soundmanager.cpp(17): warning C4018: '>=': signed/unsigned mismatch
+  SpriteRenderComponent.cpp
+c:\users\micha\desktop\fhprojects\cenger_moholi_mmp2a\project\source\spriterendercomponent.cpp(10): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+  Project.vcxproj -> C:\Users\micha\Desktop\fhprojects\cenger_moholi_mmp2a\Project\vs2017\..\bin\Project-Debug-x86.exe
