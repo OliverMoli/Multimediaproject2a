@@ -2,10 +2,13 @@
 #include "MainMenuState.h"
 #include "InputManager.h"
 #include "GameStateManager.h"
+#include "ResourceManager.h"
+#include "Game.h"
 
 void MainMenuState::initialize()
 {
-
+	ResourceManager::getInstance().loadFont("arial", "../assets/arial.ttf");
+	
 }
 
 void MainMenuState::update(float deltaTime)
@@ -20,6 +23,12 @@ void MainMenuState::update(float deltaTime)
 void MainMenuState::render(sf::RenderWindow & window)
 {
 	GameState::render(window);
+	sf::Text text("I do work :)", *ResourceManager::getInstance().getFont("arial"));
+	text.setCharacterSize(30);
+	text.setStyle(sf::Text::Regular);
+	text.setFillColor(sf::Color::White);
+	text.setPosition(250, 275);
+	window.draw(text);
 }
 
 void MainMenuState::exit()

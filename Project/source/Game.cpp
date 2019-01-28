@@ -10,6 +10,7 @@
 #include "MainMenuState.h"
 #include "PlayState.h"
 #include "SetupState.h"
+#include "RenderManager.h"
 
 Game::Game(std::string gameTitle)
 {

@@ -105,6 +105,15 @@ void MapLoader::loadMap(const std::string& filename, const sf::Vector2f & offset
 		// go over all objects per layer
 		for (auto object : group->objects)
 		{
+			auto go = std::make_shared<GameObject>();
+			if (object->type == "Player")
+			{
+				GameObjectFactory::CreatePlayer(*object);
+			}
+			else if (object->type == "Flag")
+			{
+				GameObjectFactory::CreateFlag(*object);
+			}
 			//TODO: Call helper functions for creatin objects here
 		}
 	}
