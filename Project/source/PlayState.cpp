@@ -2,6 +2,7 @@
 #include "PlayState.h"
 #include "MapLoader.h"
 
+
 void PlayState::initialize()
 {
 	ResourceManager::getInstance().loadTextureWithTransparentColor("redOrc1", "../assets/RedPlayer1.png", sf::Color(255, 128, 255));

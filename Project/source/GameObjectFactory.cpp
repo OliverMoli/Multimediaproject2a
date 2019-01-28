@@ -124,7 +124,7 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 	ballObject->getComponent<SpriteRenderComponent>()->setLayer(Items);
 	ballObject->addComponent(std::make_shared<RigidBodyComponent>(*ballObject, 0));
 	ballObject->addComponent(std::make_shared<AABBColliderComponent>(*ballObject, object.width, object.height, true));
-	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject,values.playField));
+	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject, values.playField));
 	GameStateManager::getInstance().getCurrentState()->addGameObject(ballObject);
 }
 

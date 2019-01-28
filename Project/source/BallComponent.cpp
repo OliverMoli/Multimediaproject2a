@@ -2,6 +2,7 @@
 #include "BallComponent.h"
 #include "GameObjectManager.h"
 #include "PlayFieldComponent.h"
+#include "InputManager.h"
 
 BallComponent::BallComponent(GameObject& owner, std::string owningPlayFieldName) : Component(owner)
 {
@@ -14,6 +15,10 @@ void BallComponent::initialize()
 
 void BallComponent::update(float deltaTime)
 {
+	if (InputManager::getInstance().isKeyDown("Test", 0)) {
+		respawnRandomly();
+	}
+
 }
 
 void BallComponent::onCollision(CollisionInfo colInfo)
@@ -26,7 +31,7 @@ void BallComponent::onCollision(CollisionInfo colInfo)
 
 std::string BallComponent::getOwningPlayfieldName() 
 {
-	return std::string();
+	return owningPlayfieldName;
 }
 
 void BallComponent::resetComponent()

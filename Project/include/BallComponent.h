@@ -12,9 +12,10 @@ class BallComponent : public Component, public ICollisionObserver
 		void onCollision(CollisionInfo colInfo) override;
 		std::string getOwningPlayfieldName();
 		void resetComponent();
+		void respawnRandomly();
 
 	private:
-		void respawnRandomly();
+		
 		std::string owningPlayfieldName;
 		
 };
