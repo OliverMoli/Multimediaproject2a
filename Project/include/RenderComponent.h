@@ -3,7 +3,8 @@
 #include "Component.h"
 
 
-enum RenderLayer{Ground = 0, OnGroundLayer = 1, Player = 2, Items = 3, Obstacles = 4,UI = 5};
+
+enum RenderLayer{Ground = 0, OnGroundLayer = 1, Player = 2, Items = 3, Obstacles = 4, Playfield = 5, UI = 6, };
 
 class RenderComponent : public Component
 {

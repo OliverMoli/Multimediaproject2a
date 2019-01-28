@@ -13,7 +13,7 @@ bool InputManager::isKeyDown(std::string action, int playerIndex)
 	auto pair = std::make_pair(action, playerIndex);
 	if (keyBindings.find(pair) != keyBindings.end()) {
 		return (keyStateThisFrame[keyBindings[pair]] && !keyStateLastFrame[keyBindings[pair]]);
-	}
+	} 
 	else {
 		std::cout << "ERROR! the keybinding [" << action << "]" << "of playerIndex " << playerIndex << " is used but not mapped!" << std::endl;
 	}

@@ -114,6 +114,10 @@ void MapLoader::loadMap(const std::string& filename, const sf::Vector2f & offset
 			{
 				GameObjectFactory::CreateFlag(*object);
 			}
+			else if (object->type == "Ball")
+			{
+				GameObjectFactory::CreateBall(*object);
+			}
 			//TODO: Call helper functions for creatin objects here
 		}
 	}

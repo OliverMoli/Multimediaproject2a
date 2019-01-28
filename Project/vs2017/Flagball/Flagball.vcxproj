@@ -34,6 +34,7 @@
     <ClCompile Include="..\..\source\GameStateManager.cpp" />
     <ClCompile Include="..\..\source\IController.cpp" />
     <ClCompile Include="..\..\source\InputManager.cpp" />
+    <ClCompile Include="..\..\source\BallComponent.cpp" />
     <ClCompile Include="..\..\source\LayerComponent.cpp" />
     <ClCompile Include="..\..\source\MainMenuState.cpp" />
     <ClCompile Include="..\..\source\MapLoader.cpp" />
@@ -46,6 +47,7 @@
     </ClCompile>
     <ClCompile Include="..\..\source\PhysicsManager.cpp" />
     <ClCompile Include="..\..\source\PlayerControllerComponent.cpp" />
+    <ClCompile Include="..\..\source\PlayFieldComponent.cpp" />
     <ClCompile Include="..\..\source\PlayState.cpp" />
     <ClCompile Include="..\..\source\RenderComponent.cpp" />
     <ClCompile Include="..\..\source\RenderManager.cpp" />
@@ -72,6 +74,7 @@
     <ClInclude Include="..\..\include\ICollisionObserver.h" />
     <ClInclude Include="..\..\include\IController.h" />
     <ClInclude Include="..\..\include\InputManager.h" />
+    <ClInclude Include="..\..\include\BallComponent.h" />
     <ClInclude Include="..\..\include\LayerComponent.h" />
     <ClInclude Include="..\..\include\MainMenuState.h" />
     <ClInclude Include="..\..\include\MapLoader.h" />
@@ -81,6 +84,7 @@
     <ClInclude Include="..\..\include\pch.h" />
     <ClInclude Include="..\..\include\PhysicsManager.h" />
     <ClInclude Include="..\..\include\PlayerControllerComponent.h" />
+    <ClInclude Include="..\..\include\PlayFieldComponent.h" />
     <ClInclude Include="..\..\include\PlayState.h" />
     <ClInclude Include="..\..\include\rapidxml.h" />
     <ClInclude Include="..\..\include\RenderComponent.h" />

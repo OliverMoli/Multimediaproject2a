@@ -25,6 +25,7 @@ void Game::initialize(int windowWidth, int windowHeight)
 	GameStateManager::getInstance().setState("MainMenuState");
 	InputManager::getInstance().bind("Debug", sf::Keyboard::Key::F1, 0);
 	InputManager::getInstance().bind("Play", sf::Keyboard::Space,0);
+	InputManager::getInstance().bind("Test", sf::Keyboard::P, 0);
 	update();
 }
 
