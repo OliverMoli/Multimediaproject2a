@@ -135,48 +135,60 @@
 410,411,411,411,411,412,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,411,410,411,411,411,411,412
 </data>
  </layer>
- <objectgroup id="7" name="Player">
-  <object id="10" name="Player 6" type="Player" x="464" y="400" width="32" height="32">
-   <properties>
-    <property name="Team" value="blue"/>
-    <property name="textureName" value="blueOrc3"/>
-   </properties>
-  </object>
-  <object id="4" name="Player 5" type="Player" x="544" y="480" width="32" height="32">
-   <properties>
-    <property name="Team" value="red"/>
-    <property name="textureName" value="redOrc3"/>
-   </properties>
-  </object>
-  <object id="5" name="Player 4" type="Player" x="672" y="480" width="32" height="32">
-   <properties>
-    <property name="Team" value="blue"/>
-    <property name="textureName" value="blueOrc2"/>
-   </properties>
-  </object>
-  <object id="11" name="Player 3" type="Player" x="752" y="400" width="32" height="32">
-   <properties>
-    <property name="Team" value="red"/>
-    <property name="textureName" value="redOrc2"/>
-   </properties>
-  </object>
-  <object id="8" name="Player 2" type="Player" x="672" y="320" width="32" height="32">
-   <properties>
-    <property name="Team" value="blue"/>
-    <property name="textureName" value="blueOrc1"/>
-   </properties>
-  </object>
-  <object id="7" name="Player 1" type="Player" x="544" y="320" width="32" height="32">
-   <properties>
-    <property name="team" value="red"/>
-    <property name="textureName" value="redOrc1"/>
-   </properties>
-  </object>
- </objectgroup>
  <objectgroup id="6" name="Items">
   <object id="1" name="Flagspawn" type="Flag" x="608" y="432" width="32" height="32">
    <properties>
     <property name="textureName" value="flag"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="Player">
+  <object id="10" name="Player 6" type="Player" x="496" y="432" width="48" height="62">
+   <properties>
+    <property name="colOffsetX" type="float" value="0"/>
+    <property name="colOffsetY" type="float" value="10"/>
+    <property name="team" value="blue"/>
+    <property name="textureName" value="blueOrc3"/>
+   </properties>
+  </object>
+  <object id="4" name="Player 5" type="Player" x="544" y="512" width="48" height="62">
+   <properties>
+    <property name="colOffsetX" type="float" value="0"/>
+    <property name="colOffsetY" type="float" value="10"/>
+    <property name="team" value="red"/>
+    <property name="textureName" value="redOrc3"/>
+   </properties>
+  </object>
+  <object id="5" name="Player 4" type="Player" x="672" y="512" width="48" height="62">
+   <properties>
+    <property name="colOffsetX" type="float" value="0"/>
+    <property name="colOffsetY" type="float" value="10"/>
+    <property name="team" value="blue"/>
+    <property name="textureName" value="blueOrc2"/>
+   </properties>
+  </object>
+  <object id="11" name="Player 3" type="Player" x="720" y="432" width="48" height="62">
+   <properties>
+    <property name="colOffsetX" type="float" value="0"/>
+    <property name="colOffsetY" type="float" value="10"/>
+    <property name="team" value="red"/>
+    <property name="textureName" value="redOrc2"/>
+   </properties>
+  </object>
+  <object id="8" name="Player 2" type="Player" x="672" y="352" width="48" height="62">
+   <properties>
+    <property name="colOffsetX" type="float" value="0"/>
+    <property name="colOffsetY" type="float" value="10"/>
+    <property name="team" value="blue"/>
+    <property name="textureName" value="blueOrc1"/>
+   </properties>
+  </object>
+  <object id="7" name="Player 1" type="Player" x="544" y="352" width="48" height="62">
+   <properties>
+    <property name="colOffsetX" type="float" value="0"/>
+    <property name="colOffsetY" type="float" value="10"/>
+    <property name="team" value="red"/>
+    <property name="textureName" value="redOrc1"/>
    </properties>
   </object>
  </objectgroup>

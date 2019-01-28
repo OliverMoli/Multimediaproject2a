@@ -5,7 +5,7 @@
 class AABBColliderComponent : public ColliderComponent
 {
 public:
-	AABBColliderComponent(GameObject& owner,float width,float height,bool isTrigger,sf::Vector2f positionOffset);
+	AABBColliderComponent(GameObject& owner,float width,float height,bool isTrigger,sf::Vector2f positionOffset= sf::Vector2f(0,0));
 	void initialize() override;
 	void update(float deltaTime) override;
 	///Checks for intersections with another collider
