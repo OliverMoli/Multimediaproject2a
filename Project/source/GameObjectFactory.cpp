@@ -10,6 +10,7 @@
 #include "ScoreComponent.h"
 #include "MovementComponent.h"
 #include "PlayerControllerComponent.h"
+#include "BallComponent.h"
 
 
 void GameObjectFactory::CreatePlayer(NLTmxMapObject object)
@@ -92,6 +93,40 @@ void GameObjectFactory::CreateScore()
 	GameStateManager::getInstance().getCurrentState()->addGameObject(scoreObject);
 }
 
+void GameObjectFactory::CreateBall(NLTmxMapObject object)
+{
+	auto ballObject = make_shared<GameObject>(object.name, object.type);
+
+	struct BallValues
+	{
+		string textureName;
+		string playField;
+	};
+
+	BallValues values;
+
+	for (auto property : object.properties)
+	{
+		auto name = property->name;
+
+		if (name == "textureName")
+		{
+			values.textureName = property->value;
+		}
+		if (name == "playField")
+		{
+			values.playField = property->value;
+		}
+	}
+
+	ballObject->setPosition(object.x, object.y);
+	ballObject->addComponent(std::make_shared<SpriteRenderComponent>(*ballObject, *ResourceManager::getInstance().getTexture(values.textureName)));
+	ballObject->getComponent<SpriteRenderComponent>()->setLayer(Items);
+	ballObject->addComponent(std::make_shared<RigidBodyComponent>(*ballObject, 0));
+	ballObject->addComponent(std::make_shared<AABBColliderComponent>(*ballObject, object.width, object.height, true));
+	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject,values.playField));
+	GameStateManager::getInstance().getCurrentState()->addGameObject(ballObject);
+}
 
 
 bool GameObjectFactory::stob(string value)

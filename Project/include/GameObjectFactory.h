@@ -8,4 +8,5 @@ public:
 	static void CreatePlayer(NLTmxMapObject object);
 	static void CreateFlag(NLTmxMapObject object);
 	static void CreateScore();
+	static void CreateBall(NLTmxMapObject object);
 };
