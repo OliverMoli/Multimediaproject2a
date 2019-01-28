@@ -32,6 +32,7 @@
     <ClCompile Include="..\..\source\GameStateManager.cpp" />
     <ClCompile Include="..\..\source\InputManager.cpp" />
     <ClCompile Include="..\..\source\LayerComponent.cpp" />
+    <ClCompile Include="..\..\source\MainMenuState.cpp" />
     <ClCompile Include="..\..\source\MapLoader.cpp" />
     <ClCompile Include="..\..\source\MathHelper.cpp" />
     <ClCompile Include="..\..\source\NLTmxMap.cpp" />
@@ -40,12 +41,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\..\source\PhysicsManager.cpp" />
+    <ClCompile Include="..\..\source\PlayState.cpp" />
     <ClCompile Include="..\..\source\RenderComponent.cpp" />
     <ClCompile Include="..\..\source\RenderManager.cpp" />
     <ClCompile Include="..\..\source\ResourceManager.cpp" />
     <ClCompile Include="..\..\source\RigidBodyComponent.cpp" />
     <ClCompile Include="..\..\source\SoundManager.cpp" />
     <ClCompile Include="..\..\source\SpriteRenderComponent.cpp" />
+    <ClCompile Include="SetupState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\AABBColliderComponent.h" />
@@ -61,16 +64,19 @@
     <ClInclude Include="..\..\include\ICollisionObserver.h" />
     <ClInclude Include="..\..\include\InputManager.h" />
     <ClInclude Include="..\..\include\LayerComponent.h" />
+    <ClInclude Include="..\..\include\MainMenuState.h" />
     <ClInclude Include="..\..\include\MapLoader.h" />
     <ClInclude Include="..\..\include\MathHelper.h" />
     <ClInclude Include="..\..\include\NLTmxMap.h" />
     <ClInclude Include="..\..\include\pch.h" />
     <ClInclude Include="..\..\include\PhysicsManager.h" />
+    <ClInclude Include="..\..\include\PlayState.h" />
     <ClInclude Include="..\..\include\rapidxml.h" />
     <ClInclude Include="..\..\include\RenderComponent.h" />
     <ClInclude Include="..\..\include\RenderManager.h" />
     <ClInclude Include="..\..\include\ResourceManager.h" />
     <ClInclude Include="..\..\include\RigidBodyComponent.h" />
+    <ClInclude Include="..\..\include\SetupState.h" />
     <ClInclude Include="..\..\include\SoundManager.h" />
     <ClInclude Include="..\..\include\SpriteRenderComponent.h" />
   </ItemGroup>

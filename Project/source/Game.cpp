@@ -7,7 +7,9 @@
 #include <SFML/Window/VideoMode.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Window.hpp>
-#include "SoundManager.h"
+#include "MainMenuState.h"
+#include "PlayState.h"
+#include "SetupState.h"
 
 Game::Game(std::string gameTitle)
 {
@@ -18,7 +20,12 @@ void Game::initialize(int windowWidth, int windowHeight)
 {
 	window.create(sf::VideoMode(windowWidth, windowHeight), gameTitle);
 	//TODO: register states and set them
+	GameStateManager::getInstance().registerState("MainMenuState", std::make_shared<MainMenuState>());
+	GameStateManager::getInstance().registerState("SetupState", std::make_shared<SetupState>());
+	GameStateManager::getInstance().registerState("PlayState", std::make_shared<PlayState>());
+	GameStateManager::getInstance().setState("MainMenuState");
 	InputManager::getInstance().bind("Debug", sf::Keyboard::Key::F1, 0);
+	InputManager::getInstance().bind("Play", sf::Keyboard::Space,0);
 	update();
 }
 
