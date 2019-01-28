@@ -20,7 +20,9 @@ public:
 
 private:
 	bool hasFlag = false;
-	Team team;
+	Team team = Team::BlueTeam;
 	FlagComponent* flagComponent;
+	float lastTickTime;
+	sf::Clock clock;
 };
 

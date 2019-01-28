@@ -106,13 +106,13 @@ void MapLoader::loadMap(const std::string& filename, const sf::Vector2f & offset
 		for (auto object : group->objects)
 		{
 			auto go = std::make_shared<GameObject>();
-			if (object->type == "Player")
-			{
-				GameObjectFactory::CreatePlayer(*object);
-			}
-			else if (object->type == "Flag")
+			if (object->type == "Flag")
 			{
 				GameObjectFactory::CreateFlag(*object);
+			}
+			else if (object->type == "Player")
+			{
+				GameObjectFactory::CreatePlayer(*object);
 			}
 			else if (object->type == "Ball")
 			{

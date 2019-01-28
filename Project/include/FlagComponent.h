@@ -14,7 +14,7 @@ public:
 	void setScorePerTick(int score);
 	void setTickDuration(float duration);
 private:
-	int scorePerTick;
-	float tickDuration;
+	int scorePerTick = 5;
+	float tickDuration = 3;
 };
 

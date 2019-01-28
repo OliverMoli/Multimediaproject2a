@@ -136,7 +136,7 @@
 </data>
  </layer>
  <objectgroup id="6" name="Items">
-  <object id="1" name="Flagspawn" type="Flag" x="608" y="432" width="32" height="32">
+  <object id="1" name="Flag" type="Flag" x="608" y="432" width="32" height="32">
    <properties>
     <property name="textureName" value="flag"/>
    </properties>
@@ -234,6 +234,6 @@
   <object id="15" name="Border" type="Obstacle" x="1136" y="704" width="528" height="16" rotation="-90"/>
  </objectgroup>
  <objectgroup id="9" name="Playfield">
-  <object id="22" name="Playfield" type="Playfield" x="96" y="192" width="1040" height="496"/>
+  <object id="22" name="Playfield" type="Playfield" x="96" y="192" width="1040" height="496" visible="0"/>
  </objectgroup>
 </map>
