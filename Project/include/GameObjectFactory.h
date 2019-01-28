@@ -9,4 +9,5 @@ public:
 	static void CreateFlag(NLTmxMapObject object);
 	static void CreateScore();
 	static void CreateBall(NLTmxMapObject object);
+	static void CreatePlayField(NLTmxMapObject object);
 };

@@ -14,10 +14,7 @@ void BallComponent::initialize()
 }
 
 void BallComponent::update(float deltaTime)
-{
-	if (InputManager::getInstance().isKeyDown("Test", 0)) {
-		respawnRandomly();
-	}
+{	
 
 }
 

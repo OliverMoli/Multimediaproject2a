@@ -118,6 +118,10 @@ void MapLoader::loadMap(const std::string& filename, const sf::Vector2f & offset
 			{
 				GameObjectFactory::CreateBall(*object);
 			}
+			else if (object->type == "Playfiled")
+			{
+				GameObjectFactory::CreatePlayField(*object);
+			}
 			//TODO: Call helper functions for creatin objects here
 		}
 	}

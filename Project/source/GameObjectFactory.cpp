@@ -12,6 +12,7 @@
 #include "PlayerControllerComponent.h"
 #include "Game.h"
 #include "BallComponent.h"
+#include "PlayFieldComponent.h"
 
 
 void GameObjectFactory::CreatePlayer(NLTmxMapObject object)
@@ -131,7 +132,18 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 	ballObject->addComponent(std::make_shared<RigidBodyComponent>(*ballObject, 0));
 	ballObject->addComponent(std::make_shared<AABBColliderComponent>(*ballObject, object.width, object.height, true));
 	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject, values.playField));
+	//ballObject->addComponent(std::make_shared<PlayFieldComponent>(*ballObject));
+	ballObject->getComponent<RigidBodyComponent>()->addObserver(ballObject->getComponent<BallComponent>());
 	GameStateManager::getInstance().getCurrentState()->addGameObject(ballObject);
+}
+
+void GameObjectFactory::CreatePlayField(NLTmxMapObject object)
+{
+	auto playField = make_shared<GameObject>(object.name, object.type);
+	playField->setPosition(object.x, object.y);
+	playField->addComponent(std::make_shared<PlayFieldComponent>(*playField, object.width, object.height));
+	GameStateManager::getInstance().getCurrentState()->addGameObject(playField);
+	
 }
 
 
