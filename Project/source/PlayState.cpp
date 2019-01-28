@@ -7,7 +7,6 @@ void PlayState::initialize()
 
 void PlayState::update(float deltaTime)
 {
-	std::cout << "works";
 	GameState::update(deltaTime);
 }
 
