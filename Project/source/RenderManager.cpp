@@ -12,7 +12,7 @@ void RenderManager::render(sf::RenderWindow& window)
 {
 	for (auto renderComp : renderComponents)
 	{
-		window.setView(currentView);
+		//window.setView(currentView);
 		if (renderComp->getGameObject().isActive()) {
 			renderComp->render(window);
 		}

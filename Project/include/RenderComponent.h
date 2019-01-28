@@ -3,7 +3,7 @@
 #include "Component.h"
 
 
-enum RenderLayer{Background = 0, ObjectLayer = 1, Midground = 2, Foreground = 3, CollisionTriggerLayer = 4, CollisionLayer = 5};
+enum RenderLayer{Ground = 0, OnGroundLayer = 1, Player = 2, Items = 3, Obstacles = 4};
 
 class RenderComponent : public Component
 {
@@ -13,5 +13,5 @@ public:
 	void setLayer(RenderLayer layer);
 	RenderLayer getLayer() const;
 protected:
-	RenderLayer layer = Foreground;
+	RenderLayer layer = Ground;
 };
