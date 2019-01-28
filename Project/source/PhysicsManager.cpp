@@ -132,7 +132,7 @@ void PhysicsManager::integrate(float deltaTime)
 			continue;
 		}
 		body->setAcceleration(forces * body->getInvMass());
-		body->setVelocity(body->getVelocity() + body->getAcceleration() * deltaTime);
+		body->setVelocity(body->getVelocity()*body->getFriction() + body->getAcceleration() * deltaTime);
 		body->getGameObject().setPosition(body->getGameObject().getPosition() + body->getVelocity()* deltaTime);
 	}
 }

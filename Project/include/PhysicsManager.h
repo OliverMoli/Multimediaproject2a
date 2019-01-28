@@ -12,7 +12,6 @@ struct Manifold
 class PhysicsManager
 {
 public:
-
 	static PhysicsManager& getInstance();
 	void addRigidbodyComponent(std::shared_ptr<RigidBodyComponent> comp);
 	void freeResources();

@@ -4,6 +4,7 @@
 #include "RenderManager.h"
 #include "RigidBodyComponent.h"
 #include "PhysicsManager.h"
+#include "ColliderComponent.h"
 
 GameObject::GameObject()
 {

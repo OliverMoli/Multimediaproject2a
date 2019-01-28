@@ -1,5 +1,5 @@
 #pragma once
-#include "ColliderComponent.h"
+#include "GameObject.h"
 ///Components that should listen to collision events have to inherit from this
 class ICollisionObserver
 {

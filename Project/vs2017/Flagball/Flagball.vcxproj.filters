@@ -120,6 +120,15 @@
     <ClCompile Include="..\..\source\PlayState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\FlagComponent.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\CharacterInfoComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ScoreComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\pch.h">
@@ -205,6 +214,15 @@
     </ClInclude>
     <ClInclude Include="..\..\include\PlayState.h">
       <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\FlagComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\CharacterInfoComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ScoreComponent.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

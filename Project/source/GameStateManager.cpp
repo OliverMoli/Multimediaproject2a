@@ -31,7 +31,7 @@ void GameStateManager::setState(const std::string &name)
 		if (targetState != currentState) {
 			if (currentState) {
 				currentState->exit();
-				window->setView(window->getDefaultView());
+				//window->setView(window->getDefaultView());
 			}
 		}
 		currentState = targetState;

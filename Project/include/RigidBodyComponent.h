@@ -1,6 +1,7 @@
 #pragma once
 #include "ICollisionObserver.h"
 #include <SFML/System/Vector2.hpp>
+#include "ColliderComponent.h"
 
 class RigidBodyComponent : public Component
 {
@@ -20,6 +21,8 @@ public:
 	std::vector<sf::Vector2f>& getImpulses();
 	void setVelocity(sf::Vector2f vel);
 	void setAcceleration(sf::Vector2f acc);
+	void setFriction(float friction);
+	float getFriction() const;
 	void addImpulse(sf::Vector2f impulse);
 	void addForce(sf::Vector2f force);
 private:
@@ -28,10 +31,11 @@ private:
 
 	float mass;
 	float invMass;
+	float friction = 1.0f;
 
 	sf::Vector2f acceleration;
 	sf::Vector2f velocity;
-
+	
 	std::vector<sf::Vector2f> forces;
 	std::vector<sf::Vector2f> impulses;
 

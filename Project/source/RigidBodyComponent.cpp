@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "RigidBodyComponent.h"
+#include "ColliderComponent.h"
 
 RigidBodyComponent::RigidBodyComponent(GameObject& owner,float mass) :Component(owner)
 {
@@ -76,6 +77,16 @@ void RigidBodyComponent::setVelocity(sf::Vector2f vel)
 void RigidBodyComponent::setAcceleration(sf::Vector2f acc)
 {
 	acceleration = acc;
+}
+
+void RigidBodyComponent::setFriction(float friction)
+{
+	this->friction = friction;
+}
+
+float RigidBodyComponent::getFriction() const
+{
+	return friction;
 }
 
 void RigidBodyComponent::addImpulse(sf::Vector2f impulse)

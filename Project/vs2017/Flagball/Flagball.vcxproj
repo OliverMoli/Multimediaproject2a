@@ -20,10 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\AABBColliderComponent.cpp" />
+    <ClCompile Include="..\..\source\CharacterInfoComponent.cpp" />
     <ClCompile Include="..\..\source\Flagball.cpp" />
     <ClCompile Include="..\..\source\ColliderComponent.cpp" />
     <ClCompile Include="..\..\source\Component.cpp" />
     <ClCompile Include="..\..\source\DebugDraw.cpp" />
+    <ClCompile Include="..\..\source\FlagComponent.cpp" />
     <ClCompile Include="..\..\source\Game.cpp" />
     <ClCompile Include="..\..\source\GameObject.cpp" />
     <ClCompile Include="..\..\source\GameObjectFactory.cpp" />
@@ -46,15 +48,18 @@
     <ClCompile Include="..\..\source\RenderManager.cpp" />
     <ClCompile Include="..\..\source\ResourceManager.cpp" />
     <ClCompile Include="..\..\source\RigidBodyComponent.cpp" />
+    <ClCompile Include="..\..\source\ScoreComponent.cpp" />
     <ClCompile Include="..\..\source\SoundManager.cpp" />
     <ClCompile Include="..\..\source\SpriteRenderComponent.cpp" />
     <ClCompile Include="SetupState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\AABBColliderComponent.h" />
+    <ClInclude Include="..\..\include\CharacterInfoComponent.h" />
     <ClInclude Include="..\..\include\ColliderComponent.h" />
     <ClInclude Include="..\..\include\Component.h" />
     <ClInclude Include="..\..\include\DebugDraw.h" />
+    <ClInclude Include="..\..\include\FlagComponent.h" />
     <ClInclude Include="..\..\include\Game.h" />
     <ClInclude Include="..\..\include\GameObject.h" />
     <ClInclude Include="..\..\include\GameObjectFactory.h" />
@@ -76,6 +81,7 @@
     <ClInclude Include="..\..\include\RenderManager.h" />
     <ClInclude Include="..\..\include\ResourceManager.h" />
     <ClInclude Include="..\..\include\RigidBodyComponent.h" />
+    <ClInclude Include="..\..\include\ScoreComponent.h" />
     <ClInclude Include="..\..\include\SetupState.h" />
     <ClInclude Include="..\..\include\SoundManager.h" />
     <ClInclude Include="..\..\include\SpriteRenderComponent.h" />
