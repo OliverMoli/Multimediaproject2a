@@ -10,7 +10,6 @@
 #include "MainMenuState.h"
 #include "PlayState.h"
 #include "SetupState.h"
-#include "RenderManager.h"
 
 Game::Game(std::string gameTitle)
 {
@@ -20,7 +19,6 @@ Game::Game(std::string gameTitle)
 void Game::initialize(int windowWidth, int windowHeight)
 {
 	window.create(sf::VideoMode(windowWidth, windowHeight), gameTitle);
-	//TODO: register states and set them
 	GameStateManager::getInstance().registerState("MainMenuState", std::make_shared<MainMenuState>());
 	GameStateManager::getInstance().registerState("SetupState", std::make_shared<SetupState>());
 	GameStateManager::getInstance().registerState("PlayState", std::make_shared<PlayState>());

@@ -32,6 +32,7 @@
     <ClCompile Include="..\..\source\GameObjectManager.cpp" />
     <ClCompile Include="..\..\source\GameState.cpp" />
     <ClCompile Include="..\..\source\GameStateManager.cpp" />
+    <ClCompile Include="..\..\source\IController.cpp" />
     <ClCompile Include="..\..\source\InputManager.cpp" />
     <ClCompile Include="..\..\source\LayerComponent.cpp" />
     <ClCompile Include="..\..\source\MainMenuState.cpp" />
@@ -69,6 +70,7 @@
     <ClInclude Include="..\..\include\GameState.h" />
     <ClInclude Include="..\..\include\GameStateManager.h" />
     <ClInclude Include="..\..\include\ICollisionObserver.h" />
+    <ClInclude Include="..\..\include\IController.h" />
     <ClInclude Include="..\..\include\InputManager.h" />
     <ClInclude Include="..\..\include\LayerComponent.h" />
     <ClInclude Include="..\..\include\MainMenuState.h" />

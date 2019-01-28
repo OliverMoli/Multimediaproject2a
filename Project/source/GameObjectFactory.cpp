@@ -10,6 +10,7 @@
 #include "ScoreComponent.h"
 #include "MovementComponent.h"
 #include "PlayerControllerComponent.h"
+#include "Game.h"
 
 
 void GameObjectFactory::CreatePlayer(NLTmxMapObject object)
@@ -49,9 +50,11 @@ void GameObjectFactory::CreatePlayer(NLTmxMapObject object)
 	playerObject->addComponent(std::make_shared<SpriteRenderComponent>(*playerObject, *ResourceManager::getInstance().getTexture(values.textureName)));
 	playerObject->getComponent<SpriteRenderComponent>()->setLayer(Player);
 	playerObject->addComponent(std::make_shared<RigidBodyComponent>(*playerObject, 1.0f));
+	playerObject->getComponent<RigidBodyComponent>()->setFriction(0.87f);
 	playerObject->addComponent(std::make_shared<AABBColliderComponent>(*playerObject, object.width, object.height, false, values.colOffset));
-	playerObject->addComponent(std::make_shared<MovementComponent>(*playerObject));
+	playerObject->addComponent(std::make_shared<MovementComponent>(*playerObject,300000,500000));
 	playerObject->addComponent(std::make_shared<PlayerControllerComponent>(*playerObject));
+	playerObject->addComponent(std::make_shared<CharacterInfoComponent>(*playerObject));
 	GameStateManager::getInstance().getCurrentState()->addGameObject(playerObject);
 
 }
@@ -82,6 +85,7 @@ void GameObjectFactory::CreateFlag(NLTmxMapObject object)
 	flagObject->addComponent(std::make_shared<RigidBodyComponent>(*flagObject, 0));
 	flagObject->addComponent(std::make_shared<AABBColliderComponent>(*flagObject, object.width, object.height, true));
 	flagObject->addComponent(std::make_shared<FlagComponent>(*flagObject));
+	flagObject->getComponent<RigidBodyComponent>()->addObserver(flagObject->getComponent<FlagComponent>());
 	GameStateManager::getInstance().getCurrentState()->addGameObject(flagObject);
 }
 
@@ -89,6 +93,8 @@ void GameObjectFactory::CreateScore()
 {
 	auto scoreObject = std::make_shared<GameObject>("Score", "Score");
 	scoreObject->addComponent(std::make_shared<ScoreComponent>(*scoreObject));
+	scoreObject->getComponent<ScoreComponent>()->setLayer(UI);
+	scoreObject->setPosition(616, 0);
 	GameStateManager::getInstance().getCurrentState()->addGameObject(scoreObject);
 }
 

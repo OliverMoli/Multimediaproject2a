@@ -24,8 +24,6 @@ void MainMenuState::render(sf::RenderWindow & window)
 {
 	GameState::render(window);
 	sf::Text text("I do work :)", *ResourceManager::getInstance().getFont("arial"));
-	text.setCharacterSize(30);
-	text.setStyle(sf::Text::Regular);
 	text.setFillColor(sf::Color::White);
 	text.setPosition(250, 275);
 	window.draw(text);

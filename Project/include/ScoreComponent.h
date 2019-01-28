@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "RenderComponent.h"
 #include "CharacterInfoComponent.h"
+#include <SFML/Graphics/Text.hpp>
 
 class ScoreComponent : public RenderComponent
 {
@@ -12,5 +13,6 @@ public:
 	void render(sf::RenderWindow& window) override;
 	void incrementScore(Team team,int amount);
 private:
-	int scoreRedTeam, scoreBlueTeam;
+	int scoreRedTeam =0, scoreBlueTeam=0;
+	sf::Text redText, blueText;
 };
