@@ -17,3 +17,6 @@
 !*.vcxproj.filters
 !*.pdf
 !*.tmx
+!*.wav
+!*.mp3
+!*.ogg 
