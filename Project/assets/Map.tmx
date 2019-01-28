@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="77" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="16">
  <tileset firstgid="1" name="castle" tilewidth="16" tileheight="16" tilecount="578" columns="34">
-  <image source="fantasyrpgtilesetpack/assets/TILESETS/castle.png" trans="000000" width="544" height="272"/>
+  <image source="../../../fantasyrpgtilesetpack/assets/TILESETS/castle.png" trans="000000" width="544" height="272"/>
  </tileset>
  <tileset firstgid="579" name="desert" tilewidth="16" tileheight="16" tilecount="414" columns="18">
-  <image source="fantasyrpgtilesetpack/assets/TILESETS/desert.png" trans="000000" width="288" height="368"/>
+  <image source="../../../fantasyrpgtilesetpack/assets/TILESETS/desert.png" trans="000000" width="288" height="368"/>
  </tileset>
  <tileset firstgid="993" name="dungeon" tilewidth="16" tileheight="16" tilecount="1479" columns="51">
-  <image source="fantasyrpgtilesetpack/assets/TILESETS/dungeon.png" trans="000000" width="816" height="464"/>
+  <image source="../../../fantasyrpgtilesetpack/assets/TILESETS/dungeon.png" trans="000000" width="816" height="464"/>
  </tileset>
  <tileset firstgid="2472" name="house" tilewidth="16" tileheight="16" tilecount="2622" columns="69">
-  <image source="fantasyrpgtilesetpack/assets/TILESETS/house.png" trans="000000" width="1104" height="608"/>
+  <image source="../../../fantasyrpgtilesetpack/assets/TILESETS/house.png" trans="000000" width="1104" height="608"/>
  </tileset>
  <tileset firstgid="5094" name="inside" tilewidth="16" tileheight="16" tilecount="1680" columns="48">
-  <image source="fantasyrpgtilesetpack/assets/TILESETS/inside.png" trans="000000" width="768" height="560"/>
+  <image source="../../../fantasyrpgtilesetpack/assets/TILESETS/inside.png" trans="000000" width="768" height="560"/>
  </tileset>
  <tileset firstgid="6774" name="outside" tilewidth="16" tileheight="16" tilecount="1248" columns="52">
-  <image source="fantasyrpgtilesetpack/assets/TILESETS/outside.png" trans="000000" width="832" height="384"/>
+  <image source="../../../fantasyrpgtilesetpack/assets/TILESETS/outside.png" trans="000000" width="832" height="384"/>
  </tileset>
  <tileset firstgid="8022" name="terrain" tilewidth="16" tileheight="16" tilecount="1482" columns="39">
-  <image source="fantasyrpgtilesetpack/assets/TILESETS/terrain.png" trans="000000" width="624" height="608"/>
+  <image source="../../../fantasyrpgtilesetpack/assets/TILESETS/terrain.png" trans="000000" width="624" height="608"/>
  </tileset>
  <tileset firstgid="9504" name="water" tilewidth="16" tileheight="16" tilecount="2805" columns="51">
-  <image source="fantasyrpgtilesetpack/assets/TILESETS/water.png" trans="000000" width="816" height="880"/>
+  <image source="../../../fantasyrpgtilesetpack/assets/TILESETS/water.png" trans="000000" width="816" height="880"/>
  </tileset>
  <tileset firstgid="12309" name="world" tilewidth="16" tileheight="16" tilecount="1014" columns="39">
-  <image source="fantasyrpgtilesetpack/assets/TILESETS/world.png" trans="000000" width="624" height="416"/>
+  <image source="../../../fantasyrpgtilesetpack/assets/TILESETS/world.png" trans="000000" width="624" height="416"/>
  </tileset>
  <layer id="4" name="Ground" width="77" height="50">
   <data encoding="csv">

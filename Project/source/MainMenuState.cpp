@@ -5,6 +5,7 @@
 
 void MainMenuState::initialize()
 {
+
 }
 
 void MainMenuState::update(float deltaTime)
