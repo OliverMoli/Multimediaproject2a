@@ -122,6 +122,10 @@ void MapLoader::loadMap(const std::string& filename, const sf::Vector2f & offset
 			{
 				GameObjectFactory::CreatePlayField(*object);
 			}
+			else if (object->type == "Obstacle")
+			{
+				GameObjectFactory::CreateObstacle(*object);
+			}
 			//TODO: Call helper functions for creatin objects here
 		}
 	}

@@ -47,9 +47,7 @@ void BallComponent::update(float deltaTime)
 		}
 
 		sf::Vector2f aimOffset = MathHelper::getNormalizedVec2f(sf::Vector2f(gamepadU, gamepadV));
-		std::cout << aimOffset.x << std::endl;
-		std::cout << aimOffset.y << std::endl;
-
+	
 		if (sf::Joystick::isButtonPressed(characterInfo->getPlayerIndex(), (int)InputManager::XboxButtons::LB))
 		{
 			gameObject.getComponent<RigidBodyComponent>()->addImpulse(sf::Vector2f(aimOffset.x * ballSpeed, aimOffset.y * ballSpeed));

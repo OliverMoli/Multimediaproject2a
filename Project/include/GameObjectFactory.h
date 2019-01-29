@@ -10,4 +10,5 @@ public:
 	static void CreateScore();
 	static void CreateBall(NLTmxMapObject object);
 	static void CreatePlayField(NLTmxMapObject object);
+	static void CreateObstacle(NLTmxMapObject object);
 };

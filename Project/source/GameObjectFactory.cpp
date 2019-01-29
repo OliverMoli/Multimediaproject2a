@@ -171,6 +171,16 @@ void GameObjectFactory::CreatePlayField(NLTmxMapObject object)
 
 }
 
+void GameObjectFactory::CreateObstacle(NLTmxMapObject object)
+{
+	auto obstacle = make_shared<GameObject>(object.name, object.type);
+	obstacle->setPosition(object.x, object.y);
+	obstacle->addComponent(std::make_shared<RigidBodyComponent>(*obstacle, 0));
+	obstacle->addComponent(std::make_shared<AABBColliderComponent>(*obstacle, object.width, object.height, false, sf::Vector2f(0, 0)));
+	GameStateManager::getInstance().getCurrentState()->addGameObject(obstacle);
+}
+
+
 
 bool GameObjectFactory::stob(string value)
 {
