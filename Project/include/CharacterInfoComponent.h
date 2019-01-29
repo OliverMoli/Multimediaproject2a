@@ -15,6 +15,8 @@ public:
 	void update(float deltaTime) override;
 	void setHasFlag(bool val);
 	bool getHasFlag() const;
+	void setHasBall(bool val);
+	bool getHasBall() const;
 	void setTeam(Team team);
 	Team getTeam() const;
 	void setPlayerIndex(int index);
@@ -27,6 +29,7 @@ public:
 	float getLastDashTime() const;
 private:
 	bool hasFlag = false;
+	bool hasBall = false;
 	Team team;
 	FlagComponent* flagComponent;
 	float lastTickTime;

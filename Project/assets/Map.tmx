@@ -145,35 +145,35 @@
   </object>
   <object id="16" name="Ball" type="Ball" x="288" y="304" width="32" height="32">
    <properties>
-    <property name="ballSpeed" type="float" value="0"/>
+    <property name="ballSpeed" type="float" value="20000"/>
     <property name="playField" value="playField"/>
     <property name="textureName" value="ball"/>
    </properties>
   </object>
   <object id="17" name="Ball" type="Ball" x="288" y="544" width="32" height="32">
    <properties>
-    <property name="ballSpeed" type="float" value="0"/>
+    <property name="ballSpeed" type="float" value="20000"/>
     <property name="playField" value="playField"/>
     <property name="textureName" value="ball"/>
    </properties>
   </object>
   <object id="19" name="Ball" type="Ball" x="528" y="240" width="32" height="32">
    <properties>
-    <property name="ballSpeed" type="float" value="0"/>
+    <property name="ballSpeed" type="float" value="20000"/>
     <property name="playField" value="playField"/>
     <property name="textureName" value="ball"/>
    </properties>
   </object>
   <object id="20" name="Ball" type="Ball" x="912" y="304" width="32" height="32">
    <properties>
-    <property name="ballSpeed" type="float" value="0"/>
+    <property name="ballSpeed" type="float" value="20000"/>
     <property name="playField" value="playField"/>
     <property name="textureName" value="ball"/>
    </properties>
   </object>
   <object id="21" name="Ball" type="Ball" x="912" y="528" width="32" height="32">
    <properties>
-    <property name="ballSpeed" type="float" value="0"/>
+    <property name="ballSpeed" type="float" value="20000"/>
     <property name="playField" value="playField"/>
     <property name="textureName" value="ball"/>
    </properties>
@@ -184,8 +184,8 @@
    <properties>
     <property name="colOffsetX" type="float" value="0"/>
     <property name="colOffsetY" type="float" value="10"/>
-    <property name="dashCooldown" type="float" value="0"/>
-    <property name="dashForce" type="float" value="0"/>
+    <property name="dashCooldown" type="float" value="3"/>
+    <property name="dashForce" type="float" value="75000"/>
     <property name="team" value="blue"/>
     <property name="textureName" value="blueOrc3"/>
    </properties>
@@ -194,8 +194,8 @@
    <properties>
     <property name="colOffsetX" type="float" value="0"/>
     <property name="colOffsetY" type="float" value="10"/>
-    <property name="dashCooldown" type="float" value="0"/>
-    <property name="dashForce" type="float" value="0"/>
+    <property name="dashCooldown" type="float" value="3"/>
+    <property name="dashForce" type="float" value="75000"/>
     <property name="team" value="red"/>
     <property name="textureName" value="redOrc3"/>
    </properties>
@@ -204,8 +204,8 @@
    <properties>
     <property name="colOffsetX" type="float" value="0"/>
     <property name="colOffsetY" type="float" value="10"/>
-    <property name="dashCooldown" type="float" value="0"/>
-    <property name="dashForce" type="float" value="0"/>
+    <property name="dashCooldown" type="float" value="3"/>
+    <property name="dashForce" type="float" value="75000"/>
     <property name="team" value="blue"/>
     <property name="textureName" value="blueOrc2"/>
    </properties>
@@ -214,8 +214,8 @@
    <properties>
     <property name="colOffsetX" type="float" value="0"/>
     <property name="colOffsetY" type="float" value="10"/>
-    <property name="dashCooldown" type="float" value="0"/>
-    <property name="dashForce" type="float" value="0"/>
+    <property name="dashCooldown" type="float" value="3"/>
+    <property name="dashForce" type="float" value="75000"/>
     <property name="team" value="red"/>
     <property name="textureName" value="redOrc2"/>
    </properties>
@@ -224,8 +224,8 @@
    <properties>
     <property name="colOffsetX" type="float" value="0"/>
     <property name="colOffsetY" type="float" value="10"/>
-    <property name="dashCooldown" type="float" value="0"/>
-    <property name="dashForce" type="float" value="0"/>
+    <property name="dashCooldown" type="float" value="3"/>
+    <property name="dashForce" type="float" value="75000"/>
     <property name="team" value="blue"/>
     <property name="textureName" value="blueOrc1"/>
    </properties>

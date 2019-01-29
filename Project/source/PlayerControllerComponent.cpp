@@ -43,9 +43,6 @@ void PlayerControllerComponent::update(float deltaTime)
 	MathHelper::truncate(steering, owner->getMaxSteeringForce()*deltaTime);
 	owner->setSteering(steering);
 
-	std::cout << clock.getElapsedTime().asSeconds() << std::endl;
-
-
 	if (sf::Joystick::isButtonPressed(characterInfo->getPlayerIndex(), (int)InputManager::XboxButtons::RB) && clock.getElapsedTime().asSeconds() > (characterInfo->getDashCooldown() + characterInfo->getLastDashTime()))
 	{
 		gameObject.getComponent<RigidBodyComponent>()->addImpulse(inputOffset*characterInfo->getDashForce());
