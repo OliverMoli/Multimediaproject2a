@@ -118,7 +118,7 @@ void MapLoader::loadMap(const std::string& filename, const sf::Vector2f & offset
 			{
 				GameObjectFactory::CreateBall(*object);
 			}
-			else if (object->type == "Playfiled")
+			else if (object->type == "Playfield")
 			{
 				GameObjectFactory::CreatePlayField(*object);
 			}
