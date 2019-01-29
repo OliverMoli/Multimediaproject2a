@@ -3,15 +3,19 @@
 #include "GameObjectManager.h"
 #include "ScoreComponent.h"
 
-CharacterInfoComponent::CharacterInfoComponent(GameObject & owner) :Component(owner)
+CharacterInfoComponent::CharacterInfoComponent(GameObject & owner, float dashForce, float dashCooldown) :Component(owner)
 {
+	this->dashForce = dashForce;
+	this->dashCooldown = dashCooldown;
+	
 }
 
 void CharacterInfoComponent::initialize()
 {
 	flagComponent = GameObjectManager::getInstance().GetGameObjectByName("Flag")->getComponent<FlagComponent>().get();
 	clock = sf::Clock();
-	lastTickTime = clock.getElapsedTime().asSeconds();
+	lastTickTime = -100;
+	lastDashTime = -100;
 }
 
 void CharacterInfoComponent::update(float deltaTime)
@@ -71,4 +75,14 @@ void CharacterInfoComponent::setDashCooldown(float cd)
 float CharacterInfoComponent::getDashCooldown() const
 {
 	return dashCooldown;
+}
+
+void CharacterInfoComponent::setLastDashTime(float time)
+{
+	lastDashTime = time;
+}
+
+float CharacterInfoComponent::getLastDashTime() const
+{
+	return lastDashTime;
 }
