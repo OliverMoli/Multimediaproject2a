@@ -9,6 +9,7 @@ public:
 	void initialize() override;
 	void update(float deltaTime) override;
 	bool isTrigger() const;
+	void setTrigger(bool trig);
 private:
 	bool trigger;
 };

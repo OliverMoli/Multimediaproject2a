@@ -71,3 +71,8 @@ void GameStateManager::freeStates()
 	states.clear();
 	window = nullptr;
 }
+
+sf::RenderWindow * GameStateManager::getWindow()
+{
+	return window;
+}

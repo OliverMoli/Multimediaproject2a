@@ -17,6 +17,7 @@ void RenderManager::render(sf::RenderWindow& window)
 			renderComp->render(window);
 		}
 	}
+	gui->draw();
 }
 
 void RenderManager::addRenderComponent(std::shared_ptr<RenderComponent> comp)
@@ -40,9 +41,9 @@ void RenderManager::sortByLayer()
 	std::sort(renderComponents.begin(), renderComponents.end(), [](const std::shared_ptr<RenderComponent> comp1, const std::shared_ptr<RenderComponent> comp2) {return comp1->getLayer() < comp2->getLayer(); });
 }
 
-void RenderManager::setGui(tgui::Gui & gui)
+void RenderManager::setGui(tgui::Gui* gui)
 {
-	this->gui = &gui;
+	this->gui = gui;
 }
 
 tgui::Gui* RenderManager::getGui() const

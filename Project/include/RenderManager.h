@@ -12,7 +12,7 @@ public:
 	void setCurrentView(sf::View& view);
 	void freeResources();
 	void sortByLayer();
-	void setGui(tgui::Gui& gui);
+	void setGui(tgui::Gui* gui);
 	tgui::Gui* getGui() const;
 private:
 	RenderManager() = default;

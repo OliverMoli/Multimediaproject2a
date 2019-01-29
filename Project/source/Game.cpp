@@ -22,15 +22,14 @@ void Game::initialize(int windowWidth, int windowHeight)
 {
 	window.create(sf::VideoMode(windowWidth, windowHeight), gameTitle);
 	gui.setTarget(window);
-	gui.setFont("arial.ttf");
+	gui.setFont("../assets/arial.ttf");
 	GameStateManager::getInstance().registerState("MainMenuState", std::make_shared<MainMenuState>());
 	GameStateManager::getInstance().registerState("SetupState", std::make_shared<SetupState>());
 	GameStateManager::getInstance().registerState("PlayState", std::make_shared<PlayState>());
+	RenderManager::getInstance().setGui(&gui);
 	GameStateManager::getInstance().setState("MainMenuState");
 	InputManager::getInstance().bind("Debug", sf::Keyboard::Key::F1, 0);
-	InputManager::getInstance().bind("Play", sf::Keyboard::Space,0);
 	InputManager::getInstance().bind("Test", sf::Keyboard::P, 0);
-	RenderManager::getInstance().setGui(gui);
 	update();
 }
 

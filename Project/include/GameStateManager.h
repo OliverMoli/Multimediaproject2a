@@ -17,6 +17,7 @@ public:
 	void update(float deltaTime);
 	void render(sf::RenderWindow& window);
 	void freeStates();
+	sf::RenderWindow* getWindow();
 private:
 	GameStateManager() = default;
 	~GameStateManager() = default;

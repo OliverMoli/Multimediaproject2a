@@ -18,3 +18,8 @@ bool ColliderComponent::isTrigger() const
 {
 	return trigger;
 }
+
+void ColliderComponent::setTrigger(bool trig)
+{
+	trigger = trig;
+}
