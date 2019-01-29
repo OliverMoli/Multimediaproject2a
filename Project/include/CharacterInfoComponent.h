@@ -10,7 +10,7 @@ enum class Team
 class CharacterInfoComponent :public Component
 {
 public:
-	CharacterInfoComponent(GameObject& owner);
+	CharacterInfoComponent(GameObject& owner, float dashForce, float dashCooldown);
 	void initialize() override;
 	void update(float deltaTime) override;
 	void setHasFlag(bool val);
@@ -23,6 +23,8 @@ public:
 	float getDashForce() const;
 	void setDashCooldown(float cd);
 	float getDashCooldown() const;
+	void setLastDashTime(float time);
+	float getLastDashTime() const;
 private:
 	bool hasFlag = false;
 	Team team;
@@ -32,5 +34,6 @@ private:
 	int playerIndex;
 	float dashForce;
 	float dashCooldown;
+	float lastDashTime;
 };
 

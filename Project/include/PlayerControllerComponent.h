@@ -12,5 +12,8 @@ public:
 private:
 	float deadZoneX = 20, deadZoneY = 20;
 	CharacterInfoComponent* characterInfo;
+	float lastDashTime;
+	sf::Clock clock;
+	
 };
 

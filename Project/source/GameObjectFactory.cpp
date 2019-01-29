@@ -24,6 +24,8 @@ void GameObjectFactory::CreatePlayer(NLTmxMapObject object)
 		string textureName;
 		string team;
 		sf::Vector2f colOffset;
+		float dashForce;
+		float dashCooldown;
 	};
 
 	PlayerValues values;
@@ -47,13 +49,22 @@ void GameObjectFactory::CreatePlayer(NLTmxMapObject object)
 		{
 			values.colOffset.y = stof(property->value);
 		}
-	}
+		else if (name == "dashForce")
+		{
+			values.dashForce = stof(property->value);	
+		}
+		else if (name == "dashCooldown")
+		{
+			values.dashCooldown = stof(property->value);
+		}
+	};
+
 	playerObject->setPosition(object.x, object.y);
 	playerObject->addComponent(std::make_shared<SpriteRenderComponent>(*playerObject, *ResourceManager::getInstance().getTexture(values.textureName)));
 	playerObject->getComponent<SpriteRenderComponent>()->setLayer(Player);
 	playerObject->addComponent(std::make_shared<RigidBodyComponent>(*playerObject, 1.0f));
 	playerObject->getComponent<RigidBodyComponent>()->setFriction(0.87f);
-	playerObject->addComponent(std::make_shared<CharacterInfoComponent>(*playerObject));
+	playerObject->addComponent(std::make_shared<CharacterInfoComponent>(*playerObject, values.dashForce, values.dashCooldown));
 	playerObject->addComponent(std::make_shared<AABBColliderComponent>(*playerObject, object.width, object.height, false, values.colOffset));
 	playerObject->addComponent(std::make_shared<MovementComponent>(*playerObject, 300000, 500000));
 	GameStateManager::getInstance().getCurrentState()->addGameObject(playerObject);

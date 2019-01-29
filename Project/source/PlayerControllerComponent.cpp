@@ -10,10 +10,13 @@ PlayerControllerComponent::PlayerControllerComponent(GameObject & owner) :Compon
 {
 }
 
+
+
 void PlayerControllerComponent::initialize()
 {
 	owner = gameObject.getComponent<MovementComponent>().get();
 	characterInfo = gameObject.getComponent<CharacterInfoComponent>().get();
+	clock = sf::Clock();
 }
 
 void PlayerControllerComponent::update(float deltaTime)
@@ -40,9 +43,14 @@ void PlayerControllerComponent::update(float deltaTime)
 	MathHelper::truncate(steering, owner->getMaxSteeringForce()*deltaTime);
 	owner->setSteering(steering);
 
-	if (sf::Joystick::isButtonPressed(0, (int)InputManager::XboxButtons::RB))
+	std::cout << clock.getElapsedTime().asSeconds() << std::endl;
+
+
+	if (sf::Joystick::isButtonPressed(characterInfo->getPlayerIndex(), (int)InputManager::XboxButtons::RB) && clock.getElapsedTime().asSeconds() > (characterInfo->getDashCooldown() + characterInfo->getLastDashTime()))
 	{
-		gameObject.getComponent<RigidBodyComponent>()->addImpulse(sf::Vector2f(inputOffset.x + 10000, inputOffset.y));
+		gameObject.getComponent<RigidBodyComponent>()->addImpulse(inputOffset*characterInfo->getDashForce());
+		characterInfo->setLastDashTime(clock.getElapsedTime().asSeconds());
+
 	}
 
 }
