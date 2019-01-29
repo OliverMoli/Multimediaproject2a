@@ -236,6 +236,6 @@
   <object id="15" name="Border" type="Obstacle" x="1136" y="704" width="528" height="16" rotation="-90"/>
  </objectgroup>
  <objectgroup id="9" name="Playfield">
-  <object id="22" name="Playfield" type="Playfield" x="96" y="192" width="1040" height="496" visible="0"/>
+  <object id="22" name="playField" type="Playfield" x="128" y="224" width="976" height="432"/>
  </objectgroup>
 </map>
