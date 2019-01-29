@@ -34,7 +34,7 @@ void PlayerControllerComponent::update(float deltaTime)
 	{
 		gamepadY = 0;
 	}
-	sf::Vector2f inputOffset = sf::Vector2f(gamepadX,gamepadY);
+	sf::Vector2f inputOffset = MathHelper::getNormalizedVec2f(sf::Vector2f(gamepadX,gamepadY));
 	sf::Vector2f desiredVelocity = MathHelper::getNormalizedVec2f((gameObject.getPosition() + inputOffset) - gameObject.getPosition())*owner->getMaxVelocity()*deltaTime;
 	sf::Vector2f steering = desiredVelocity - gameObject.getComponent<RigidBodyComponent>()->getVelocity();
 	MathHelper::truncate(steering, owner->getMaxSteeringForce()*deltaTime);

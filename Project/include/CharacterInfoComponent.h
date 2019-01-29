@@ -19,6 +19,10 @@ public:
 	Team getTeam() const;
 	void setPlayerIndex(int index);
 	int getPlayerIndex() const;
+	void setDashForce(float force);
+	float getDashForce() const;
+	void setDashCooldown(float cd);
+	float getDashCooldown() const;
 private:
 	bool hasFlag = false;
 	Team team;
@@ -26,5 +30,7 @@ private:
 	float lastTickTime;
 	sf::Clock clock;
 	int playerIndex;
+	float dashForce;
+	float dashCooldown;
 };
 

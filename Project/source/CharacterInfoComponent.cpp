@@ -52,3 +52,23 @@ int CharacterInfoComponent::getPlayerIndex() const
 {
 	return playerIndex;
 }
+
+void CharacterInfoComponent::setDashForce(float force)
+{
+	dashForce = force;
+}
+
+float CharacterInfoComponent::getDashForce() const
+{
+	return dashForce;
+}
+
+void CharacterInfoComponent::setDashCooldown(float cd)
+{
+	dashCooldown = cd;
+}
+
+float CharacterInfoComponent::getDashCooldown() const
+{
+	return dashCooldown;
+}

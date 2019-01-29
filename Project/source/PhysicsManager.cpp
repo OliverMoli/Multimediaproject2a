@@ -59,7 +59,6 @@ void PhysicsManager::checkCollisions()
 						ICollisionObserver::CollisionInfo colInfo;
 						colInfo.otherCol = &(*rb2)->getGameObject();
 						(*rb1)->onCollision(colInfo);
-
 						colInfo.otherCol = &(*rb1)->getGameObject();
 						(*rb2)->onCollision(colInfo);
 						collisionEventSent = true;
