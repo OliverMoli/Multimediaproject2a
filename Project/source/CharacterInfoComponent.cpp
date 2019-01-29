@@ -37,6 +37,16 @@ bool CharacterInfoComponent::getHasFlag() const
 	return hasFlag;
 }
 
+void CharacterInfoComponent::setHasBall(bool val)
+{
+	this->hasBall = val;
+}
+
+bool CharacterInfoComponent::getHasBall() const
+{
+	return hasBall;
+}
+
 void CharacterInfoComponent::setTeam(Team team)
 {
 	this->team = team;

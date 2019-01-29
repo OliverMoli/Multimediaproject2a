@@ -128,6 +128,7 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 	{
 		string textureName;
 		string playField;
+		float ballSpeed;
 	};
 
 	BallValues values;
@@ -140,19 +141,23 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 		{
 			values.textureName = property->value;
 		}
-		if (name == "playField")
+		else if (name == "playField")
 		{
 			values.playField = property->value;
 		}
+		else if(name == "ballSpeed")
+		{
+			values.ballSpeed = stof(property->value);
+		}
+		
 	}
 
 	ballObject->setPosition(object.x, object.y);
 	ballObject->addComponent(std::make_shared<SpriteRenderComponent>(*ballObject, *ResourceManager::getInstance().getTexture(values.textureName)));
 	ballObject->getComponent<SpriteRenderComponent>()->setLayer(Items);
-	ballObject->addComponent(std::make_shared<RigidBodyComponent>(*ballObject, 0));
+	ballObject->addComponent(std::make_shared<RigidBodyComponent>(*ballObject, 1));
 	ballObject->addComponent(std::make_shared<AABBColliderComponent>(*ballObject, object.width, object.height, true));
-	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject, values.playField));
-	//ballObject->addComponent(std::make_shared<PlayFieldComponent>(*ballObject));
+	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject, values.playField, values.ballSpeed));
 	ballObject->getComponent<RigidBodyComponent>()->addObserver(ballObject->getComponent<BallComponent>());
 	GameStateManager::getInstance().getCurrentState()->addGameObject(ballObject);
 }
@@ -165,6 +170,16 @@ void GameObjectFactory::CreatePlayField(NLTmxMapObject object)
 	GameStateManager::getInstance().getCurrentState()->addGameObject(playField);
 
 }
+
+void GameObjectFactory::CreateObstacle(NLTmxMapObject object)
+{
+	auto obstacle = make_shared<GameObject>(object.name, object.type);
+	obstacle->setPosition(object.x, object.y);
+	obstacle->addComponent(std::make_shared<RigidBodyComponent>(*obstacle, 0));
+	obstacle->addComponent(std::make_shared<AABBColliderComponent>(*obstacle, object.width, object.height, false, sf::Vector2f(0, 0)));
+	GameStateManager::getInstance().getCurrentState()->addGameObject(obstacle);
+}
+
 
 
 bool GameObjectFactory::stob(string value)
