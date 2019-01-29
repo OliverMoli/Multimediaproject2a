@@ -5,7 +5,7 @@
 class FlagComponent : public Component,public ICollisionObserver
 {
 public:
-	FlagComponent(GameObject& owner);
+	FlagComponent(GameObject& owner,int scorePerTick, float tickDuration);
 	void initialize() override;
 	void update(float deltaTime) override;
 	void onCollision(CollisionInfo colInfo) override;
@@ -14,7 +14,7 @@ public:
 	void setScorePerTick(int score);
 	void setTickDuration(float duration);
 private:
-	int scorePerTick = 5;
-	float tickDuration = 3;
+	int scorePerTick;
+	float tickDuration;
 };
 

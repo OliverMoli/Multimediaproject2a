@@ -42,3 +42,13 @@ Team CharacterInfoComponent::getTeam() const
 {
 	return team;
 }
+
+void CharacterInfoComponent::setPlayerIndex(int index)
+{
+	playerIndex = index;
+}
+
+int CharacterInfoComponent::getPlayerIndex() const
+{
+	return playerIndex;
+}

@@ -3,9 +3,10 @@
 #include "CharacterInfoComponent.h"
 #include "RigidBodyComponent.h"
 
-FlagComponent::FlagComponent(GameObject& owner):Component(owner)
+FlagComponent::FlagComponent(GameObject& owner,int scorePerTick, float tickDuration):Component(owner)
 {
-
+	this->scorePerTick = scorePerTick;
+	this->tickDuration = tickDuration;
 }
 
 void FlagComponent::initialize()

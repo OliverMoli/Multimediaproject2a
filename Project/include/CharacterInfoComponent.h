@@ -17,12 +17,14 @@ public:
 	bool getHasFlag() const;
 	void setTeam(Team team);
 	Team getTeam() const;
-
+	void setPlayerIndex(int index);
+	int getPlayerIndex() const;
 private:
 	bool hasFlag = false;
-	Team team = Team::BlueTeam;
+	Team team;
 	FlagComponent* flagComponent;
 	float lastTickTime;
 	sf::Clock clock;
+	int playerIndex;
 };
 

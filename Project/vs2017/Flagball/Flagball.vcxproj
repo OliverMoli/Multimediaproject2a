@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\AABBColliderComponent.cpp" />
+    <ClCompile Include="..\..\source\AiControllerComponent.cpp" />
     <ClCompile Include="..\..\source\CharacterInfoComponent.cpp" />
     <ClCompile Include="..\..\source\Flagball.cpp" />
     <ClCompile Include="..\..\source\ColliderComponent.cpp" />
@@ -60,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\AABBColliderComponent.h" />
+    <ClInclude Include="..\..\include\AiControllerComponent.h" />
     <ClInclude Include="..\..\include\CharacterInfoComponent.h" />
     <ClInclude Include="..\..\include\ColliderComponent.h" />
     <ClInclude Include="..\..\include\Component.h" />

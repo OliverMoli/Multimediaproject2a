@@ -53,10 +53,9 @@ void GameObjectFactory::CreatePlayer(NLTmxMapObject object)
 	playerObject->getComponent<SpriteRenderComponent>()->setLayer(Player);
 	playerObject->addComponent(std::make_shared<RigidBodyComponent>(*playerObject, 1.0f));
 	playerObject->getComponent<RigidBodyComponent>()->setFriction(0.87f);
-	playerObject->addComponent(std::make_shared<AABBColliderComponent>(*playerObject, object.width, object.height, false, values.colOffset));
-	playerObject->addComponent(std::make_shared<MovementComponent>(*playerObject,300000,500000));
-	playerObject->addComponent(std::make_shared<PlayerControllerComponent>(*playerObject));
 	playerObject->addComponent(std::make_shared<CharacterInfoComponent>(*playerObject));
+	playerObject->addComponent(std::make_shared<AABBColliderComponent>(*playerObject, object.width, object.height, false, values.colOffset));
+	playerObject->addComponent(std::make_shared<MovementComponent>(*playerObject, 300000, 500000));
 	GameStateManager::getInstance().getCurrentState()->addGameObject(playerObject);
 
 }
@@ -68,6 +67,8 @@ void GameObjectFactory::CreateFlag(NLTmxMapObject object)
 	struct FlagValues
 	{
 		string textureName;
+		int scorePerTick;
+		float tickDuration;
 	};
 
 	FlagValues values;
@@ -79,6 +80,14 @@ void GameObjectFactory::CreateFlag(NLTmxMapObject object)
 		{
 			values.textureName = property->value;
 		}
+		else if (name == "tickDuration")
+		{
+			values.tickDuration = stof(property->value);
+		}
+		else if (name == "scorePerTick")
+		{
+			values.scorePerTick = stoi(property->value);
+		}
 	}
 
 	flagObject->setPosition(object.x, object.y);
@@ -86,7 +95,7 @@ void GameObjectFactory::CreateFlag(NLTmxMapObject object)
 	flagObject->getComponent<SpriteRenderComponent>()->setLayer(Items);
 	flagObject->addComponent(std::make_shared<RigidBodyComponent>(*flagObject, 0));
 	flagObject->addComponent(std::make_shared<AABBColliderComponent>(*flagObject, object.width, object.height, true));
-	flagObject->addComponent(std::make_shared<FlagComponent>(*flagObject));
+	flagObject->addComponent(std::make_shared<FlagComponent>(*flagObject,values.scorePerTick,values.tickDuration));
 	flagObject->getComponent<RigidBodyComponent>()->addObserver(flagObject->getComponent<FlagComponent>());
 	GameStateManager::getInstance().getCurrentState()->addGameObject(flagObject);
 }
@@ -143,7 +152,7 @@ void GameObjectFactory::CreatePlayField(NLTmxMapObject object)
 	playField->setPosition(object.x, object.y);
 	playField->addComponent(std::make_shared<PlayFieldComponent>(*playField, object.width, object.height));
 	GameStateManager::getInstance().getCurrentState()->addGameObject(playField);
-	
+
 }
 
 

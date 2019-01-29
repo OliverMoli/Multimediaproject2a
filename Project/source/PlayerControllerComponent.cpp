@@ -13,12 +13,13 @@ PlayerControllerComponent::PlayerControllerComponent(GameObject & owner) :Compon
 void PlayerControllerComponent::initialize()
 {
 	owner = gameObject.getComponent<MovementComponent>().get();
+	characterInfo = gameObject.getComponent<CharacterInfoComponent>().get();
 }
 
 void PlayerControllerComponent::update(float deltaTime)
 {
-	float gamepadX = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::X);
-	float gamepadY = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Y);
+	float gamepadX = sf::Joystick::getAxisPosition(characterInfo->getPlayerIndex(), sf::Joystick::Axis::X);
+	float gamepadY = sf::Joystick::getAxisPosition(characterInfo->getPlayerIndex(), sf::Joystick::Axis::Y);
 	if(abs(0-gamepadX)>deadZoneX)
 	{
 		gamepadX = gamepadX;
