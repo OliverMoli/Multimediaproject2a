@@ -1,5 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include <TGUI/TGUI.hpp>
 class Game {
 public:
 	Game(std::string gameTitle);
@@ -10,4 +11,5 @@ public:
 private:
 	sf::RenderWindow window;
 	std::string gameTitle;
+	tgui::Gui gui;
 };

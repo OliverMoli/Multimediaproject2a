@@ -24,6 +24,10 @@ void AABBColliderComponent::update(float deltaTime)
 	{
 		debugColor = sf::Color(0, 0, 255, 255);
 	}
+	if(!enabled)
+	{
+		debugColor = sf::Color(128, 128, 128, 255);
+	}
 	DebugDraw::getInstance().drawRectangle(sf::Vector2f(bounds.left, bounds.top), sf::Vector2f(bounds.width, bounds.height), debugColor);
 }
 
@@ -42,8 +46,22 @@ sf::FloatRect AABBColliderComponent::getBounds() const
 	return bounds;
 }
 
+void AABBColliderComponent::setEnabled(bool enabled)
+{
+	this->enabled = enabled;
+}
+
+bool AABBColliderComponent::isEnabled() const
+{
+	return enabled;
+}
+
 bool AABBColliderComponent::vsAABB(std::shared_ptr<AABBColliderComponent> otherCol)
 {
+	if(!enabled)
+	{
+		return false;
+	}
 	auto getCenter = [](const sf::FloatRect& rect) -> sf::Vector2f
 	{
 		return sf::Vector2f(rect.left, rect.top) + 0.5f * sf::Vector2f(rect.width, rect.height);

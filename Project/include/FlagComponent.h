@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "ICollisionObserver.h"
+#include <SFML/Graphics/Texture.hpp>
 
 class FlagComponent : public Component,public ICollisionObserver
 {
@@ -13,8 +14,14 @@ public:
 	float getTickDuration() const;
 	void setScorePerTick(int score);
 	void setTickDuration(float duration);
+	sf::Vector2f getFlagPositionOffset() const;
+	void setFlagPositionOffset(sf::Vector2f offset);
 private:
+	void onPlayerPickup(CollisionInfo colInfo);
 	int scorePerTick;
 	float tickDuration;
+	GameObject* flagHolder= nullptr;
+	sf::Vector2f flagPositionOffset = sf::Vector2f(0, -40);
+	sf::Texture redFlagPickup, blueFlagPickup;
 };
 

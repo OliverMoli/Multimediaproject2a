@@ -18,6 +18,8 @@ void PlayState::initialize()
 	ResourceManager::getInstance().loadTextureWithTransparentColor("blueOrc3", "../assets/BluePlayer3.png", sf::Color(255, 128, 255));
 	ResourceManager::getInstance().loadTextureWithTransparentColor("flag", "../assets/Flag.png", sf::Color(255, 128, 255));
 	ResourceManager::getInstance().loadTextureWithTransparentColor("ball", "../assets/Ball32.png", sf::Color(255, 128, 255));
+	ResourceManager::getInstance().loadTextureWithTransparentColor("flagPickupBlue", "../assets/FlagPickedUpBlue.png", sf::Color(255, 128, 255));
+	ResourceManager::getInstance().loadTextureWithTransparentColor("flagPickupRed", "../assets/FlagPickedUpRed.png", sf::Color(255, 128, 255));
 	MapLoader::getInstance().loadMap("Map.tmx", sf::Vector2f(0, 0));
 	GameObjectFactory::CreateScore();
 	possessCharacter("Player 1", 0, Team::RedTeam);

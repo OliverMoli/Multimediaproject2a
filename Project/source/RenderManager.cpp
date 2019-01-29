@@ -39,3 +39,13 @@ void RenderManager::sortByLayer()
 {
 	std::sort(renderComponents.begin(), renderComponents.end(), [](const std::shared_ptr<RenderComponent> comp1, const std::shared_ptr<RenderComponent> comp2) {return comp1->getLayer() < comp2->getLayer(); });
 }
+
+void RenderManager::setGui(tgui::Gui & gui)
+{
+	this->gui = &gui;
+}
+
+tgui::Gui* RenderManager::getGui() const
+{
+	return gui;
+}

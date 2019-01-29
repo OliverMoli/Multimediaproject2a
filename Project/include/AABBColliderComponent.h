@@ -12,8 +12,11 @@ public:
 	///@param otherCol the collider to test this collider against
 	bool intersect(std::shared_ptr<ColliderComponent> otherCol) override;
 	sf::FloatRect getBounds() const;
+	void setEnabled(bool enabled);
+	bool isEnabled() const;
 private:
 	bool vsAABB(std::shared_ptr<AABBColliderComponent> otherCol);
 	sf::FloatRect bounds;
 	sf::Vector2f positionOffset;
+	bool enabled = true;
 };

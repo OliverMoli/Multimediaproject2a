@@ -26,4 +26,13 @@ void SpriteRenderComponent::render(sf::RenderWindow & window)
 	window.draw(sprite,parentTransform);
 }
 
+void SpriteRenderComponent::setTexture(sf::Texture & texture)
+{
+	sprite.setTexture(texture);
+	sf::IntRect newRect = sprite.getTextureRect();
+	newRect.width = texture.getSize().x;
+	newRect.height = texture.getSize().y;
+	sprite.setTextureRect(newRect);
+}
+
 
