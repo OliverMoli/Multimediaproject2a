@@ -40,5 +40,10 @@ void PlayerControllerComponent::update(float deltaTime)
 	MathHelper::truncate(steering, owner->getMaxSteeringForce()*deltaTime);
 	owner->setSteering(steering);
 
+	if (sf::Joystick::isButtonPressed(0, (int)InputManager::XboxButtons::RB))
+	{
+		gameObject.getComponent<RigidBodyComponent>()->addImpulse(sf::Vector2f(inputOffset.x + 10000, inputOffset.y));
+	}
+
 }
 

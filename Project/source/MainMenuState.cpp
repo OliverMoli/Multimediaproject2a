@@ -18,6 +18,10 @@ void MainMenuState::update(float deltaTime)
 	{
 		GameStateManager::getInstance().setState("PlayState");
 	}
+	if (sf::Joystick::isButtonPressed(0, (int)InputManager::XboxButtons::Start))
+	{
+		GameStateManager::getInstance().setState("PlayState");
+	}
 }
 
 void MainMenuState::render(sf::RenderWindow & window)

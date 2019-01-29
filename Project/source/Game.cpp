@@ -11,6 +11,7 @@
 #include "PlayState.h"
 #include "SetupState.h"
 
+
 Game::Game(std::string gameTitle)
 {
 	this->gameTitle = gameTitle;
