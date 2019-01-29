@@ -9,5 +9,5 @@ public:
 	static float length(sf::Vector2f in);
 	static int random(int rangeFrom, int rangeTo);
 	static void truncate(sf::Vector2f& in, float maxLength);
-
+	static sf::Vector2f getInverseVector(sf::Vector2f in);
 };

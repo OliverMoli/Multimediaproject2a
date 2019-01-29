@@ -37,4 +37,11 @@ void MathHelper::truncate(sf::Vector2f & in, float maxLength)
 	}
 }
 
+sf::Vector2f MathHelper::getInverseVector(sf::Vector2f in)
+{
+	in.x = -in.x;
+	in.y = -in.y;
+	return in;
+}
+
 

@@ -73,6 +73,11 @@ void PhysicsManager::resolveCollisions()
 {
 	for (auto man : manifolds)
 	{
+		if((man.body1->getGameObject().getType()=="Player"&&man.body2->getGameObject().getType()=="Ball")|| (man.body2->getGameObject().getType() == "Player"&&man.body1->getGameObject().getType() == "Ball"))
+		{
+			continue;
+		}
+		
 		// Calculate relative velocity
 		sf::Vector2f rv = man.body1->getVelocity() - man.body2->getVelocity();
 
@@ -80,8 +85,6 @@ void PhysicsManager::resolveCollisions()
 		float velAlongNormal = rv.x * man.normal.x + rv.y * man.normal.y;
 
 		// Do not resolve if velocities are separating
-		//if (velAlongNormal > 0)
-			//return;
 
 		// Calculate impulse scalar
 		float e = 0.7f; //< 1.0 = all objects are bouncy
