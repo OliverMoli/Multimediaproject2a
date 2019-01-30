@@ -5,7 +5,8 @@
 enum class Team
 {
 	BlueTeam = 0,
-	RedTeam = 1
+	RedTeam = 1,
+	Neutral = 2
 };
 class CharacterInfoComponent :public Component
 {

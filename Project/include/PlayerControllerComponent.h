@@ -11,6 +11,9 @@ public:
 	void initialize() override;
 	void update(float deltaTime) override;
 	void setBall(GameObject* go) override;
+	void setStunned(bool stunned) override;
+	bool isStunned() const override;
+	void stun(float duration);
 private:
 	float deadZoneX = 20, deadZoneY = 20;
 	CharacterInfoComponent* characterInfo;
@@ -18,5 +21,6 @@ private:
 	sf::Clock clock;
 	float deadZoneU = 20;
 	float deadZoneV = 20;
+	float unstunTime =0;
 };
 

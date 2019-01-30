@@ -10,11 +10,12 @@
 #include "PlayerControllerComponent.h"
 #include "AiControllerComponent.h"
 
-BallComponent::BallComponent(GameObject& owner, std::string owningPlayFieldName, float ballSpeed,float resetLastDelay) : Component(owner)
+BallComponent::BallComponent(GameObject& owner, std::string owningPlayFieldName, float ballSpeed, float resetLastDelay,float stunDuration) : Component(owner)
 {
 	this->playfield = GameObjectManager::getInstance().GetGameObjectByName(owningPlayFieldName);
 	this->ballSpeed = ballSpeed;
 	this->resetLastDelay = resetLastDelay;
+	this->stunDurationPerCharge = stunDuration;
 }
 
 void BallComponent::initialize()
@@ -28,6 +29,13 @@ void BallComponent::update(float deltaTime)
 	if (ballHolder != nullptr)
 	{
 		gameObject.setPosition(ballHolder->getPosition() + ballPositionOffset);
+	}else
+	{
+		if(MathHelper::length(gameObject.getComponent<RigidBodyComponent>()->getVelocity())<50)
+		{
+			//chargeCounter = 0;
+			//owningTeam = Team::Neutral;
+		}
 	}
 }
 
@@ -36,7 +44,17 @@ void BallComponent::onCollision(CollisionInfo colInfo)
 
 	if (colInfo.otherCol->getType() == "Player" && !(colInfo.otherCol == lastHolder))
 	{
-		onPlayerPickup(colInfo);
+		if (owningTeam == Team::Neutral) {
+			onPlayerPickup(colInfo);
+		}
+		else if (owningTeam == colInfo.otherCol->getComponent<CharacterInfoComponent>()->getTeam())
+		{
+			onPlayerPickup(colInfo);
+		}
+		else
+		{
+			onPlayerDamage(colInfo);
+		}
 	}
 	else if (colInfo.otherCol->getType() == "Obstacle")
 	{
@@ -46,19 +64,20 @@ void BallComponent::onCollision(CollisionInfo colInfo)
 
 void BallComponent::onPlayerPickup(CollisionInfo colInfo)
 {
-	characterInfo = colInfo.otherCol->getComponent<CharacterInfoComponent>().get();
-	if(characterInfo->getHasBall() || characterInfo->getHasFlag())
-	{
-		return;
-	}
-	if(colInfo.otherCol->getComponent<PlayerControllerComponent>())
+	if (colInfo.otherCol->getComponent<PlayerControllerComponent>())
 	{
 		controller = colInfo.otherCol->getComponent<PlayerControllerComponent>().get();
 	}
-	if (colInfo.otherCol->getComponent<AiControllerComponent>())
+	else if (colInfo.otherCol->getComponent<AiControllerComponent>())
 	{
 		controller = colInfo.otherCol->getComponent<AiControllerComponent>().get();
 	}
+	if (controller->isStunned()||colInfo.otherCol->getComponent<CharacterInfoComponent>().get()->getHasBall() || colInfo.otherCol->getComponent<CharacterInfoComponent>().get()->getHasFlag())
+	{
+		controller = nullptr;
+		return;
+	}
+	characterInfo = colInfo.otherCol->getComponent<CharacterInfoComponent>().get();
 	controller->setBall(&gameObject);
 	colInfo.otherCol->getComponent<CharacterInfoComponent>()->setHasBall(true);
 	gameObject.getComponent<AABBColliderComponent>()->setEnabled(false);
@@ -66,6 +85,23 @@ void BallComponent::onPlayerPickup(CollisionInfo colInfo)
 	lastHolder = ballHolder;
 	gameObject.getComponent<RigidBodyComponent>()->setVelocity(sf::Vector2f(0, 0));
 	gameObject.getComponent<RigidBodyComponent>()->setAcceleration(sf::Vector2f(0, 0));
+	owningTeam = characterInfo->getTeam();
+}
+
+void BallComponent::onPlayerDamage(CollisionInfo colInfo)
+{
+	if (colInfo.otherCol->getComponent<PlayerControllerComponent>())
+	{
+		colInfo.otherCol->getComponent<PlayerControllerComponent>()->stun(stunDurationPerCharge*(chargeCounter+1));
+	}
+	else if (colInfo.otherCol->getComponent<AiControllerComponent>())
+	{
+		colInfo.otherCol->getComponent<AiControllerComponent>()->stun(stunDurationPerCharge*(chargeCounter+1));
+	}
+	chargeCounter = 0;
+	owningTeam = Team::Neutral;
+	gameObject.getComponent<RigidBodyComponent>()->setVelocity(MathHelper::getInverseVector(gameObject.getComponent<RigidBodyComponent>()->getVelocity())*0.2f);
+	
 }
 
 
@@ -84,7 +120,7 @@ void BallComponent::respawnRandomly()
 
 void BallComponent::enableCollisionAfterDelay()
 {
-	if(clock.getElapsedTime().asSeconds()>(throwTime +resetLastDelay) && ballHolder == nullptr)
+	if (clock.getElapsedTime().asSeconds() > (throwTime + resetLastDelay) && ballHolder == nullptr)
 	{
 		lastHolder = nullptr;
 	}

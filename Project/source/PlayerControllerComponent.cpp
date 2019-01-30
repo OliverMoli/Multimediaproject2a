@@ -22,6 +22,16 @@ void PlayerControllerComponent::initialize()
 
 void PlayerControllerComponent::update(float deltaTime)
 {
+	if (stunned)
+	{
+		if(clock.getElapsedTime().asSeconds() > unstunTime)
+		{
+			stunned = false;
+		}
+		else {
+			return;
+		}
+	}
 	float gamepadX = sf::Joystick::getAxisPosition(characterInfo->getPlayerIndex(), sf::Joystick::Axis::X);
 	float gamepadY = sf::Joystick::getAxisPosition(characterInfo->getPlayerIndex(), sf::Joystick::Axis::Y);
 	float gamepadU = sf::Joystick::getAxisPosition(characterInfo->getPlayerIndex(), sf::Joystick::Axis::U);
@@ -47,7 +57,7 @@ void PlayerControllerComponent::update(float deltaTime)
 
 
 	sf::Vector2f aimOffset = MathHelper::getNormalizedVec2f(sf::Vector2f(gamepadU, gamepadV));
-	if (ball!= nullptr && sf::Joystick::isButtonPressed(characterInfo->getPlayerIndex(), (int)InputManager::XboxButtons::LB) && MathHelper::length(aimOffset) > 0 )
+	if (ball != nullptr && sf::Joystick::isButtonPressed(characterInfo->getPlayerIndex(), (int)InputManager::XboxButtons::LB) && MathHelper::length(aimOffset) > 0)
 	{
 		ball->getComponent<BallComponent>()->throwBall(aimOffset);
 	}
@@ -57,4 +67,21 @@ void PlayerControllerComponent::update(float deltaTime)
 void PlayerControllerComponent::setBall(GameObject * go)
 {
 	IController::setBall(go);
+}
+
+void PlayerControllerComponent::setStunned(bool stunned)
+{
+	IController::setStunned(stunned);
+}
+
+
+bool PlayerControllerComponent::isStunned() const
+{
+	return IController::isStunned();
+}
+
+void PlayerControllerComponent::stun(float duration)
+{
+	stunned = true;
+	unstunTime = clock.getElapsedTime().asSeconds() + duration;
 }
