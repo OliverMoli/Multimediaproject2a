@@ -147,50 +147,60 @@
    <properties>
     <property name="ballSpeed" type="float" value="50000"/>
     <property name="friction" type="float" value="0.995"/>
+    <property name="neutralVelocityCutoff" type="float" value="100"/>
     <property name="playField" value="playField"/>
     <property name="resetLastDelay" type="float" value="0.4"/>
     <property name="stunDurationPerCharge" type="float" value="1"/>
-    <property name="textureName" value="ball"/>
+    <property name="textureName" value="neutralBall"/>
+    <property name="velocityFactorOnEnemyHit" type="float" value="0.35"/>
    </properties>
   </object>
   <object id="17" name="Ball" type="Ball" x="288" y="544" width="32" height="32">
    <properties>
     <property name="ballSpeed" type="float" value="50000"/>
     <property name="friction" type="float" value="0.995"/>
+    <property name="neutralVelocityCutoff" type="float" value="100"/>
     <property name="playField" value="playField"/>
     <property name="resetLastDelay" type="float" value="0.4"/>
     <property name="stunDurationPerCharge" type="float" value="1"/>
-    <property name="textureName" value="ball"/>
+    <property name="textureName" value="neutralBall"/>
+    <property name="velocityFactorOnEnemyHit" type="float" value="0.35"/>
    </properties>
   </object>
   <object id="19" name="Ball" type="Ball" x="528" y="240" width="32" height="32">
    <properties>
     <property name="ballSpeed" type="float" value="50000"/>
     <property name="friction" type="float" value="0.995"/>
+    <property name="neutralVelocityCutoff" type="float" value="100"/>
     <property name="playField" value="playField"/>
     <property name="resetLastDelay" type="float" value="0.4"/>
     <property name="stunDurationPerCharge" type="float" value="1"/>
-    <property name="textureName" value="ball"/>
+    <property name="textureName" value="neutralBall"/>
+    <property name="velocityFactorOnEnemyHit" type="float" value="0.35"/>
    </properties>
   </object>
   <object id="20" name="Ball" type="Ball" x="912" y="304" width="32" height="32">
    <properties>
     <property name="ballSpeed" type="float" value="50000"/>
     <property name="friction" type="float" value="0.995"/>
+    <property name="neutralVelocityCutoff" type="float" value="100"/>
     <property name="playField" value="playField"/>
     <property name="resetLastDelay" type="float" value="0.4"/>
     <property name="stunDurationPerCharge" type="float" value="1"/>
-    <property name="textureName" value="ball"/>
+    <property name="textureName" value="neutralBall"/>
+    <property name="velocityFactorOnEnemyHit" type="float" value="0.35"/>
    </properties>
   </object>
   <object id="21" name="Ball" type="Ball" x="912" y="528" width="32" height="32">
    <properties>
     <property name="ballSpeed" type="float" value="50000"/>
     <property name="friction" type="float" value="0.995"/>
+    <property name="neutralVelocityCutoff" type="float" value="100"/>
     <property name="playField" value="playField"/>
     <property name="resetLastDelay" type="float" value="0.4"/>
     <property name="stunDurationPerCharge" type="float" value="1"/>
-    <property name="textureName" value="ball"/>
+    <property name="textureName" value="neutralBall"/>
+    <property name="velocityFactorOnEnemyHit" type="float" value="0.35"/>
    </properties>
   </object>
  </objectgroup>

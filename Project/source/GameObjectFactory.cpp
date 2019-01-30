@@ -26,6 +26,7 @@ void GameObjectFactory::CreatePlayer(NLTmxMapObject object)
 		sf::Vector2f colOffset;
 		float dashForce;
 		float dashCooldown;
+
 	};
 
 	PlayerValues values;
@@ -132,6 +133,8 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 		float resetLastDelay;
 		float friction;
 		float stunDurationPerCharge;
+		float neutralVelocityCutoff;
+		float velocityFactorOnEnemyHit;
 	};
 
 	BallValues values;
@@ -162,6 +165,13 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 		{
 			values.stunDurationPerCharge = stof(property->value);
 		}
+		else if (name == "neutralVelocityCutoff")
+		{
+			values.neutralVelocityCutoff = stof(property->value);
+		}else if (name == "velocityFactorOnEnemyHit")
+		{
+			values.velocityFactorOnEnemyHit = stof(property->value);
+		}
 		
 	}
 
@@ -170,7 +180,7 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 	ballObject->getComponent<SpriteRenderComponent>()->setLayer(Items);
 	ballObject->addComponent(std::make_shared<RigidBodyComponent>(*ballObject, 1));
 	ballObject->addComponent(std::make_shared<AABBColliderComponent>(*ballObject, object.width, object.height, false));
-	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject, values.playField, values.ballSpeed,values.resetLastDelay,values.stunDurationPerCharge));
+	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject, values.playField, values.ballSpeed,values.resetLastDelay,values.stunDurationPerCharge,values.neutralVelocityCutoff,values.velocityFactorOnEnemyHit));
 	ballObject->getComponent<RigidBodyComponent>()->addObserver(ballObject->getComponent<BallComponent>());
 	ballObject->getComponent<RigidBodyComponent>()->setFriction(values.friction);
 	GameStateManager::getInstance().getCurrentState()->addGameObject(ballObject);

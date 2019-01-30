@@ -9,13 +9,17 @@
 #include "MathHelper.h"
 #include "PlayerControllerComponent.h"
 #include "AiControllerComponent.h"
+#include "SpriteRenderComponent.h"
+#include "ResourceManager.h"
 
-BallComponent::BallComponent(GameObject& owner, std::string owningPlayFieldName, float ballSpeed, float resetLastDelay,float stunDuration) : Component(owner)
+BallComponent::BallComponent(GameObject& owner, std::string owningPlayFieldName, float ballSpeed, float resetLastDelay,float stunDuration,float neutralVelocityCutoff,float velocityFactorOnEnemyHit) : Component(owner)
 {
 	this->playfield = GameObjectManager::getInstance().GetGameObjectByName(owningPlayFieldName);
 	this->ballSpeed = ballSpeed;
 	this->resetLastDelay = resetLastDelay;
 	this->stunDurationPerCharge = stunDuration;
+	this->neutralVelocityCutoff = neutralVelocityCutoff;
+	this->velocityFactorOnEnemyHit = velocityFactorOnEnemyHit;
 }
 
 void BallComponent::initialize()
@@ -31,12 +35,19 @@ void BallComponent::update(float deltaTime)
 		gameObject.setPosition(ballHolder->getPosition() + ballPositionOffset);
 	}else
 	{
-		if(MathHelper::length(gameObject.getComponent<RigidBodyComponent>()->getVelocity())<50)
+		if(MathHelper::length(gameObject.getComponent<RigidBodyComponent>()->getVelocity())<neutralVelocityCutoff || owningTeam == Team::Neutral)
 		{
-			//chargeCounter = 0;
-			//owningTeam = Team::Neutral;
+			chargeCounter = 0;
+			owningTeam = Team::Neutral;
+			gameObject.getComponent<SpriteRenderComponent>()->setTexture(*ResourceManager::getInstance().getTexture("neutralBall"));
 		}
 	}
+	if(owningTeam== Team::Neutral)
+	{
+		hadBall.clear();
+	}
+	chargeCounter = hadBall.size()-1;
+	std::cout << chargeCounter << std::endl;
 }
 
 void BallComponent::onCollision(CollisionInfo colInfo)
@@ -78,6 +89,20 @@ void BallComponent::onPlayerPickup(CollisionInfo colInfo)
 		return;
 	}
 	characterInfo = colInfo.otherCol->getComponent<CharacterInfoComponent>().get();
+	owningTeam = characterInfo->getTeam();
+	switch(owningTeam)
+	{
+	case Team::RedTeam:
+		gameObject.getComponent<SpriteRenderComponent>()->setTexture(*ResourceManager::getInstance().getTexture("redBall"));
+		break;
+	case Team::BlueTeam:
+		gameObject.getComponent<SpriteRenderComponent>()->setTexture(*ResourceManager::getInstance().getTexture("blueBall"));
+		break;
+	}
+	if(std::find(hadBall.begin(),hadBall.end(),colInfo.otherCol)==hadBall.end())
+	{
+		hadBall.push_back(colInfo.otherCol);
+	}
 	controller->setBall(&gameObject);
 	colInfo.otherCol->getComponent<CharacterInfoComponent>()->setHasBall(true);
 	gameObject.getComponent<AABBColliderComponent>()->setEnabled(false);
@@ -85,23 +110,32 @@ void BallComponent::onPlayerPickup(CollisionInfo colInfo)
 	lastHolder = ballHolder;
 	gameObject.getComponent<RigidBodyComponent>()->setVelocity(sf::Vector2f(0, 0));
 	gameObject.getComponent<RigidBodyComponent>()->setAcceleration(sf::Vector2f(0, 0));
-	owningTeam = characterInfo->getTeam();
+	
 }
 
 void BallComponent::onPlayerDamage(CollisionInfo colInfo)
 {
 	if (colInfo.otherCol->getComponent<PlayerControllerComponent>())
 	{
-		colInfo.otherCol->getComponent<PlayerControllerComponent>()->stun(stunDurationPerCharge*(chargeCounter+1));
+		if (chargeCounter < 2) {
+			colInfo.otherCol->getComponent<PlayerControllerComponent>()->stun(stunDurationPerCharge*(chargeCounter + 1));
+		}
+		else{
+			
+		}
 	}
 	else if (colInfo.otherCol->getComponent<AiControllerComponent>())
 	{
-		colInfo.otherCol->getComponent<AiControllerComponent>()->stun(stunDurationPerCharge*(chargeCounter+1));
+		if (chargeCounter < 2) {
+			colInfo.otherCol->getComponent<AiControllerComponent>()->stun(stunDurationPerCharge*(chargeCounter + 1));
+		}else
+		{
+			
+		}
 	}
 	chargeCounter = 0;
+	gameObject.getComponent<RigidBodyComponent>()->setVelocity(MathHelper::getInverseVector(gameObject.getComponent<RigidBodyComponent>()->getVelocity())*velocityFactorOnEnemyHit);
 	owningTeam = Team::Neutral;
-	gameObject.getComponent<RigidBodyComponent>()->setVelocity(MathHelper::getInverseVector(gameObject.getComponent<RigidBodyComponent>()->getVelocity())*0.2f);
-	
 }
 
 

@@ -8,7 +8,7 @@
 class BallComponent : public Component, public ICollisionObserver
 {
 public:
-	BallComponent(GameObject& owner, std::string owningPlayfieldName, float ballSpeed,float resetLastDelay,float stunDuration);
+	BallComponent(GameObject& owner, std::string owningPlayfieldName, float ballSpeed,float resetLastDelay,float stunDuration,float neutralVelocityCutoff,float velocityFactorOnEnemyHit);
 	void initialize() override;
 	void update(float deltaTime) override;
 	void onCollision(CollisionInfo colInfo) override;
@@ -35,4 +35,7 @@ private:
 	float hitDelay;
 	float stunDurationPerCharge;
 	float ballSpeed;
+	float neutralVelocityCutoff;
+	float velocityFactorOnEnemyHit;
+	std::vector<GameObject*> hadBall;
 };
