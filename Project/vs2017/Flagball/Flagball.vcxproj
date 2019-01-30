@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="..\..\source\AABBColliderComponent.cpp" />
     <ClCompile Include="..\..\source\AiControllerComponent.cpp" />
+    <ClCompile Include="..\..\source\AnimatedSprite.cpp" />
+    <ClCompile Include="..\..\source\Animation.cpp" />
     <ClCompile Include="..\..\source\CharacterInfoComponent.cpp" />
     <ClCompile Include="..\..\source\Flagball.cpp" />
     <ClCompile Include="..\..\source\ColliderComponent.cpp" />
@@ -57,11 +59,14 @@
     <ClCompile Include="..\..\source\ScoreComponent.cpp" />
     <ClCompile Include="..\..\source\SetupState.cpp" />
     <ClCompile Include="..\..\source\SoundManager.cpp" />
+    <ClCompile Include="..\..\source\SpriteAnimationComponent.cpp" />
     <ClCompile Include="..\..\source\SpriteRenderComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\AABBColliderComponent.h" />
     <ClInclude Include="..\..\include\AiControllerComponent.h" />
+    <ClInclude Include="..\..\include\AnimatedSprite.hpp" />
+    <ClInclude Include="..\..\include\Animation.hpp" />
     <ClInclude Include="..\..\include\CharacterInfoComponent.h" />
     <ClInclude Include="..\..\include\ColliderComponent.h" />
     <ClInclude Include="..\..\include\Component.h" />
@@ -96,6 +101,7 @@
     <ClInclude Include="..\..\include\ScoreComponent.h" />
     <ClInclude Include="..\..\include\SetupState.h" />
     <ClInclude Include="..\..\include\SoundManager.h" />
+    <ClInclude Include="..\..\include\SpriteAnimationComponent.h" />
     <ClInclude Include="..\..\include\SpriteRenderComponent.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
