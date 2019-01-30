@@ -129,9 +129,7 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 		string textureName;
 		string playField;
 		float ballSpeed;
-		float throwColDelay;
-		float positionOffsetOnObstacleHit;
-		float velocityLossOnObstacleHit;
+		float resetLastDelay;
 		float friction;
 	};
 
@@ -152,17 +150,9 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 		else if(name == "ballSpeed")
 		{
 			values.ballSpeed = stof(property->value);
-		}else if(name =="throwColDelay")
+		}else if(name =="resetLastDelay")
 		{
-			values.throwColDelay = stof(property->value);
-		}
-		else if (name == "velocityLossOnObstacleHit")
-		{
-			values.velocityLossOnObstacleHit = stof(property->value);
-		}
-		else if (name == "positionOffsetOnObstacleHit")
-		{
-			values.positionOffsetOnObstacleHit = stof(property->value);
+			values.resetLastDelay = stof(property->value);
 		}else if(name == "friction")
 		{
 			values.friction = stof(property->value);
@@ -175,7 +165,7 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 	ballObject->getComponent<SpriteRenderComponent>()->setLayer(Items);
 	ballObject->addComponent(std::make_shared<RigidBodyComponent>(*ballObject, 1));
 	ballObject->addComponent(std::make_shared<AABBColliderComponent>(*ballObject, object.width, object.height, false));
-	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject, values.playField, values.ballSpeed,values.positionOffsetOnObstacleHit,values.velocityLossOnObstacleHit,values.throwColDelay));
+	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject, values.playField, values.ballSpeed,values.resetLastDelay));
 	ballObject->getComponent<RigidBodyComponent>()->addObserver(ballObject->getComponent<BallComponent>());
 	ballObject->getComponent<RigidBodyComponent>()->setFriction(values.friction);
 	GameStateManager::getInstance().getCurrentState()->addGameObject(ballObject);

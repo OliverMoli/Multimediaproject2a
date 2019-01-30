@@ -6,7 +6,6 @@
 #include <TGUI/Loading/Theme.hpp>
 #include "RenderManager.h"
 #include <TGUI/Widgets/HorizontalLayout.hpp>
-#include <TGUI/Color.hpp>
 #include <TGUI/Widgets/Picture.hpp>
 
 void SetupState::initialize()
@@ -20,10 +19,12 @@ void SetupState::update(float deltaTime)
 	if(sf::Joystick::isButtonPressed(0,(int)InputManager::XboxButtons::Start))
 	{
 		GameStateManager::getInstance().setState("PlayState");
+		RenderManager::getInstance().getGui()->removeAllWidgets();
 	}
 	if (sf::Joystick::isButtonPressed(0, (int)InputManager::XboxButtons::B))
 	{
 		GameStateManager::getInstance().setState("MainMenuState");
+		RenderManager::getInstance().getGui()->removeAllWidgets();
 	}
 }
 

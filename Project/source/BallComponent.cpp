@@ -8,13 +8,11 @@
 #include "RigidBodyComponent.h"
 #include "MathHelper.h"
 
-BallComponent::BallComponent(GameObject& owner, std::string owningPlayFieldName, float ballSpeed,float positionOffsetOnObstacleHit,float velocityLossOnObstacleHit,float throwColDelay) : Component(owner)
+BallComponent::BallComponent(GameObject& owner, std::string owningPlayFieldName, float ballSpeed,float resetLastDelay) : Component(owner)
 {
-	this->owningPlayfieldName = owningPlayFieldName;
+	this->playfield = GameObjectManager::getInstance().GetGameObjectByName(owningPlayFieldName);
 	this->ballSpeed = ballSpeed;
-	this->positionOffsetOnObstacleHit = positionOffsetOnObstacleHit;
-	this->velocityLossOnObstacleHit = velocityLossOnObstacleHit;
-	this->throwColDelay = throwColDelay;
+	this->resetLastDelay = resetLastDelay;
 }
 
 void BallComponent::initialize()
@@ -57,6 +55,7 @@ void BallComponent::update(float deltaTime)
 				ballHolder = nullptr;
 				throwTime = clock.getElapsedTime().asSeconds();
 				characterInfo->setHasBall(false);
+				gameObject.getComponent<AABBColliderComponent>()->setEnabled(true);
 			}
 		}
 	}
@@ -65,37 +64,31 @@ void BallComponent::update(float deltaTime)
 void BallComponent::onCollision(CollisionInfo colInfo)
 {
 
-	if (colInfo.otherCol->getType() == "Player")
+	if (colInfo.otherCol->getType() == "Player" && !(colInfo.otherCol == lastHolder))
 	{
 		onPlayerPickup(colInfo);
 	}
 	else if (colInfo.otherCol->getType() == "Obstacle")
 	{
-		//sf::Vector2f inverseVel = MathHelper::getInverseVector(gameObject.getComponent<RigidBodyComponent>()->getVelocity());
-		/*gameObject.move(MathHelper::getNormalizedVec2f(inverseVel) * positionOffsetOnObstacleHit);
-		gameObject.getComponent<RigidBodyComponent>()->setVelocity(inverseVel*velocityLossOnObstacleHit);*/
-		//gameObject.getComponent<AABBColliderComponent>()->setTrigger(false);
+		lastHolder = nullptr;
 	}
 }
 
 void BallComponent::onPlayerPickup(CollisionInfo colInfo)
 {
 	characterInfo = colInfo.otherCol->getComponent<CharacterInfoComponent>().get();
-	if(characterInfo->getHasBall())
+	if(characterInfo->getHasBall()|| characterInfo->getHasFlag())
 	{
 		return;
 	}
 	colInfo.otherCol->getComponent<CharacterInfoComponent>()->setHasBall(true);
 	gameObject.getComponent<AABBColliderComponent>()->setEnabled(false);
 	ballHolder = colInfo.otherCol;
+	lastHolder = ballHolder;
 	gameObject.getComponent<RigidBodyComponent>()->setVelocity(sf::Vector2f(0, 0));
 	gameObject.getComponent<RigidBodyComponent>()->setAcceleration(sf::Vector2f(0, 0));
 }
 
-std::string BallComponent::getOwningPlayfieldName()
-{
-	return owningPlayfieldName;
-}
 
 void BallComponent::resetComponent()
 {
@@ -103,19 +96,18 @@ void BallComponent::resetComponent()
 
 void BallComponent::respawnRandomly()
 {
-	auto owner = GameObjectManager::getInstance().GetGameObjectByName(owningPlayfieldName);
-	sf::Vector2f newPos = owner->getPosition();
-	newPos.x += rand() % owner->getComponent<PlayFieldComponent>()->getWidth();
-	newPos.y += rand() % owner->getComponent<PlayFieldComponent>()->getHeight();
+	sf::Vector2f newPos = playfield->getPosition();
+	newPos.x += rand() % playfield->getComponent<PlayFieldComponent>()->getWidth();
+	newPos.y += rand() % playfield->getComponent<PlayFieldComponent>()->getHeight();
 	gameObject.setPosition(newPos);
 
 }
 
 void BallComponent::enableCollisionAfterDelay()
 {
-	if(clock.getElapsedTime().asSeconds()>(throwTime +throwColDelay))
+	if(clock.getElapsedTime().asSeconds()>(throwTime +resetLastDelay) && ballHolder == nullptr)
 	{
-		gameObject.getComponent<AABBColliderComponent>()->setEnabled(true);
+		lastHolder = nullptr;
 	}
 }
 
