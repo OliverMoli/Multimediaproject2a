@@ -131,6 +131,7 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 		float ballSpeed;
 		float resetLastDelay;
 		float friction;
+		float stunDurationPerCharge;
 	};
 
 	BallValues values;
@@ -157,6 +158,10 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 		{
 			values.friction = stof(property->value);
 		}
+		else if (name == "stunDurationPerCharge")
+		{
+			values.stunDurationPerCharge = stof(property->value);
+		}
 		
 	}
 
@@ -165,7 +170,7 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 	ballObject->getComponent<SpriteRenderComponent>()->setLayer(Items);
 	ballObject->addComponent(std::make_shared<RigidBodyComponent>(*ballObject, 1));
 	ballObject->addComponent(std::make_shared<AABBColliderComponent>(*ballObject, object.width, object.height, false));
-	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject, values.playField, values.ballSpeed,values.resetLastDelay));
+	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject, values.playField, values.ballSpeed,values.resetLastDelay,values.stunDurationPerCharge));
 	ballObject->getComponent<RigidBodyComponent>()->addObserver(ballObject->getComponent<BallComponent>());
 	ballObject->getComponent<RigidBodyComponent>()->setFriction(values.friction);
 	GameStateManager::getInstance().getCurrentState()->addGameObject(ballObject);

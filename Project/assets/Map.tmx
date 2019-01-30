@@ -149,6 +149,7 @@
     <property name="friction" type="float" value="0.995"/>
     <property name="playField" value="playField"/>
     <property name="resetLastDelay" type="float" value="0.4"/>
+    <property name="stunDurationPerCharge" type="float" value="1"/>
     <property name="textureName" value="ball"/>
    </properties>
   </object>
@@ -158,6 +159,7 @@
     <property name="friction" type="float" value="0.995"/>
     <property name="playField" value="playField"/>
     <property name="resetLastDelay" type="float" value="0.4"/>
+    <property name="stunDurationPerCharge" type="float" value="1"/>
     <property name="textureName" value="ball"/>
    </properties>
   </object>
@@ -167,6 +169,7 @@
     <property name="friction" type="float" value="0.995"/>
     <property name="playField" value="playField"/>
     <property name="resetLastDelay" type="float" value="0.4"/>
+    <property name="stunDurationPerCharge" type="float" value="1"/>
     <property name="textureName" value="ball"/>
    </properties>
   </object>
@@ -176,6 +179,7 @@
     <property name="friction" type="float" value="0.995"/>
     <property name="playField" value="playField"/>
     <property name="resetLastDelay" type="float" value="0.4"/>
+    <property name="stunDurationPerCharge" type="float" value="1"/>
     <property name="textureName" value="ball"/>
    </properties>
   </object>
@@ -185,6 +189,7 @@
     <property name="friction" type="float" value="0.995"/>
     <property name="playField" value="playField"/>
     <property name="resetLastDelay" type="float" value="0.4"/>
+    <property name="stunDurationPerCharge" type="float" value="1"/>
     <property name="textureName" value="ball"/>
    </properties>
   </object>

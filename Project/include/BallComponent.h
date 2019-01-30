@@ -8,7 +8,7 @@
 class BallComponent : public Component, public ICollisionObserver
 {
 public:
-	BallComponent(GameObject& owner, std::string owningPlayfieldName, float ballSpeed,float resetLastDelay);
+	BallComponent(GameObject& owner, std::string owningPlayfieldName, float ballSpeed,float resetLastDelay,float stunDuration);
 	void initialize() override;
 	void update(float deltaTime) override;
 	void onCollision(CollisionInfo colInfo) override;
@@ -17,9 +17,9 @@ public:
 	void enableCollisionAfterDelay();
 	void throwBall(sf::Vector2f direction);
 private:
-	GameObject* playfield = nullptr;
-	float ballSpeed;
 	void onPlayerPickup(CollisionInfo colInfo);
+	void onPlayerDamage(CollisionInfo colInfo);
+	GameObject* playfield = nullptr;
 	GameObject* ballHolder = nullptr;
 	GameObject* lastHolder = nullptr;
 	CharacterInfoComponent* characterInfo = nullptr;
@@ -27,8 +27,12 @@ private:
 	sf::Vector2f ballPositionOffset = sf::Vector2f(8, 25);
 	sf::Vector2f aimOffset;
 	sf::Clock clock;
-	float throwTime = 0;
-	float resetLastDelay = 0.1f;
 	int chargeCounter = 0;
-	Team owningTeam;
+	Team owningTeam = Team::Neutral;
+	float throwTime = 0;
+	float hitTime = 0;
+	float resetLastDelay = 0.1f;
+	float hitDelay;
+	float stunDurationPerCharge;
+	float ballSpeed;
 };
