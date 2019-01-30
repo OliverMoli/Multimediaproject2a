@@ -12,3 +12,8 @@ void AiControllerComponent::initialize()
 void AiControllerComponent::update(float deltaTime)
 {
 }
+
+void AiControllerComponent::setBall(GameObject * go)
+{
+	IController::setBall(ball);
+}

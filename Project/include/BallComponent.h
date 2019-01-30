@@ -2,32 +2,33 @@
 #include "Component.h"
 #include "ICollisionObserver.h"
 #include "CharacterInfoComponent.h"
+#include "PlayerControllerComponent.h"
 
 
 class BallComponent : public Component, public ICollisionObserver
 {
 public:
-	BallComponent(GameObject& owner, std::string owningPlayfieldName, float ballSpeed, float positionOffsetOnObstacleHit, float velocityLossOnObstacleHit,float throwColDelay);
+	BallComponent(GameObject& owner, std::string owningPlayfieldName, float ballSpeed,float resetLastDelay);
 	void initialize() override;
 	void update(float deltaTime) override;
 	void onCollision(CollisionInfo colInfo) override;
-	std::string getOwningPlayfieldName();
 	void resetComponent();
 	void respawnRandomly();
 	void enableCollisionAfterDelay();
+	void throwBall(sf::Vector2f direction);
 private:
-	std::string owningPlayfieldName;
+	GameObject* playfield = nullptr;
 	float ballSpeed;
 	void onPlayerPickup(CollisionInfo colInfo);
 	GameObject* ballHolder = nullptr;
-	sf::Vector2f ballPositionOffset = sf::Vector2f(8, 25);
+	GameObject* lastHolder = nullptr;
 	CharacterInfoComponent* characterInfo = nullptr;
+	IController* controller;
+	sf::Vector2f ballPositionOffset = sf::Vector2f(8, 25);
 	sf::Vector2f aimOffset;
 	sf::Clock clock;
-	float deadZoneU = 20;
-	float deadZoneV = 20;
 	float throwTime = 0;
-	float throwColDelay = 0.1f;
-	float positionOffsetOnObstacleHit;
-	float velocityLossOnObstacleHit;
+	float resetLastDelay = 0.1f;
+	int chargeCounter = 0;
+	Team owningTeam;
 };

@@ -78,6 +78,7 @@ void PhysicsManager::resolveCollisions()
 			continue;
 		}
 		
+		
 		// Calculate relative velocity
 		sf::Vector2f rv = man.body1->getVelocity() - man.body2->getVelocity();
 
@@ -85,7 +86,10 @@ void PhysicsManager::resolveCollisions()
 		float velAlongNormal = rv.x * man.normal.x + rv.y * man.normal.y;
 
 		// Do not resolve if velocities are separating
-
+		if(velAlongNormal>0)
+		{
+			continue;
+		}
 		// Calculate impulse scalar
 		float e = 0.7f; //< 1.0 = all objects are bouncy
 		float j = -(1 + e) * velAlongNormal;

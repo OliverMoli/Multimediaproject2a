@@ -37,6 +37,10 @@ void FlagComponent::onCollision(CollisionInfo colInfo)
 
 void FlagComponent::onPlayerPickup(CollisionInfo colInfo)
 {
+	if(colInfo.otherCol->getComponent<CharacterInfoComponent>()->getHasBall())
+	{
+		return;
+	}
 	colInfo.otherCol->getComponent<CharacterInfoComponent>()->setHasFlag(true);
 	gameObject.getComponent<AABBColliderComponent>()->setEnabled(false);
 	flagHolder = colInfo.otherCol;

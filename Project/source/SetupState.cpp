@@ -24,10 +24,12 @@ void SetupState::update(float deltaTime)
 	{
 		RenderManager::getInstance().getGui()->removeAllWidgets();
 		GameStateManager::getInstance().setState("PlayState");
+		RenderManager::getInstance().getGui()->removeAllWidgets();
 	}
 	if (sf::Joystick::isButtonPressed(0, (int)InputManager::XboxButtons::B))
 	{
 		GameStateManager::getInstance().setState("MainMenuState");
+		RenderManager::getInstance().getGui()->removeAllWidgets();
 	}
 
 	if(sf::Joystick::isButtonPressed(0,(int)InputManager::XboxButtons::X))

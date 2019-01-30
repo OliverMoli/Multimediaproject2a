@@ -1,11 +1,12 @@
 #pragma once
-#include "GameObject.h"
+#include "IController.h"
 
-class AiControllerComponent : public Component
+class AiControllerComponent : public Component ,public IController
 {
 public:
 	AiControllerComponent(GameObject& owner);
 	void initialize() override;
 	void update(float deltaTime) override;
+	void setBall(GameObject* go) override;
 };
 
