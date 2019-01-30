@@ -5,6 +5,7 @@
 #include "GameObjectManager.h"
 #include "PlayerControllerComponent.h"
 #include "AiControllerComponent.h"
+#include "fstream"
 
 
 void PlayState::initialize()
@@ -24,12 +25,7 @@ void PlayState::initialize()
 	ResourceManager::getInstance().loadTextureWithTransparentColor("flagPickupRed", "../assets/FlagPickedUpRed.png", sf::Color(255, 128, 255));
 	MapLoader::getInstance().loadMap("Map.tmx", sf::Vector2f(0, 0));
 	GameObjectFactory::CreateScore();
-	possessCharacter("Player 1", 0, Team::RedTeam);
-	possessCharacter("Player 2", -1, Team::BlueTeam);
-	possessCharacter("Player 3", 1, Team::RedTeam);
-	possessCharacter("Player 4", -1, Team::BlueTeam);
-	possessCharacter("Player 5", -1, Team::RedTeam);
-	possessCharacter("Player 6", -1, Team::BlueTeam);
+	loadSetup();
 }
 
 void PlayState::update(float deltaTime)
@@ -47,15 +43,50 @@ void PlayState::exit()
 	GameState::exit();
 }
 
+void PlayState::loadSetup()
+{
+	ifstream setupFile;
+	setupFile.open("../assets/setup.txt");
+	string output;
+	if (setupFile.is_open()) {
+		std::string line;
+		while (getline(setupFile, line) )
+		{
+			std::string params[3] = {"","",""};
+			std::string delimiter = ",";
+			size_t pos = 0;
+			int i = 0;
+			while ((pos = line.find(delimiter)) != std::string::npos) {
+				params[i] = line.substr(0, pos);
+				std::cout << params[i] << std::endl;
+				line.erase(0, pos + delimiter.length());
+				i++;
+			}
+			Team team;
+			if(params[2] == "red")
+			{
+				team = Team::RedTeam;
+			}else
+			{
+				team = Team::BlueTeam;
+			}
+			possessCharacter(params[0], stoi(params[1]),team );
+		}
+	}
+	setupFile.close();
+
+}
+
 void PlayState::possessCharacter(std::string characterName, int playerIndex, Team team)
 {
 	auto characterObj = GameObjectManager::getInstance().GetGameObjectByName(characterName);
 	characterObj->getComponent<CharacterInfoComponent>()->setTeam(team);
 	characterObj->getComponent<CharacterInfoComponent>()->setPlayerIndex(playerIndex);
-	if(playerIndex == -1)
+	if (playerIndex == -1)
 	{
 		characterObj->addComponent(std::make_shared<AiControllerComponent>(*characterObj));
-	}else
+	}
+	else
 	{
 		characterObj->addComponent(std::make_shared<PlayerControllerComponent>(*characterObj));
 	}

@@ -9,6 +9,7 @@ public:
 	void update(float deltaTime) override;
 	void render(sf::RenderWindow& window) override;
 	void exit() override;
+	void loadSetup();
 private:
 	void possessCharacter(std::string characterName, int playerIndex, Team team);
 };

@@ -47,7 +47,6 @@ void BallComponent::update(float deltaTime)
 		hadBall.clear();
 	}
 	chargeCounter = hadBall.size()-1;
-	std::cout << chargeCounter << std::endl;
 }
 
 void BallComponent::onCollision(CollisionInfo colInfo)

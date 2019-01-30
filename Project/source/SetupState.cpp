@@ -8,32 +8,25 @@
 #include <TGUI/Widgets/HorizontalLayout.hpp>
 #include <TGUI/Widgets/Picture.hpp>
 #include <tgui/Widgets/Label.hpp>
+#include <fstream>
 
 void SetupState::initialize()
 {
 	clock = sf::Clock();
-	individualPlayerFocusChange[0] = -100;
-	individualPlayerFocusChange[1] = -100;
-	individualPlayerFocusChange[2] = -100;
-	individualPlayerFocusChange[3] = -100;
-	individualPlayerFocusChange[4] = -100;
-	individualPlayerFocusChange[5] = -100;
-	individualPlayerInPreCharState[0] = true;
-	individualPlayerInPreCharState[1] = true;
-	individualPlayerInPreCharState[2] = true;
-	individualPlayerInPreCharState[3] = true;
-	individualPlayerInPreCharState[4] = true;
-	individualPlayerInPreCharState[5] = true;
-	//lastFocusChange = -100;
+	for (int i = 0; i < 6; i++)
+	{
+		individualPlayerFocusChange[i] = -100;
+		individualPlayerInPreCharState[i] = true;
+		counter[i] = -1;
+		isSelected[i] = false;
+	}
 	createSettingsUi();
-
-	
 }
 
 void SetupState::update(float deltaTime)
 {
 	GameState::update(deltaTime);
-	if(sf::Joystick::isButtonPressed(0,(int)InputManager::XboxButtons::Start))
+	if (sf::Joystick::isButtonPressed(0, (int)InputManager::XboxButtons::Start))
 	{
 		createSetupFile();
 		RenderManager::getInstance().getGui()->removeAllWidgets();
@@ -43,57 +36,43 @@ void SetupState::update(float deltaTime)
 	{
 		RenderManager::getInstance().getGui()->removeAllWidgets();
 		GameStateManager::getInstance().setState("MainMenuState");
-	
+
 	}
 
 	for (int i = 0; i < 6; i++)
 	{
+
 		if (sf::Joystick::isButtonPressed(i, (int)InputManager::XboxButtons::X) && individualPlayerInPreCharState[i])
 		{
+			counter[i] = getNextFree(-1, true);
 			players[i]->remove(label);
-			players[i]->add(characters[counter]);
+			players[i]->add(characters[counter[i]]);
 			individualPlayerInPreCharState[i] = false;
+			isSelected[counter[i]] = true;
 		}
-
 		if (sf::Joystick::getAxisPosition(i, sf::Joystick::Axis::X) == 100 && clock.getElapsedTime().asSeconds() > individualPlayerFocusChange[i] + focusDelay && !individualPlayerInPreCharState[i])
 		{
 
 			individualPlayerFocusChange[i] = clock.getElapsedTime().asSeconds();
-
-			if (counter >= 5)
-			{
-				players[i]->remove(characters[counter]);
-				counter = 0;
-				players[i]->add(characters[counter]);
-			}
-			else
-			{
-				counter++;
-				players[i]->remove(characters[counter - 1]);
-				players[i]->add(characters[counter]);
-			}
+			players[i]->remove(characters[counter[i]]);
+			isSelected[counter[i]] = false;
+			counter[i] = getNextFree(counter[i], true);
+			players[i]->add(characters[counter[i]]);
+			isSelected[counter[i]] = true;
 		}
 
 		if (sf::Joystick::getAxisPosition(i, sf::Joystick::Axis::X) == -100 && clock.getElapsedTime().asSeconds() > individualPlayerFocusChange[i] + focusDelay && !individualPlayerInPreCharState[i])
 		{
 			individualPlayerFocusChange[i] = clock.getElapsedTime().asSeconds();
-
-			if (counter <= 0)
-			{
-				players[i]->remove(characters[counter]);
-				counter = 5;
-				players[i]->add(characters[counter]);
-			}
-			else
-			{
-				counter--;
-				players[i]->remove(characters[counter + 1]);
-				players[i]->add(characters[counter]);
-			}
+			isSelected[counter[i]] = false;
+			players[i]->remove(characters[counter[i]]);
+			counter[i] = getNextFree(counter[i], false);
+			players[i]->add(characters[counter[i]]);
+			isSelected[counter[i]] = true;
 		}
 	}
-	
-	
+
+
 }
 
 void SetupState::render(sf::RenderWindow & window)
@@ -107,7 +86,6 @@ void SetupState::exit()
 	characters.clear();
 	GameState::exit();
 }
-
 void SetupState::createSettingsUi()
 {
 	auto theme = std::make_shared<tgui::Theme>("../assets/Black.txt");
@@ -142,9 +120,9 @@ void SetupState::createSettingsUi()
 	blueOrc2 = tgui::Picture::create("../assets/BluePlayer2.png");
 	blueOrc3 = tgui::Picture::create("../assets/BluePlayer3.png");
 	blueOrc1->setSize("50%", "50%");
-	blueOrc1->setPosition("25%", "15%");	
+	blueOrc1->setPosition("25%", "15%");
 	blueOrc2->setSize("50%", "50%");
-	blueOrc2->setPosition("25%", "15%");	
+	blueOrc2->setPosition("25%", "15%");
 	blueOrc3->setSize("50%", "50%");
 	blueOrc3->setPosition("25%", "15%");
 
@@ -175,23 +153,92 @@ void SetupState::createSettingsUi()
 	players.push_back(player5);
 	players.push_back(player6);
 
-	characters.push_back(blueOrc1);
-	characters.push_back(blueOrc2);
-	characters.push_back(blueOrc3);
 	characters.push_back(redOrc1);
+	characters.push_back(blueOrc1);
 	characters.push_back(redOrc2);
+	characters.push_back(blueOrc2);
 	characters.push_back(redOrc3);
-	
-	
+	characters.push_back(blueOrc3);
+
+
 
 	RenderManager::getInstance().getGui()->add(horiTop);
 	RenderManager::getInstance().getGui()->add(horiBot);
 
 }
 
+int SetupState::getNextFree(int start, bool right)
+{
+	int index = 0;
+	if (right)
+	{
+		index = start + 1;
+		if(index > 5)
+		{
+			index = 0;
+		}
+	}
+	else
+	{
+		index = start - 1;
+		if (index < 0)
+		{
+			index = 5;
+		}
+	}
+	while (isSelected[index])
+	{
+		if (right) {
+			index++;
+			if (index > 5)
+			{
+				index = 0;
+			}
+		}
+		else
+		{
+			index--;
+			if (index < 0)
+			{
+				index = 5;
+			}
+		}
+	}
+	return index;
+}
+
 void SetupState::createSetupFile()
 {
-	
+	std::ofstream setupFile;
+	setupFile.open("../assets/setup.txt");
+	for (int i = 0; i < 6; i++)
+	{
+		setupFile << "Player " << i + 1 << ",";
+		int playerIndex = -1;
+		for (int j = 0; j < 6; j++)
+		{
+			if (i == counter[j])
+			{
+				playerIndex = j;
+			}
+		}
+		setupFile << std::to_string(playerIndex);
+		setupFile << ",";
+		if ((i + 1) % 2 == 0)
+		{
+			setupFile << "blue";
+		}
+		else
+		{
+			setupFile << "red";
+		}
+		if (i < 5)
+		{
+			setupFile << ",\n";
+		}
+
+	}
+	setupFile.close();
 }
 
 
