@@ -14,6 +14,8 @@ public:
 	void exit() override;
 private:
 	void createSettingsUi();
+	int getNextFree(int index,bool right);
+	void createSetupFile();
 	float focusDelay = 0.15;
 	float lastFocusChange = -100;
 	sf::Clock clock;
@@ -25,8 +27,8 @@ private:
 	std::vector<std::shared_ptr<tgui::Panel>> players;
 	float individualPlayerFocusChange[6] = { -100,-100, -100,-100,-100, -100 };
 	bool individualPlayerInPreCharState[6] = { true,true,true,true,true, true };
-	int counter = 0;
+	int counter[6] = {-100,-100,-100,-100,-100,-100};
 	bool inPreCharState = true;
-	void createSetupFile();
+	bool isSelected[6] = { false,false,false,false,false,false };
 };
 
