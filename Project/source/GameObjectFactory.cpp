@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "BallComponent.h"
 #include "PlayFieldComponent.h"
+#include "SpriteAnimationComponent.h"
 
 
 void GameObjectFactory::CreatePlayer(NLTmxMapObject object)
@@ -68,6 +69,7 @@ void GameObjectFactory::CreatePlayer(NLTmxMapObject object)
 	playerObject->addComponent(std::make_shared<CharacterInfoComponent>(*playerObject, values.dashForce, values.dashCooldown));
 	playerObject->addComponent(std::make_shared<AABBColliderComponent>(*playerObject, object.width, object.height, false, values.colOffset));
 	playerObject->addComponent(std::make_shared<MovementComponent>(*playerObject, 300000, 500000));
+	playerObject->addComponent(std::make_shared<SpriteAnimationComponent>(*playerObject, *ResourceManager::getInstance().getTexture(values.textureName), object.x, object.y));
 	GameStateManager::getInstance().getCurrentState()->addGameObject(playerObject);
 
 }
