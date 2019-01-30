@@ -7,6 +7,8 @@
 #include "AABBColliderComponent.h"
 #include "RigidBodyComponent.h"
 #include "MathHelper.h"
+#include "PlayerControllerComponent.h"
+#include "AiControllerComponent.h"
 
 BallComponent::BallComponent(GameObject& owner, std::string owningPlayFieldName, float ballSpeed,float resetLastDelay) : Component(owner)
 {
@@ -26,38 +28,6 @@ void BallComponent::update(float deltaTime)
 	if (ballHolder != nullptr)
 	{
 		gameObject.setPosition(ballHolder->getPosition() + ballPositionOffset);
-		float gamepadU = sf::Joystick::getAxisPosition(characterInfo->getPlayerIndex(), sf::Joystick::Axis::U);
-		float gamepadV = sf::Joystick::getAxisPosition(characterInfo->getPlayerIndex(), sf::Joystick::Axis::V);
-
-		if (abs(0 - gamepadU) > deadZoneU)
-		{
-			gamepadU = gamepadU;
-		}
-		else
-		{
-			gamepadU = 0;
-		}
-		if (abs(0 - gamepadV) > deadZoneV)
-		{
-			gamepadV = gamepadV;
-		}
-		else
-		{
-			gamepadV = 0;
-		}
-
-		sf::Vector2f aimOffset = MathHelper::getNormalizedVec2f(sf::Vector2f(gamepadU, gamepadV));
-		if (MathHelper::length(aimOffset) > 0)
-		{
-			if (sf::Joystick::isButtonPressed(characterInfo->getPlayerIndex(), (int)InputManager::XboxButtons::LB))
-			{
-				gameObject.getComponent<RigidBodyComponent>()->addImpulse(ballHolder->getComponent<RigidBodyComponent>()->getVelocity()+aimOffset*ballSpeed);
-				ballHolder = nullptr;
-				throwTime = clock.getElapsedTime().asSeconds();
-				characterInfo->setHasBall(false);
-				gameObject.getComponent<AABBColliderComponent>()->setEnabled(true);
-			}
-		}
 	}
 }
 
@@ -77,10 +47,19 @@ void BallComponent::onCollision(CollisionInfo colInfo)
 void BallComponent::onPlayerPickup(CollisionInfo colInfo)
 {
 	characterInfo = colInfo.otherCol->getComponent<CharacterInfoComponent>().get();
-	if(characterInfo->getHasBall()|| characterInfo->getHasFlag())
+	if(characterInfo->getHasBall() || characterInfo->getHasFlag())
 	{
 		return;
 	}
+	if(colInfo.otherCol->getComponent<PlayerControllerComponent>())
+	{
+		controller = colInfo.otherCol->getComponent<PlayerControllerComponent>().get();
+	}
+	if (colInfo.otherCol->getComponent<AiControllerComponent>())
+	{
+		controller = colInfo.otherCol->getComponent<AiControllerComponent>().get();
+	}
+	controller->setBall(&gameObject);
 	colInfo.otherCol->getComponent<CharacterInfoComponent>()->setHasBall(true);
 	gameObject.getComponent<AABBColliderComponent>()->setEnabled(false);
 	ballHolder = colInfo.otherCol;
@@ -109,6 +88,16 @@ void BallComponent::enableCollisionAfterDelay()
 	{
 		lastHolder = nullptr;
 	}
+}
+
+void BallComponent::throwBall(sf::Vector2f direction)
+{
+	gameObject.getComponent<RigidBodyComponent>()->addImpulse(ballHolder->getComponent<RigidBodyComponent>()->getVelocity() + direction * ballSpeed);
+	ballHolder = nullptr;
+	throwTime = clock.getElapsedTime().asSeconds();
+	characterInfo->setHasBall(false);
+	gameObject.getComponent<AABBColliderComponent>()->setEnabled(true);
+	controller->setBall(nullptr);
 }
 
 

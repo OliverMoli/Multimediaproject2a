@@ -58,7 +58,7 @@ bool AABBColliderComponent::isEnabled() const
 
 bool AABBColliderComponent::vsAABB(std::shared_ptr<AABBColliderComponent> otherCol)
 {
-	if(!enabled)
+	if(!enabled||!otherCol->enabled)
 	{
 		return false;
 	}
