@@ -12,8 +12,21 @@
 void SetupState::initialize()
 {
 	clock = sf::Clock();
-	lastFocusChange = -100;
+	individualPlayerFocusChange[0] = -100;
+	individualPlayerFocusChange[1] = -100;
+	individualPlayerFocusChange[2] = -100;
+	individualPlayerFocusChange[3] = -100;
+	individualPlayerFocusChange[4] = -100;
+	individualPlayerFocusChange[5] = -100;
+	individualPlayerInPreCharState[0] = true;
+	individualPlayerInPreCharState[1] = true;
+	individualPlayerInPreCharState[2] = true;
+	individualPlayerInPreCharState[3] = true;
+	individualPlayerInPreCharState[4] = true;
+	individualPlayerInPreCharState[5] = true;
+	//lastFocusChange = -100;
 	createSettingsUi();
+
 	
 }
 
@@ -22,59 +35,64 @@ void SetupState::update(float deltaTime)
 	GameState::update(deltaTime);
 	if(sf::Joystick::isButtonPressed(0,(int)InputManager::XboxButtons::Start))
 	{
+		createSetupFile();
 		RenderManager::getInstance().getGui()->removeAllWidgets();
 		GameStateManager::getInstance().setState("PlayState");
-		RenderManager::getInstance().getGui()->removeAllWidgets();
 	}
 	if (sf::Joystick::isButtonPressed(0, (int)InputManager::XboxButtons::B))
 	{
-		GameStateManager::getInstance().setState("MainMenuState");
 		RenderManager::getInstance().getGui()->removeAllWidgets();
-	}
-
-	if(sf::Joystick::isButtonPressed(0,(int)InputManager::XboxButtons::X))
-	{
-		player1->remove(label);
-		player1->add(characters[counter]);
-	}
+		GameStateManager::getInstance().setState("MainMenuState");
 	
-		if (sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::X) == 100 && clock.getElapsedTime().asSeconds() > lastFocusChange + focusDelay)
-		{
-			lastFocusChange = clock.getElapsedTime().asSeconds();
-			std::cout << counter << std::endl;
+	}
 
-			if(counter >= 5)
+	for (int i = 0; i < 6; i++)
+	{
+		if (sf::Joystick::isButtonPressed(i, (int)InputManager::XboxButtons::X) && individualPlayerInPreCharState[i])
+		{
+			players[i]->remove(label);
+			players[i]->add(characters[counter]);
+			individualPlayerInPreCharState[i] = false;
+		}
+
+		if (sf::Joystick::getAxisPosition(i, sf::Joystick::Axis::X) == 100 && clock.getElapsedTime().asSeconds() > individualPlayerFocusChange[i] + focusDelay && !individualPlayerInPreCharState[i])
+		{
+
+			individualPlayerFocusChange[i] = clock.getElapsedTime().asSeconds();
+
+			if (counter >= 5)
 			{
-				player1->remove(characters[counter]);
+				players[i]->remove(characters[counter]);
 				counter = 0;
-				player1->add(characters[counter]);
+				players[i]->add(characters[counter]);
 			}
 			else
 			{
 				counter++;
-				player1->remove(characters[counter - 1]);
-				player1->add(characters[counter]);
+				players[i]->remove(characters[counter - 1]);
+				players[i]->add(characters[counter]);
 			}
 		}
 
-		if (sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::X) == -100 && clock.getElapsedTime().asSeconds() > lastFocusChange + focusDelay)
+		if (sf::Joystick::getAxisPosition(i, sf::Joystick::Axis::X) == -100 && clock.getElapsedTime().asSeconds() > individualPlayerFocusChange[i] + focusDelay && !individualPlayerInPreCharState[i])
 		{
-			lastFocusChange = clock.getElapsedTime().asSeconds();
-			std::cout << counter << std::endl;
+			individualPlayerFocusChange[i] = clock.getElapsedTime().asSeconds();
 
 			if (counter <= 0)
 			{
-				player1->remove(characters[counter]);
+				players[i]->remove(characters[counter]);
 				counter = 5;
-				player1->add(characters[counter]);
+				players[i]->add(characters[counter]);
 			}
 			else
 			{
 				counter--;
-				player1->remove(characters[counter + 1]);
-				player1->add(characters[counter]);
+				players[i]->remove(characters[counter + 1]);
+				players[i]->add(characters[counter]);
 			}
 		}
+	}
+	
 	
 }
 
@@ -85,6 +103,8 @@ void SetupState::render(sf::RenderWindow & window)
 
 void SetupState::exit()
 {
+	players.clear();
+	characters.clear();
 	GameState::exit();
 }
 
@@ -138,7 +158,7 @@ void SetupState::createSettingsUi()
 	redOrc3->setSize("50%", "50%");
 	redOrc3->setPosition("25%", "15%");
 
-	label = tgui::Label::create("PRESS A TO JOIN");
+	label = tgui::Label::create("PRESS X TO JOIN");
 	player1->add(label);
 	player2->add(label);
 	player3->add(label);
@@ -147,7 +167,14 @@ void SetupState::createSettingsUi()
 	player6->add(label);
 	label->setTextSize(25);
 	label->setPosition("17.0%", "45%");
-	
+
+	players.push_back(player1);
+	players.push_back(player2);
+	players.push_back(player3);
+	players.push_back(player4);
+	players.push_back(player5);
+	players.push_back(player6);
+
 	characters.push_back(blueOrc1);
 	characters.push_back(blueOrc2);
 	characters.push_back(blueOrc3);
@@ -161,5 +188,11 @@ void SetupState::createSettingsUi()
 	RenderManager::getInstance().getGui()->add(horiBot);
 
 }
+
+void SetupState::createSetupFile()
+{
+	
+}
+
 
 
