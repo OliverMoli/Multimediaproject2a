@@ -10,7 +10,8 @@ public:
 	void initialize() override;
 	void update(float deltaTime) override;
 	void render(sf::RenderWindow& window) override;
-	void setTexture(sf::Texture& texture);
+	void setTexture(const sf::Texture& texture);
+	void setTextureAndBounds(const sf::Texture& texture,const sf::IntRect rect);
 private:
 	sf::Sprite sprite;
 };

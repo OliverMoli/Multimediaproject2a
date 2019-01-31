@@ -20,6 +20,8 @@ private:
 	void onPlayerPickup(CollisionInfo colInfo);
 	int scorePerTick;
 	float tickDuration;
+	float normalFriction;
+	float flagHolderFriction;
 	GameObject* flagHolder= nullptr;
 	sf::Vector2f flagPositionOffset = sf::Vector2f(0, -40);
 	sf::Texture redFlagPickup, blueFlagPickup;

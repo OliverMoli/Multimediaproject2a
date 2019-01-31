@@ -16,6 +16,7 @@ public:
 	void respawnRandomly();
 	void enableCollisionAfterDelay();
 	void throwBall(sf::Vector2f direction);
+	void respawnPlayer(float delay,GameObject* player);
 private:
 	void onPlayerPickup(CollisionInfo colInfo);
 	void onPlayerDamage(CollisionInfo colInfo);
@@ -34,8 +35,8 @@ private:
 	float resetLastDelay = 0.1f;
 	float hitDelay;
 	float stunDurationPerCharge;
-	float ballSpeed;
 	float neutralVelocityCutoff;
 	float velocityFactorOnEnemyHit;
+	float ballVelocityPerCharge;
 	std::vector<GameObject*> hadBall;
 };

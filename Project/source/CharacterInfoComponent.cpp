@@ -3,10 +3,8 @@
 #include "GameObjectManager.h"
 #include "ScoreComponent.h"
 
-CharacterInfoComponent::CharacterInfoComponent(GameObject & owner, float dashForce, float dashCooldown) :Component(owner)
+CharacterInfoComponent::CharacterInfoComponent(GameObject & owner) :Component(owner)
 {
-	this->dashForce = dashForce;
-	this->dashCooldown = dashCooldown;
 	
 }
 
@@ -67,25 +65,6 @@ int CharacterInfoComponent::getPlayerIndex() const
 	return playerIndex;
 }
 
-void CharacterInfoComponent::setDashForce(float force)
-{
-	dashForce = force;
-}
-
-float CharacterInfoComponent::getDashForce() const
-{
-	return dashForce;
-}
-
-void CharacterInfoComponent::setDashCooldown(float cd)
-{
-	dashCooldown = cd;
-}
-
-float CharacterInfoComponent::getDashCooldown() const
-{
-	return dashCooldown;
-}
 
 void CharacterInfoComponent::setLastDashTime(float time)
 {

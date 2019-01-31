@@ -2,7 +2,6 @@
 #include "BallComponent.h"
 #include "GameObjectManager.h"
 #include "PlayFieldComponent.h"
-#include "InputManager.h"
 #include "CharacterInfoComponent.h"
 #include "AABBColliderComponent.h"
 #include "RigidBodyComponent.h"
@@ -12,10 +11,10 @@
 #include "SpriteRenderComponent.h"
 #include "ResourceManager.h"
 
-BallComponent::BallComponent(GameObject& owner, std::string owningPlayFieldName, float ballSpeed, float resetLastDelay,float stunDuration,float neutralVelocityCutoff,float velocityFactorOnEnemyHit) : Component(owner)
+BallComponent::BallComponent(GameObject& owner, std::string owningPlayFieldName, float ballVelocityPerCharge, float resetLastDelay,float stunDuration,float neutralVelocityCutoff,float velocityFactorOnEnemyHit) : Component(owner)
 {
 	this->playfield = GameObjectManager::getInstance().GetGameObjectByName(owningPlayFieldName);
-	this->ballSpeed = ballSpeed;
+	this->ballVelocityPerCharge = ballVelocityPerCharge;
 	this->resetLastDelay = resetLastDelay;
 	this->stunDurationPerCharge = stunDuration;
 	this->neutralVelocityCutoff = neutralVelocityCutoff;
@@ -120,7 +119,7 @@ void BallComponent::onPlayerDamage(CollisionInfo colInfo)
 			colInfo.otherCol->getComponent<PlayerControllerComponent>()->stun(stunDurationPerCharge*(chargeCounter + 1));
 		}
 		else{
-			
+			respawnPlayer(5, colInfo.otherCol);
 		}
 	}
 	else if (colInfo.otherCol->getComponent<AiControllerComponent>())
@@ -129,7 +128,7 @@ void BallComponent::onPlayerDamage(CollisionInfo colInfo)
 			colInfo.otherCol->getComponent<AiControllerComponent>()->stun(stunDurationPerCharge*(chargeCounter + 1));
 		}else
 		{
-			
+			respawnPlayer(5, colInfo.otherCol);
 		}
 	}
 	chargeCounter = 0;
@@ -161,12 +160,17 @@ void BallComponent::enableCollisionAfterDelay()
 
 void BallComponent::throwBall(sf::Vector2f direction)
 {
-	gameObject.getComponent<RigidBodyComponent>()->addImpulse(ballHolder->getComponent<RigidBodyComponent>()->getVelocity() + direction * ballSpeed);
+	gameObject.getComponent<RigidBodyComponent>()->addImpulse(ballHolder->getComponent<RigidBodyComponent>()->getVelocity() + direction * (ballVelocityPerCharge*(chargeCounter+1)));
 	ballHolder = nullptr;
 	throwTime = clock.getElapsedTime().asSeconds();
 	characterInfo->setHasBall(false);
 	gameObject.getComponent<AABBColliderComponent>()->setEnabled(true);
 	controller->setBall(nullptr);
+}
+
+void BallComponent::respawnPlayer(float delay,GameObject* player)
+{
+	player->setActive(false);
 }
 
 

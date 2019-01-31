@@ -3,8 +3,8 @@
 #include "RenderComponent.h"
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include "AnimatedSprite.hpp" 
 #include <SFML/Graphics.hpp>
+#include "Animation.h"
 
 class SpriteAnimationComponent : public RenderComponent
 {

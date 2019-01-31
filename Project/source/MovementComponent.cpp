@@ -1,11 +1,26 @@
 #include "pch.h"
 #include "RigidBodyComponent.h"
 #include "MovementComponent.h"
+#include "ResourceManager.h"
+#include "SpriteRenderComponent.h"
+#include <TGUI/Texture.hpp>
+#include "RenderManager.h"
 
-MovementComponent::MovementComponent(GameObject & owner, float maxVelocity, float maxSteeringForce) :Component(owner)
+MovementComponent::MovementComponent(GameObject & owner, float normalMaxVelocity, float normalMaxSteeringForce, float flagHolderMaxVelocity, float flagHolderMaxSteeringForce, float normalDashForce, float normalDashCooldown, float flagHolderDashForce, float flagHolderDashCooldown) :Component(owner)
 {
-	this->maxVelocity = maxVelocity;
-	this->maxSteeringForce = maxSteeringForce;
+	this->normalMaxVelocity = normalMaxVelocity;
+	this->normalMaxSteeringForce = normalMaxSteeringForce;
+	this->flagHolderMaxVelocity = flagHolderMaxVelocity;
+	this->flagHolderMaxSteeringForce = flagHolderMaxSteeringForce;
+	this->normalDashForce = normalDashForce;
+	this->normalDashCooldown = normalDashCooldown;
+	this->flagHolderDashForce = flagHolderDashForce;
+	this->flagHolderDashCooldown = flagHolderDashCooldown;
+	maxVelocity = normalMaxVelocity;
+	maxSteeringForce = normalMaxSteeringForce;
+	dashForce = normalDashForce;
+	dashCooldown = normalDashCooldown;
+
 }
 
 void MovementComponent::initialize()
@@ -15,13 +30,44 @@ void MovementComponent::initialize()
 
 void MovementComponent::update(float deltaTime)
 {
-
+	animSprite.play(*currentAnimation);
+	animSprite.update(sf::seconds(deltaTime));
+	gameObject.getComponent<SpriteRenderComponent>()->setTextureAndBounds(*animSprite.sprite.getTexture(),animSprite.sprite.getTextureRect());
 }
 
 void MovementComponent::setSteering(sf::Vector2f steering)
 {
 	rigidBody->addImpulse(steering);
 }
+
+void MovementComponent::useFlagValues()
+{
+	maxVelocity = flagHolderMaxVelocity;
+	maxSteeringForce = flagHolderMaxSteeringForce;
+	dashForce = flagHolderDashForce;
+	dashCooldown = flagHolderDashCooldown;
+	gameObject.getComponent<RigidBodyComponent>()->setVelocity(gameObject.getComponent<RigidBodyComponent>()->getVelocity()*0.1f);
+	gameObject.getComponent<RigidBodyComponent>()->setAcceleration(sf::Vector2f(0, 0));
+}
+
+void MovementComponent::useNormalValues()
+{
+	maxVelocity = normalMaxVelocity;
+	maxSteeringForce = normalMaxSteeringForce;
+	dashForce = normalDashForce;
+	dashCooldown = normalDashCooldown;
+}
+
+void MovementComponent::initAnims(std::string name)
+{
+	animSprite = AnimatedSprite(sf::seconds(0.2), true, false);
+	walkDown = *ResourceManager::getInstance().getAnimation(name + "WalkingDown");
+	walkRight = *ResourceManager::getInstance().getAnimation(name + "WalkingRight");
+	walkLeft = *ResourceManager::getInstance().getAnimation(name + "WalkingLeft");
+	walkUp = *ResourceManager::getInstance().getAnimation(name + "WalkingUp");
+	currentAnimation = &walkRight;
+}
+
 
 float MovementComponent::getMaxVelocity() const
 {
@@ -31,4 +77,14 @@ float MovementComponent::getMaxVelocity() const
 float MovementComponent::getMaxSteeringForce() const
 {
 	return maxSteeringForce;
+}
+
+float MovementComponent::getDashForce() const
+{
+	return dashForce;
+}
+
+float MovementComponent::getDashCooldown() const
+{
+	return dashCooldown;
 }

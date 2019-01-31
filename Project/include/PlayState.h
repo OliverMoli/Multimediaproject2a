@@ -12,5 +12,7 @@ public:
 	void loadSetup();
 private:
 	void possessCharacter(std::string characterName, int playerIndex, Team team);
+	void createAnimations();
+	void createOrcAnimationHelper(std::string textureName,std::string animName);
 };
 

@@ -25,9 +25,14 @@ void GameObjectFactory::CreatePlayer(NLTmxMapObject object)
 		string textureName;
 		string team;
 		sf::Vector2f colOffset;
-		float dashForce;
-		float dashCooldown;
-
+		float normalMaxVelocity;
+		float normalMaxSteeringForce;
+		float flagHolderMaxVelocity;
+		float flagHolderMaxSteeringForce;
+		float normalDashForce;
+		float normalDashCooldown;
+		float flagHolderDashForce;
+		float flagHolderDashCooldown;
 	};
 
 	PlayerValues values;
@@ -51,13 +56,37 @@ void GameObjectFactory::CreatePlayer(NLTmxMapObject object)
 		{
 			values.colOffset.y = stof(property->value);
 		}
-		else if (name == "dashForce")
+		else if (name == "normalMaxVelocity")
 		{
-			values.dashForce = stof(property->value);	
+			values.normalMaxVelocity = stof(property->value);
 		}
-		else if (name == "dashCooldown")
+		else if (name == "normalMaxSteeringForce")
 		{
-			values.dashCooldown = stof(property->value);
+			values.normalMaxSteeringForce = stof(property->value);
+		}
+		else if (name == "flagHolderMaxVelocity")
+		{
+			values.flagHolderMaxVelocity = stof(property->value);
+		}
+		else if (name == "flagHolderMaxSteeringForce")
+		{
+			values.flagHolderMaxSteeringForce = stof(property->value);
+		}
+		else if (name == "normalDashCooldown")
+		{
+			values.normalDashCooldown = stof(property->value);
+		}
+		else if (name == "normalDashForce")
+		{
+			values.normalDashForce = stof(property->value);
+		}
+		else if (name == "flagHolderDashCooldown")
+		{
+			values.flagHolderDashCooldown = stof(property->value);
+		}
+		else if (name == "flagHolderDashForce")
+		{
+			values.flagHolderDashForce = stof(property->value);
 		}
 	};
 
@@ -66,11 +95,10 @@ void GameObjectFactory::CreatePlayer(NLTmxMapObject object)
 	playerObject->getComponent<SpriteRenderComponent>()->setLayer(Player);
 	playerObject->addComponent(std::make_shared<RigidBodyComponent>(*playerObject, 1.0f));
 	playerObject->getComponent<RigidBodyComponent>()->setFriction(0.87f);
-	playerObject->addComponent(std::make_shared<CharacterInfoComponent>(*playerObject, values.dashForce, values.dashCooldown));
+	playerObject->addComponent(std::make_shared<CharacterInfoComponent>(*playerObject));
 	playerObject->addComponent(std::make_shared<AABBColliderComponent>(*playerObject, object.width, object.height, false, values.colOffset));
-	playerObject->addComponent(std::make_shared<MovementComponent>(*playerObject, 300000, 500000));
-	playerObject->addComponent(std::make_shared<SpriteAnimationComponent>(*playerObject, *ResourceManager::getInstance().getTexture(values.textureName), object.x, object.y));
-	playerObject->getComponent<SpriteAnimationComponent>()->animate(*ResourceManager::getInstance().getTexture(values.textureName));
+	playerObject->addComponent(std::make_shared<MovementComponent>(*playerObject, values.normalMaxVelocity, values.normalMaxSteeringForce, values.flagHolderMaxVelocity, values.flagHolderMaxSteeringForce,values.normalDashForce,values.normalDashCooldown,values.flagHolderDashForce,values.flagHolderDashCooldown));
+	//playerObject->addComponent(std::make_shared<SpriteAnimationComponent>(*playerObject, *ResourceManager::getInstance().getTexture(values.textureName), object.x, object.y));
 	GameStateManager::getInstance().getCurrentState()->addGameObject(playerObject);
 
 }
@@ -110,7 +138,7 @@ void GameObjectFactory::CreateFlag(NLTmxMapObject object)
 	flagObject->getComponent<SpriteRenderComponent>()->setLayer(Items);
 	flagObject->addComponent(std::make_shared<RigidBodyComponent>(*flagObject, 0));
 	flagObject->addComponent(std::make_shared<AABBColliderComponent>(*flagObject, object.width, object.height, true));
-	flagObject->addComponent(std::make_shared<FlagComponent>(*flagObject,values.scorePerTick,values.tickDuration));
+	flagObject->addComponent(std::make_shared<FlagComponent>(*flagObject, values.scorePerTick, values.tickDuration));
 	flagObject->getComponent<RigidBodyComponent>()->addObserver(flagObject->getComponent<FlagComponent>());
 	GameStateManager::getInstance().getCurrentState()->addGameObject(flagObject);
 }
@@ -132,7 +160,7 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 	{
 		string textureName;
 		string playField;
-		float ballSpeed;
+		float ballVelocityPerCharge;
 		float resetLastDelay;
 		float friction;
 		float stunDurationPerCharge;
@@ -154,13 +182,15 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 		{
 			values.playField = property->value;
 		}
-		else if(name == "ballSpeed")
+		else if (name == "ballVelocityPerCharge")
 		{
-			values.ballSpeed = stof(property->value);
-		}else if(name =="resetLastDelay")
+			values.ballVelocityPerCharge = stof(property->value);
+		}
+		else if (name == "resetLastDelay")
 		{
 			values.resetLastDelay = stof(property->value);
-		}else if(name == "friction")
+		}
+		else if (name == "friction")
 		{
 			values.friction = stof(property->value);
 		}
@@ -171,11 +201,12 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 		else if (name == "neutralVelocityCutoff")
 		{
 			values.neutralVelocityCutoff = stof(property->value);
-		}else if (name == "velocityFactorOnEnemyHit")
+		}
+		else if (name == "velocityFactorOnEnemyHit")
 		{
 			values.velocityFactorOnEnemyHit = stof(property->value);
 		}
-		
+
 	}
 
 	ballObject->setPosition(object.x, object.y);
@@ -183,7 +214,7 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 	ballObject->getComponent<SpriteRenderComponent>()->setLayer(Items);
 	ballObject->addComponent(std::make_shared<RigidBodyComponent>(*ballObject, 1));
 	ballObject->addComponent(std::make_shared<AABBColliderComponent>(*ballObject, object.width, object.height, false));
-	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject, values.playField, values.ballSpeed,values.resetLastDelay,values.stunDurationPerCharge,values.neutralVelocityCutoff,values.velocityFactorOnEnemyHit));
+	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject, values.playField, values.ballVelocityPerCharge, values.resetLastDelay, values.stunDurationPerCharge, values.neutralVelocityCutoff, values.velocityFactorOnEnemyHit));
 	ballObject->getComponent<RigidBodyComponent>()->addObserver(ballObject->getComponent<BallComponent>());
 	ballObject->getComponent<RigidBodyComponent>()->setFriction(values.friction);
 	GameStateManager::getInstance().getCurrentState()->addGameObject(ballObject);

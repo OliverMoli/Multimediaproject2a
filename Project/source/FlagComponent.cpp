@@ -6,6 +6,7 @@
 #include "AABBColliderComponent.h"
 #include "ResourceManager.h"
 #include "SpriteRenderComponent.h"
+#include "MovementComponent.h"
 
 FlagComponent::FlagComponent(GameObject& owner, int scorePerTick, float tickDuration) :Component(owner)
 {
@@ -52,6 +53,8 @@ void FlagComponent::onPlayerPickup(CollisionInfo colInfo)
 	{
 		gameObject.getComponent<SpriteRenderComponent>()->setTexture(redFlagPickup);
 	}
+	flagHolder->getComponent<RigidBodyComponent>()->setFriction(1);
+	flagHolder->getComponent<MovementComponent>()->useFlagValues();
 }
 
 int FlagComponent::getScorePerTick() const

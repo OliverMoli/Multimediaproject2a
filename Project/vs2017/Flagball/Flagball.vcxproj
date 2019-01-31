@@ -66,8 +66,8 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\AABBColliderComponent.h" />
     <ClInclude Include="..\..\include\AiControllerComponent.h" />
-    <ClInclude Include="..\..\include\AnimatedSprite.hpp" />
-    <ClInclude Include="..\..\include\Animation.hpp" />
+    <ClInclude Include="..\..\include\AnimatedSprite.h" />
+    <ClInclude Include="..\..\include\Animation.h" />
     <ClInclude Include="..\..\include\CharacterInfoComponent.h" />
     <ClInclude Include="..\..\include\ColliderComponent.h" />
     <ClInclude Include="..\..\include\Component.h" />
