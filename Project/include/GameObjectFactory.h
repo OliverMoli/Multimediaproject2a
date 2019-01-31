@@ -1,6 +1,8 @@
 #pragma once
 #include "NLTmxMap.h"
 
+class GameObject;
+
 class GameObjectFactory
 {
 public:
@@ -11,4 +13,5 @@ public:
 	static void CreateBall(NLTmxMapObject object);
 	static void CreatePlayField(NLTmxMapObject object);
 	static void CreateObstacle(NLTmxMapObject object);
+	static void CreateStunStar(GameObject* object, float duration);
 };

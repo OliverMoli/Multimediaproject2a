@@ -9,6 +9,7 @@
 #include "SpriteRenderComponent.h"
 #include "ResourceManager.h"
 #include "StunStarComponent.h"
+#include "GameObjectFactory.h"
 
 PlayerControllerComponent::PlayerControllerComponent(GameObject & owner) :Component(owner)
 {
@@ -21,14 +22,13 @@ void PlayerControllerComponent::initialize()
 	owner = gameObject.getComponent<MovementComponent>().get();
 	characterInfo = gameObject.getComponent<CharacterInfoComponent>().get();
 	clock = sf::Clock();
-	stunStar = gameObject.getComponent<StunStarComponent>().get();
+	//stunStar = gameObject.getComponent<StunStarComponent>().get();
 }
 
 void PlayerControllerComponent::update(float deltaTime)
 {
 	if (stunned)
 	{	
-		//stunStar->update(deltaTime);
 		if(clock.getElapsedTime().asSeconds() > unstunTime)
 		{
 			stunned = false;
@@ -89,4 +89,7 @@ void PlayerControllerComponent::stun(float duration)
 {
 	stunned = true;
 	unstunTime = clock.getElapsedTime().asSeconds() + duration;
+	GameObjectFactory::CreateStunStar(&gameObject, duration);
+	gameObject.getComponent<RigidBodyComponent>()->setVelocity(sf::Vector2f(0, 0));
+	gameObject.getComponent<RigidBodyComponent>()->setAcceleration(sf::Vector2f(0, 0));
 }

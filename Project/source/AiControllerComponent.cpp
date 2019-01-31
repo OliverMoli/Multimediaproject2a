@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "AiControllerComponent.h"
+#include <SFML/System/Clock.hpp>
 
 AiControllerComponent::AiControllerComponent(GameObject & owner):Component(owner)
 {
