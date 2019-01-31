@@ -1,53 +1,32 @@
 #include "pch.h"
 #include "StunStarComponent.h"
-#include "ResourceManager.h"
 #include "SpriteRenderComponent.h"
 #include "RigidBodyComponent.h"
-#include "Game.h"
-#include "PlayerControllerComponent.h"
 
 
-StunStarComponent::StunStarComponent(GameObject& owner) :Component(owner)
+
+StunStarComponent::StunStarComponent(GameObject& owner, float duration) :Component(owner)
 {
-	stunStars = *ResourceManager::getInstance().getTexture("stunStars");
+	this->duration = duration;
 	
 }
 
 void StunStarComponent::initialize()
 {
-
+	clock = sf::Clock();
+	startTime = clock.getElapsedTime().asSeconds();
 }
 
 void StunStarComponent::update(float deltaTime)
 {
-	if(stunnedPlayer != nullptr)
+	if (clock.getElapsedTime().asSeconds() > (startTime + duration))
 	{
-		gameObject.setPosition(stunnedPlayer->getPosition() + starPositionOffset);
-		gameObject.getComponent<SpriteRenderComponent>()->setTexture(stunStars);
-	}
-}
-void StunStarComponent::onCollision(CollisionInfo colInfo)
-{
-	if(colInfo.otherCol->getType() == "Ball")
-	{
-		onPlayerStun(colInfo);
+		gameObject.setActive(false);
 	}
 }
 
-void StunStarComponent::onPlayerStun(CollisionInfo colInfo)
-{
-	stunnedPlayer = colInfo.otherCol;
-}
 
-sf::Vector2f StunStarComponent::getStarPositionOffset() const
-{
-	return starPositionOffset;
-}
 
-void StunStarComponent::setStarPositionOffSet(sf::Vector2f offset)
-{
-	starPositionOffset = offset;
-}
 
 
 

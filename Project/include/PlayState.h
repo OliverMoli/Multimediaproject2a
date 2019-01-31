@@ -14,5 +14,6 @@ private:
 	void possessCharacter(std::string characterName, int playerIndex, Team team);
 	void createAnimations();
 	void createOrcAnimationHelper(std::string textureName,std::string animName);
+	void createStarAnimationHelper(std::string textureName, std::string animName);
 };
 

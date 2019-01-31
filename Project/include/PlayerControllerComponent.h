@@ -3,7 +3,7 @@
 #include "IController.h"
 #include "CharacterInfoComponent.h"
 #include "StunStarComponent.h"
-
+#include <SFML/System/Clock.hpp>
 
 
 class PlayerControllerComponent : public Component, public IController
@@ -24,7 +24,7 @@ private:
 	float deadZoneU = 20;
 	float deadZoneV = 20;
 	float unstunTime =0;
-	StunStarComponent* stunStar;
+	//StunStarComponent* stunStar;
 	
 };
 

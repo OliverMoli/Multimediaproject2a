@@ -238,6 +238,15 @@ void GameObjectFactory::CreateObstacle(NLTmxMapObject object)
 	GameStateManager::getInstance().getCurrentState()->addGameObject(obstacle);
 }
 
+void GameObjectFactory::CreateStunStar(GameObject* object, float duration)
+{
+	auto star = make_shared<GameObject>("star", "star");
+	star->addComponent(std::make_shared<SpriteRenderComponent>(*star, *ResourceManager::getInstance().getTexture("stunStars")));
+	star->addComponent(std::make_shared<StunStarComponent>(*star, duration));
+	star->setPosition(object->getPosition() + sf::Vector2f(0,-40));
+	GameStateManager::getInstance().getCurrentState()->addGameObject(star);
+}
+
 
 
 bool GameObjectFactory::stob(string value)

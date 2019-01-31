@@ -1,5 +1,5 @@
 Player 1,0,red,
-Player 2,-1,blue,
+Player 2,1,blue,
 Player 3,-1,red,
 Player 4,-1,blue,
 Player 5,-1,red,
