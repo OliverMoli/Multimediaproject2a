@@ -243,7 +243,8 @@ void GameObjectFactory::CreateStunStar(GameObject* object, float duration)
 	auto star = make_shared<GameObject>("star", "star");
 	star->addComponent(std::make_shared<SpriteRenderComponent>(*star, *ResourceManager::getInstance().getTexture("stunStars")));
 	star->addComponent(std::make_shared<StunStarComponent>(*star, duration));
-	star->setPosition(object->getPosition() + sf::Vector2f(0,-40));
+	star->setPosition(object->getPosition() + sf::Vector2f(2.5,-20));
+	star->getComponent<StunStarComponent>()->initAnims("star");
 	GameStateManager::getInstance().getCurrentState()->addGameObject(star);
 }
 

@@ -112,6 +112,7 @@ void PlayState::createAnimations()
 	createOrcAnimationHelper("ro1", "Player 1");
 	createOrcAnimationHelper("ro2", "Player 3");
 	createOrcAnimationHelper("ro3", "Player 5");
+	createStarAnimationHelper("starAnimation", "star");
 
 }
 
@@ -146,5 +147,13 @@ void PlayState::createOrcAnimationHelper(std::string textureName, std::string an
 void PlayState::createStarAnimationHelper(std::string textureName, std::string animName)
 {
 	Animation star;
-	//star.
+	star.setSpriteSheet(*ResourceManager::getInstance().getTexture(textureName));
+	star.addFrame(sf::IntRect(0, 0, 42, 32));
+	star.addFrame(sf::IntRect(42, 0, 42, 32));
+	star.addFrame(sf::IntRect(84, 0, 42, 32));
+	star.addFrame(sf::IntRect(126, 0, 42, 32));
+	star.addFrame(sf::IntRect(168, 0, 42, 32));
+	star.addFrame(sf::IntRect(210, 0, 42, 32));
+	ResourceManager::getInstance().addAnimation(animName, star);
+
 }

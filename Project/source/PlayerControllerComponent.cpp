@@ -22,7 +22,7 @@ void PlayerControllerComponent::initialize()
 	owner = gameObject.getComponent<MovementComponent>().get();
 	characterInfo = gameObject.getComponent<CharacterInfoComponent>().get();
 	clock = sf::Clock();
-	//stunStar = gameObject.getComponent<StunStarComponent>().get();
+	
 }
 
 void PlayerControllerComponent::update(float deltaTime)
