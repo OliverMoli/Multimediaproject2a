@@ -7,7 +7,8 @@ public:
 	static sf::Vector2f getNormalizedVec2f(sf::Vector2f in);
 	static void normalizeVec2f(sf::Vector2f& in);
 	static float length(sf::Vector2f in);
-	static int random(int rangeFrom, int rangeTo);
+	static float random(float rangeFrom, float rangeTo);
 	static void truncate(sf::Vector2f& in, float maxLength);
 	static sf::Vector2f getInverseVector(sf::Vector2f in);
+	static sf::Vector2f getRandomDir();
 };

@@ -2,6 +2,9 @@
 #include "Component.h"
 #include "FlagComponent.h"
 
+
+class BallComponent;
+
 enum class Team
 {
 	BlueTeam = 0,
@@ -24,6 +27,8 @@ public:
 	int getPlayerIndex() const;
 	void setLastDashTime(float time);
 	float getLastDashTime() const;
+	void setBallComp(BallComponent* ball);
+	BallComponent* getBallComp();
 private:
 	bool hasFlag = false;
 	bool hasBall = false;
@@ -33,5 +38,6 @@ private:
 	sf::Clock clock;
 	int playerIndex;
 	float lastDashTime;
+	BallComponent* ballComponent;
 };
 

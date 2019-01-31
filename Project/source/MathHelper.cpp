@@ -23,9 +23,10 @@ float MathHelper::length(sf::Vector2f in)
 	return sqrt(in.x*in.x + in.y*in.y);
 }
 
-int MathHelper::random(int rangeFrom, int rangeTo)
+float MathHelper::random(float rangeFrom, float rangeTo)
 {
-	return rand() % rangeTo + rangeFrom;
+	float r = (float)rand() / (float)RAND_MAX;
+	return rangeFrom + r * (rangeTo - rangeFrom);
 }
 
 void MathHelper::truncate(sf::Vector2f & in, float maxLength)
@@ -42,6 +43,11 @@ sf::Vector2f MathHelper::getInverseVector(sf::Vector2f in)
 	in.x = -in.x;
 	in.y = -in.y;
 	return in;
+}
+
+sf::Vector2f MathHelper::getRandomDir()
+{
+	return sf::Vector2f(random(-1,1),random(-1,1));
 }
 
 

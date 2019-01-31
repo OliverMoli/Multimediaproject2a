@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "AiControllerComponent.h"
 #include <SFML/System/Clock.hpp>
+#include "GameObjectFactory.h"
 
 AiControllerComponent::AiControllerComponent(GameObject & owner):Component(owner)
 {
@@ -45,4 +46,7 @@ void AiControllerComponent::stun(float duration)
 {
 	stunned = true;
 	unstunTime = clock.getElapsedTime().asSeconds() + duration;
+	GameObjectFactory::CreateStunStar(&gameObject, duration);
+	gameObject.getComponent<RigidBodyComponent>()->setVelocity(sf::Vector2f(0, 0));
+	gameObject.getComponent<RigidBodyComponent>()->setAcceleration(sf::Vector2f(0, 0));
 }

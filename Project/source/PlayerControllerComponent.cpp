@@ -6,9 +6,7 @@
 #include "RigidBodyComponent.h"
 #include "MovementComponent.h"
 #include "BallComponent.h"
-#include "SpriteRenderComponent.h"
 #include "ResourceManager.h"
-#include "StunStarComponent.h"
 #include "GameObjectFactory.h"
 
 PlayerControllerComponent::PlayerControllerComponent(GameObject & owner) :Component(owner)
@@ -22,7 +20,6 @@ void PlayerControllerComponent::initialize()
 	owner = gameObject.getComponent<MovementComponent>().get();
 	characterInfo = gameObject.getComponent<CharacterInfoComponent>().get();
 	clock = sf::Clock();
-	//stunStar = gameObject.getComponent<StunStarComponent>().get();
 }
 
 void PlayerControllerComponent::update(float deltaTime)
@@ -52,15 +49,11 @@ void PlayerControllerComponent::update(float deltaTime)
 	sf::Vector2f steering = desiredVelocity - gameObject.getComponent<RigidBodyComponent>()->getVelocity();
 	MathHelper::truncate(steering, owner->getMaxSteeringForce()*deltaTime);
 	owner->setSteering(steering);
-
 	if (sf::Joystick::isButtonPressed(characterInfo->getPlayerIndex(), (int)InputManager::XboxButtons::RB) && clock.getElapsedTime().asSeconds() > (characterInfo->getGameObject().getComponent<MovementComponent>()->getDashCooldown() + characterInfo->getLastDashTime()))
 	{
-		gameObject.getComponent<RigidBodyComponent>()->addImpulse(inputOffset*characterInfo->getGameObject().getComponent<MovementComponent>()->getDashForce());
-		characterInfo->setLastDashTime(clock.getElapsedTime().asSeconds());
+		owner->dash(inputOffset);
+		
 	}
-
-
-
 	sf::Vector2f aimOffset = MathHelper::getNormalizedVec2f(sf::Vector2f(gamepadU, gamepadV));
 	if (ball != nullptr && sf::Joystick::isButtonPressed(characterInfo->getPlayerIndex(), (int)InputManager::XboxButtons::LB) && MathHelper::length(aimOffset) > 0)
 	{

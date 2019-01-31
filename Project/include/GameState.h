@@ -14,6 +14,8 @@ public:
 	void addGameObject(std::shared_ptr<GameObject> go);
 	///@return all gameobjects existing in the current gamestate
 	std::vector<std::shared_ptr<GameObject>>& getGameObjects();
+
+	bool pause = false;
 private:
 	std::vector<std::shared_ptr<GameObject>> gameObjects;
 };

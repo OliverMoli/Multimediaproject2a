@@ -73,11 +73,21 @@ void PhysicsManager::resolveCollisions()
 {
 	for (auto man : manifolds)
 	{
+		//ball player does not get resolved
 		if((man.body1->getGameObject().getType()=="Player"&&man.body2->getGameObject().getType()=="Ball")|| (man.body2->getGameObject().getType() == "Player"&&man.body1->getGameObject().getType() == "Ball"))
 		{
 			continue;
 		}
-		
+		//flag player does niot get resolved
+		if ((man.body1->getGameObject().getType() == "Player"&&man.body2->getGameObject().getType() == "Flag") || (man.body2->getGameObject().getType() == "Player"&&man.body1->getGameObject().getType() == "Flag"))
+		{
+			continue;
+		}
+		//flag and ball does not resolve
+		if ((man.body1->getGameObject().getType() == "Ball"&&man.body2->getGameObject().getType() == "Flag") || (man.body2->getGameObject().getType() == "Ball"&&man.body1->getGameObject().getType() == "Flag"))
+		{
+			continue;
+		}
 		
 		// Calculate relative velocity
 		sf::Vector2f rv = man.body1->getVelocity() - man.body2->getVelocity();

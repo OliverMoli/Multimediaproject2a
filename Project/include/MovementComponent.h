@@ -17,6 +17,7 @@ public:
 		this->controller = controller;
 	}
 	void setSteering(sf::Vector2f steering);
+	void dash(sf::Vector2f direction);
 	void useFlagValues();
 	void useNormalValues();
 	void initAnims(std::string name);
@@ -24,6 +25,7 @@ public:
 	float getMaxSteeringForce() const;
 	float getDashForce() const;
 	float getDashCooldown() const;
+	
 private:
 	std::shared_ptr<IController> controller;
 	RigidBodyComponent* rigidBody;
@@ -42,4 +44,5 @@ private:
 	Animation walkLeft;
 	Animation walkRight; 
 	Animation walkUp;
+	sf::Clock clock;
 };

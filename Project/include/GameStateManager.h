@@ -26,4 +26,5 @@ private:
 	std::shared_ptr<GameState> currentState = nullptr;
 	std::map<std::string, std::shared_ptr<GameState>> states;
 	sf::RenderWindow* window;
+	
 };

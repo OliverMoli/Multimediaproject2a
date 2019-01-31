@@ -136,8 +136,9 @@ void GameObjectFactory::CreateFlag(NLTmxMapObject object)
 	flagObject->setPosition(object.x, object.y);
 	flagObject->addComponent(std::make_shared<SpriteRenderComponent>(*flagObject, *ResourceManager::getInstance().getTexture(values.textureName)));
 	flagObject->getComponent<SpriteRenderComponent>()->setLayer(Items);
-	flagObject->addComponent(std::make_shared<RigidBodyComponent>(*flagObject, 0));
-	flagObject->addComponent(std::make_shared<AABBColliderComponent>(*flagObject, object.width, object.height, true));
+	flagObject->addComponent(std::make_shared<RigidBodyComponent>(*flagObject, 1));
+	flagObject->getComponent<RigidBodyComponent>()->setFriction(0.9);
+	flagObject->addComponent(std::make_shared<AABBColliderComponent>(*flagObject, object.width, object.height, false));
 	flagObject->addComponent(std::make_shared<FlagComponent>(*flagObject, values.scorePerTick, values.tickDuration));
 	flagObject->getComponent<RigidBodyComponent>()->addObserver(flagObject->getComponent<FlagComponent>());
 	GameStateManager::getInstance().getCurrentState()->addGameObject(flagObject);
@@ -242,6 +243,7 @@ void GameObjectFactory::CreateStunStar(GameObject* object, float duration)
 {
 	auto star = make_shared<GameObject>("star", "star");
 	star->addComponent(std::make_shared<SpriteRenderComponent>(*star, *ResourceManager::getInstance().getTexture("stunStars")));
+	star->getComponent<SpriteRenderComponent>()->setLayer(UI);
 	star->addComponent(std::make_shared<StunStarComponent>(*star, duration));
 	star->setPosition(object->getPosition() + sf::Vector2f(0,-40));
 	GameStateManager::getInstance().getCurrentState()->addGameObject(star);

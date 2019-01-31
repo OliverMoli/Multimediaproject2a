@@ -50,7 +50,7 @@ void SetupState::update(float deltaTime)
 			individualPlayerInPreCharState[i] = false;
 			isSelected[counter[i]] = true;
 		}
-		if (sf::Joystick::getAxisPosition(i, sf::Joystick::Axis::X) == 100 && clock.getElapsedTime().asSeconds() > individualPlayerFocusChange[i] + focusDelay && !individualPlayerInPreCharState[i])
+		if (sf::Joystick::getAxisPosition(i, sf::Joystick::Axis::X) >= 90 && clock.getElapsedTime().asSeconds() > individualPlayerFocusChange[i] + focusDelay && !individualPlayerInPreCharState[i])
 		{
 
 			individualPlayerFocusChange[i] = clock.getElapsedTime().asSeconds();
@@ -61,7 +61,7 @@ void SetupState::update(float deltaTime)
 			isSelected[counter[i]] = true;
 		}
 
-		if (sf::Joystick::getAxisPosition(i, sf::Joystick::Axis::X) == -100 && clock.getElapsedTime().asSeconds() > individualPlayerFocusChange[i] + focusDelay && !individualPlayerInPreCharState[i])
+		if (sf::Joystick::getAxisPosition(i, sf::Joystick::Axis::X) <= -90 && clock.getElapsedTime().asSeconds() > individualPlayerFocusChange[i] + focusDelay && !individualPlayerInPreCharState[i])
 		{
 			individualPlayerFocusChange[i] = clock.getElapsedTime().asSeconds();
 			isSelected[counter[i]] = false;
@@ -173,7 +173,7 @@ int SetupState::getNextFree(int start, bool right)
 	if (right)
 	{
 		index = start + 1;
-		if(index > 5)
+		if (index > 5)
 		{
 			index = 0;
 		}

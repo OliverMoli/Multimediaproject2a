@@ -16,6 +16,9 @@ public:
 	void setTickDuration(float duration);
 	sf::Vector2f getFlagPositionOffset() const;
 	void setFlagPositionOffset(sf::Vector2f offset);
+	GameObject* getFlagHolder() const;
+	void setFlagHolder(GameObject* holder);
+	void useDefaultFlag();
 private:
 	void onPlayerPickup(CollisionInfo colInfo);
 	int scorePerTick;

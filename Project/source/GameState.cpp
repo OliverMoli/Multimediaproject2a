@@ -8,6 +8,10 @@
 
 void GameState::update(float deltaTime)
 {
+	if(pause)
+	{
+		return;
+	}
 	for (auto go : gameObjects)
 	{
 		if(!go->isActive())

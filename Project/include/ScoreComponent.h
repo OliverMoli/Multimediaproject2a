@@ -14,5 +14,7 @@ public:
 	void incrementScore(Team team,int amount);
 private:
 	int scoreRedTeam =0, scoreBlueTeam=0;
-	sf::Text redText, blueText;
+	sf::Text redText, blueText,timeText,winnerText;
+	float gameLength = 5;
+	sf::Clock clock;
 };

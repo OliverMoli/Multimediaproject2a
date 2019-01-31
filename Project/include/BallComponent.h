@@ -1,7 +1,6 @@
 #pragma once
 #include "Component.h"
 #include "ICollisionObserver.h"
-#include "CharacterInfoComponent.h"
 #include "PlayerControllerComponent.h"
 
 
@@ -15,6 +14,9 @@ public:
 	void enableCollisionAfterDelay();
 	void throwBall(sf::Vector2f direction);
 	void respawnPlayer(float delay,GameObject* player);
+	void setOwningTeam(Team team);
+	void resetChargeCounter();
+	void setBallHolder(GameObject* go);
 private:
 	void onPlayerPickup(CollisionInfo colInfo);
 	void onPlayerDamage(CollisionInfo colInfo);

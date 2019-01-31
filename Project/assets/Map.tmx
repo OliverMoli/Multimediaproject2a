@@ -309,6 +309,6 @@
   <object id="24" name="Border" type="Obstacle" x="-338.424" y="174" width="434.424" height="530"/>
  </objectgroup>
  <objectgroup id="9" name="Playfield">
-  <object id="22" name="playField" type="Playfield" x="128" y="224" width="976" height="432"/>
+  <object id="22" name="playField" type="Playfield" x="98.6667" y="193.333" width="1037.33" height="494.667"/>
  </objectgroup>
 </map>

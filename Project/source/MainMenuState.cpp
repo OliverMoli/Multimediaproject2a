@@ -16,12 +16,12 @@ void MainMenuState::initialize()
 void MainMenuState::update(float deltaTime)
 {
 	GameState::update(deltaTime);
-	if (sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Y) == 100 && clock.getElapsedTime().asSeconds() > lastFocusChange + focusDelay)
+	if (sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Y) >= 90 && clock.getElapsedTime().asSeconds() > lastFocusChange + focusDelay)
 	{
 		RenderManager::getInstance().getGui()->focusNextWidget();
 		lastFocusChange = clock.getElapsedTime().asSeconds();
 	}
-	else if (sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Y) == -100 && clock.getElapsedTime().asSeconds() > lastFocusChange + focusDelay)
+	else if (sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Y) <= -90 && clock.getElapsedTime().asSeconds() > lastFocusChange + focusDelay)
 	{
 		RenderManager::getInstance().getGui()->focusPreviousWidget();
 		lastFocusChange = clock.getElapsedTime().asSeconds();

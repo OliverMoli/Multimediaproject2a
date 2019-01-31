@@ -53,7 +53,6 @@ void FlagComponent::onPlayerPickup(CollisionInfo colInfo)
 	{
 		gameObject.getComponent<SpriteRenderComponent>()->setTexture(redFlagPickup);
 	}
-	flagHolder->getComponent<RigidBodyComponent>()->setFriction(1);
 	flagHolder->getComponent<MovementComponent>()->useFlagValues();
 }
 
@@ -86,6 +85,21 @@ sf::Vector2f FlagComponent::getFlagPositionOffset() const
 void FlagComponent::setFlagPositionOffset(sf::Vector2f offset)
 {
 	flagPositionOffset = offset;
+}
+
+GameObject * FlagComponent::getFlagHolder() const
+{
+	return flagHolder;
+}
+
+void FlagComponent::setFlagHolder(GameObject * holder)
+{
+	flagHolder = holder;
+}
+
+void FlagComponent::useDefaultFlag()
+{
+	gameObject.getComponent<SpriteRenderComponent>()->setTexture(*ResourceManager::getInstance().getTexture("flag"));
 }
 
 

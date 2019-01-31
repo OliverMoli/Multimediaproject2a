@@ -5,6 +5,7 @@
 #include "SpriteRenderComponent.h"
 #include <TGUI/Texture.hpp>
 #include "RenderManager.h"
+#include "CharacterInfoComponent.h"
 
 MovementComponent::MovementComponent(GameObject & owner, float normalMaxVelocity, float normalMaxSteeringForce, float flagHolderMaxVelocity, float flagHolderMaxSteeringForce, float normalDashForce, float normalDashCooldown, float flagHolderDashForce, float flagHolderDashCooldown) :Component(owner)
 {
@@ -20,12 +21,12 @@ MovementComponent::MovementComponent(GameObject & owner, float normalMaxVelocity
 	maxSteeringForce = normalMaxSteeringForce;
 	dashForce = normalDashForce;
 	dashCooldown = normalDashCooldown;
-
 }
 
 void MovementComponent::initialize()
 {
 	rigidBody = gameObject.getComponent<RigidBodyComponent>().get();
+	clock = sf::Clock();
 }
 
 void MovementComponent::update(float deltaTime)
@@ -63,6 +64,12 @@ void MovementComponent::setSteering(sf::Vector2f steering)
 	rigidBody->addImpulse(steering);
 }
 
+void MovementComponent::dash(sf::Vector2f direction)
+{
+	gameObject.getComponent<RigidBodyComponent>()->addImpulse(direction*dashForce);
+	gameObject.getComponent<CharacterInfoComponent>()->setLastDashTime(clock.getElapsedTime().asSeconds());
+}
+
 void MovementComponent::useFlagValues()
 {
 	maxVelocity = flagHolderMaxVelocity;
@@ -71,6 +78,7 @@ void MovementComponent::useFlagValues()
 	dashCooldown = flagHolderDashCooldown;
 	gameObject.getComponent<RigidBodyComponent>()->setVelocity(gameObject.getComponent<RigidBodyComponent>()->getVelocity()*0.1f);
 	gameObject.getComponent<RigidBodyComponent>()->setAcceleration(sf::Vector2f(0, 0));
+	gameObject.getComponent<RigidBodyComponent>()->setFriction(1);
 }
 
 void MovementComponent::useNormalValues()
@@ -79,6 +87,7 @@ void MovementComponent::useNormalValues()
 	maxSteeringForce = normalMaxSteeringForce;
 	dashForce = normalDashForce;
 	dashCooldown = normalDashCooldown;
+	gameObject.getComponent<RigidBodyComponent>()->setFriction(0.87);
 }
 
 void MovementComponent::initAnims(std::string name)

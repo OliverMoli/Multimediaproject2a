@@ -75,3 +75,13 @@ float CharacterInfoComponent::getLastDashTime() const
 {
 	return lastDashTime;
 }
+
+void CharacterInfoComponent::setBallComp(BallComponent * ball)
+{
+	ballComponent = ball;
+}
+
+BallComponent * CharacterInfoComponent::getBallComp()
+{
+	return ballComponent;
+}
