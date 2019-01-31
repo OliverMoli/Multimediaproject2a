@@ -10,6 +10,7 @@
 #include "ResourceManager.h"
 #include "StunStarComponent.h"
 #include "GameObjectFactory.h"
+#include "DebugDraw.h"
 
 PlayerControllerComponent::PlayerControllerComponent(GameObject & owner) :Component(owner)
 {
@@ -65,8 +66,14 @@ void PlayerControllerComponent::update(float deltaTime)
 	if (ball != nullptr && sf::Joystick::isButtonPressed(characterInfo->getPlayerIndex(), (int)InputManager::XboxButtons::LB) && MathHelper::length(aimOffset) > 0)
 	{
 		ball->getComponent<BallComponent>()->throwBall(aimOffset);
+		
+		//gameObject.getPosition(), aimOffset, sf::Color(255, 255, 255), 1);
 	}
 
+	if(ball != nullptr && MathHelper::length(aimOffset) > 0)
+	{
+		//ball->addComponent(std::make_shared<SpriteRenderComponent>(*ball, *ResourceManager::getInstance().getTexture("aimArrow"),aimOffset.x,aimOffset.y,true));
+	}
 }
 
 void PlayerControllerComponent::setBall(GameObject * go)

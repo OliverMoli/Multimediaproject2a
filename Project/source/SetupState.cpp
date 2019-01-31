@@ -49,6 +49,8 @@ void SetupState::update(float deltaTime)
 			players[i]->add(characters[counter[i]]);
 			individualPlayerInPreCharState[i] = false;
 			isSelected[counter[i]] = true;
+			players[i]->add(arrowLeft);
+			players[i]->add(arrowRight);
 		}
 		if (sf::Joystick::getAxisPosition(i, sf::Joystick::Axis::X) == 100 && clock.getElapsedTime().asSeconds() > individualPlayerFocusChange[i] + focusDelay && !individualPlayerInPreCharState[i])
 		{
@@ -135,6 +137,13 @@ void SetupState::createSettingsUi()
 	redOrc2->setPosition("25%", "15%");
 	redOrc3->setSize("50%", "50%");
 	redOrc3->setPosition("25%", "15%");
+
+	arrowLeft = tgui::Picture::create("../assets/Arrow_left.png");
+	arrowLeft->setSize("25%","25%");
+	arrowLeft->setPosition("2%", "28%");
+	arrowRight = tgui::Picture::create("../assets/Arrow_right.png");
+	arrowRight->setSize("25%", "25%");
+	arrowRight->setPosition("73%", "28%");
 
 	label = tgui::Label::create("PRESS X TO JOIN");
 	player1->add(label);

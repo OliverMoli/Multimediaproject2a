@@ -218,6 +218,12 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 	ballObject->getComponent<RigidBodyComponent>()->addObserver(ballObject->getComponent<BallComponent>());
 	ballObject->getComponent<RigidBodyComponent>()->setFriction(values.friction);
 	GameStateManager::getInstance().getCurrentState()->addGameObject(ballObject);
+
+	auto marker = make_shared<GameObject>();
+
+	marker->addComponent(std::make_shared<SpriteRenderComponent>(*marker, *ResourceManager::getInstance().getTexture("aimArrow"), 0,0, true));
+	marker->getComponent<SpriteRenderComponent>()->setLayer(Items);
+	GameStateManager::getInstance().getCurrentState()->addGameObject(marker);
 }
 
 void GameObjectFactory::CreatePlayField(NLTmxMapObject object)
