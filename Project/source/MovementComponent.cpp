@@ -1,8 +1,12 @@
 #include "pch.h"
 #include "RigidBodyComponent.h"
 #include "MovementComponent.h"
+#include "ResourceManager.h"
+#include "SpriteRenderComponent.h"
+#include <TGUI/Texture.hpp>
+#include "RenderManager.h"
 
-MovementComponent::MovementComponent(GameObject & owner, float normalMaxVelocity, float normalMaxSteeringForce,float flagHolderMaxVelocity,float flagHolderMaxSteeringForce,float normalDashForce, float normalDashCooldown, float flagHolderDashForce, float flagHolderDashCooldown) :Component(owner)
+MovementComponent::MovementComponent(GameObject & owner, float normalMaxVelocity, float normalMaxSteeringForce, float flagHolderMaxVelocity, float flagHolderMaxSteeringForce, float normalDashForce, float normalDashCooldown, float flagHolderDashForce, float flagHolderDashCooldown) :Component(owner)
 {
 	this->normalMaxVelocity = normalMaxVelocity;
 	this->normalMaxSteeringForce = normalMaxSteeringForce;
@@ -16,6 +20,7 @@ MovementComponent::MovementComponent(GameObject & owner, float normalMaxVelocity
 	maxSteeringForce = normalMaxSteeringForce;
 	dashForce = normalDashForce;
 	dashCooldown = normalDashCooldown;
+
 }
 
 void MovementComponent::initialize()
@@ -25,7 +30,9 @@ void MovementComponent::initialize()
 
 void MovementComponent::update(float deltaTime)
 {
-
+	animSprite.play(*currentAnimation);
+	animSprite.update(sf::seconds(deltaTime));
+	gameObject.getComponent<SpriteRenderComponent>()->setTextureAndBounds(*animSprite.sprite.getTexture(),animSprite.sprite.getTextureRect());
 }
 
 void MovementComponent::setSteering(sf::Vector2f steering)
@@ -49,6 +56,16 @@ void MovementComponent::useNormalValues()
 	maxSteeringForce = normalMaxSteeringForce;
 	dashForce = normalDashForce;
 	dashCooldown = normalDashCooldown;
+}
+
+void MovementComponent::initAnims(std::string name)
+{
+	animSprite = AnimatedSprite(sf::seconds(0.2), true, false);
+	walkDown = *ResourceManager::getInstance().getAnimation(name + "WalkingDown");
+	walkRight = *ResourceManager::getInstance().getAnimation(name + "WalkingRight");
+	walkLeft = *ResourceManager::getInstance().getAnimation(name + "WalkingLeft");
+	walkUp = *ResourceManager::getInstance().getAnimation(name + "WalkingUp");
+	currentAnimation = &walkRight;
 }
 
 

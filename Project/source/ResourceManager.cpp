@@ -7,27 +7,27 @@ ResourceManager& ResourceManager::getInstance()
 	return instance;
 }
 
-void ResourceManager::loadTexture(std::string name,std::string fileName)
+void ResourceManager::loadTexture(std::string name, std::string fileName)
 {
-	if(textures.find(name)!=textures.end())
+	if (textures.find(name) != textures.end())
 	{
 		std::cout << "Careful! you are overriding the Texture Resource with name [ " << name << " ]" << std::endl;
 	}
 	sf::Texture value;
-	if(value.loadFromFile(fileName))
+	if (value.loadFromFile(fileName))
 	{
 		textures[name] = std::make_shared<sf::Texture>(value);
 	}
 }
 
-void ResourceManager::loadTextureWithTransparentColor(std::string name, std::string fileName,sf::Color transparentColor)
+void ResourceManager::loadTextureWithTransparentColor(std::string name, std::string fileName, sf::Color transparentColor)
 {
 	if (textures.find(name) != textures.end())
 	{
 		std::cout << "Careful! you are overriding the Texture Resource with name [ " << name << " ]" << std::endl;
 	}
 	sf::Image image;
-	if(image.loadFromFile(fileName))
+	if (image.loadFromFile(fileName))
 	{
 		image.createMaskFromColor(transparentColor);
 		sf::Texture value;
@@ -39,7 +39,7 @@ void ResourceManager::loadTextureWithTransparentColor(std::string name, std::str
 
 }
 
-void ResourceManager::loadFont(std::string name,std::string fileName)
+void ResourceManager::loadFont(std::string name, std::string fileName)
 {
 	if (fonts.find(name) != fonts.end())
 	{
@@ -65,16 +65,26 @@ void ResourceManager::loadSound(std::string name, std::string fileName)
 	}
 }
 
+void ResourceManager::addAnimation(std::string name, Animation & anim)
+{
+	if (animations.find(name) != animations.end())
+	{
+		std::cout << "Careful! you are overriding the Animation Resource with name [ " << name << " ]" << std::endl;
+	}
+	animations[name] = std::make_shared<Animation>(anim);
+}
+
 void ResourceManager::freeResources()
 {
 	textures.clear();
 	fonts.clear();
 	sounds.clear();
+	animations.clear();
 }
 
 std::shared_ptr<sf::Texture> ResourceManager::getTexture(std::string name)
 {
-	if(textures.find(name)!=textures.end())
+	if (textures.find(name) != textures.end())
 	{
 		return textures[name];
 	}
@@ -99,6 +109,16 @@ std::shared_ptr<sf::SoundBuffer> ResourceManager::getSound(std::string name)
 		return sounds[name];
 	}
 	std::cout << "Careful! The Sound Resource named [" << name << "] you tried to get does not exist! Returned nullptr instead";
+	return nullptr;
+}
+
+std::shared_ptr<Animation> ResourceManager::getAnimation(std::string name)
+{
+	if (animations.find(name) != animations.end())
+	{
+		return animations[name];
+	}
+	std::cout << "Careful! The Animation Resource named [" << name << "] you tried to get does not exist! Returned nullptr instead";
 	return nullptr;
 }
 

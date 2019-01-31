@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "SpriteAnimationComponent.h"
 #include "InputManager.h"
+#include "AnimatedSprite.h"
 
 SpriteAnimationComponent::SpriteAnimationComponent(GameObject& owner, sf::Texture& texture, float posX, float posY) :RenderComponent(owner)
 {

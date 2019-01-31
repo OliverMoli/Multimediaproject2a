@@ -22,7 +22,8 @@
 ////////////////////////////////////////////////////////////
 
 #include "pch.h"
-#include "AnimatedSprite.hpp"
+#include "AnimatedSprite.h"
+#include <SFML/Graphics/Sprite.hpp>
 
 AnimatedSprite::AnimatedSprite(sf::Time frameTime, bool paused, bool looped) :
 	m_animation(NULL), m_frameTime(frameTime), m_currentFrame(0), m_isPaused(paused), m_isLooped(looped), m_texture(NULL)
@@ -137,6 +138,10 @@ void AnimatedSprite::setFrame(std::size_t newFrame, bool resetTime)
 		m_vertices[1].texCoords = sf::Vector2f(left, bottom);
 		m_vertices[2].texCoords = sf::Vector2f(right, bottom);
 		m_vertices[3].texCoords = sf::Vector2f(right, top);
+
+		
+		sprite.setTextureRect(m_animation->getFrame(newFrame));
+		sprite.setTexture(*m_texture);
 	}
 
 	if (resetTime)

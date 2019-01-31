@@ -272,10 +272,10 @@
     <ClInclude Include="..\..\include\SpriteAnimationComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\Animation.hpp">
+    <ClInclude Include="..\..\include\Animation.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\AnimatedSprite.hpp">
+    <ClInclude Include="..\..\include\AnimatedSprite.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
   </ItemGroup>

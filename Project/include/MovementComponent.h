@@ -2,6 +2,7 @@
 #include "Component.h"
 #include <SFML/System/Vector2.hpp>
 #include "RigidBodyComponent.h"
+#include "AnimatedSprite.h"
 
 class IController;
 
@@ -18,6 +19,7 @@ public:
 	void setSteering(sf::Vector2f steering);
 	void useFlagValues();
 	void useNormalValues();
+	void initAnims(std::string name);
 	float getMaxVelocity() const;
 	float getMaxSteeringForce() const;
 	float getDashForce() const;
@@ -34,5 +36,10 @@ private:
 	float flagHolderDashCooldown;
 	float dashForce;
 	float dashCooldown;
-
+	AnimatedSprite animSprite;
+	Animation* currentAnimation;
+	Animation walkDown;
+	Animation walkLeft;
+	Animation walkRight; 
+	Animation walkUp;
 };
