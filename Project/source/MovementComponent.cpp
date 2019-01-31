@@ -30,9 +30,32 @@ void MovementComponent::initialize()
 
 void MovementComponent::update(float deltaTime)
 {
+	float velX, velY;
+	velX = gameObject.getComponent<RigidBodyComponent>()->getVelocity().x;
+	velY = gameObject.getComponent<RigidBodyComponent>()->getVelocity().y;
+	if (abs(velX) > abs(velY))
+	{
+		if(velX >0)
+		{
+			currentAnimation = &walkRight;
+		}else
+		{
+			currentAnimation = &walkLeft;
+		}
+	}else
+	{
+		if (velY > 0)
+		{
+			currentAnimation = &walkDown;
+		}
+		else
+		{
+			currentAnimation = &walkUp;
+		}
+	}
 	animSprite.play(*currentAnimation);
 	animSprite.update(sf::seconds(deltaTime));
-	gameObject.getComponent<SpriteRenderComponent>()->setTextureAndBounds(*animSprite.sprite.getTexture(),animSprite.sprite.getTextureRect());
+	gameObject.getComponent<SpriteRenderComponent>()->setTextureAndBounds(*animSprite.sprite.getTexture(), animSprite.sprite.getTextureRect());
 }
 
 void MovementComponent::setSteering(sf::Vector2f steering)

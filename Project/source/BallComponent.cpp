@@ -10,6 +10,8 @@
 #include "AiControllerComponent.h"
 #include "SpriteRenderComponent.h"
 #include "ResourceManager.h"
+#include "RespawnHelperComponent.h"
+#include "GameStateManager.h"
 
 BallComponent::BallComponent(GameObject& owner, std::string owningPlayFieldName, float ballVelocityPerCharge, float resetLastDelay,float stunDuration,float neutralVelocityCutoff,float velocityFactorOnEnemyHit) : Component(owner)
 {
@@ -117,6 +119,7 @@ void BallComponent::onPlayerDamage(CollisionInfo colInfo)
 	{
 		if (chargeCounter < 2) {
 			colInfo.otherCol->getComponent<PlayerControllerComponent>()->stun(stunDurationPerCharge*(chargeCounter + 1));
+		
 		}
 		else{
 			respawnPlayer(5, colInfo.otherCol);
@@ -126,6 +129,7 @@ void BallComponent::onPlayerDamage(CollisionInfo colInfo)
 	{
 		if (chargeCounter < 2) {
 			colInfo.otherCol->getComponent<AiControllerComponent>()->stun(stunDurationPerCharge*(chargeCounter + 1));
+			respawnPlayer(5, colInfo.otherCol);
 		}else
 		{
 			respawnPlayer(5, colInfo.otherCol);
@@ -137,18 +141,6 @@ void BallComponent::onPlayerDamage(CollisionInfo colInfo)
 }
 
 
-void BallComponent::resetComponent()
-{
-}
-
-void BallComponent::respawnRandomly()
-{
-	sf::Vector2f newPos = playfield->getPosition();
-	newPos.x += rand() % playfield->getComponent<PlayFieldComponent>()->getWidth();
-	newPos.y += rand() % playfield->getComponent<PlayFieldComponent>()->getHeight();
-	gameObject.setPosition(newPos);
-
-}
 
 void BallComponent::enableCollisionAfterDelay()
 {
@@ -170,7 +162,10 @@ void BallComponent::throwBall(sf::Vector2f direction)
 
 void BallComponent::respawnPlayer(float delay,GameObject* player)
 {
-	player->setActive(false);
+	auto helper = std::make_shared<GameObject>();
+	helper->addComponent(std::make_shared<RespawnHelperComponent>(*helper, *player, delay));
+	GameStateManager::getInstance().getCurrentState()->addGameObject(helper);
+
 }
 
 

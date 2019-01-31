@@ -12,8 +12,6 @@ public:
 	void initialize() override;
 	void update(float deltaTime) override;
 	void onCollision(CollisionInfo colInfo) override;
-	void resetComponent();
-	void respawnRandomly();
 	void enableCollisionAfterDelay();
 	void throwBall(sf::Vector2f direction);
 	void respawnPlayer(float delay,GameObject* player);

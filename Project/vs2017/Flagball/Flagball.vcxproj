@@ -55,6 +55,7 @@
     <ClCompile Include="..\..\source\RenderComponent.cpp" />
     <ClCompile Include="..\..\source\RenderManager.cpp" />
     <ClCompile Include="..\..\source\ResourceManager.cpp" />
+    <ClCompile Include="..\..\source\RespawnHelperComponent.cpp" />
     <ClCompile Include="..\..\source\RigidBodyComponent.cpp" />
     <ClCompile Include="..\..\source\ScoreComponent.cpp" />
     <ClCompile Include="..\..\source\SetupState.cpp" />
@@ -98,6 +99,7 @@
     <ClInclude Include="..\..\include\RenderComponent.h" />
     <ClInclude Include="..\..\include\RenderManager.h" />
     <ClInclude Include="..\..\include\ResourceManager.h" />
+    <ClInclude Include="..\..\include\RespawnHelperComponent.h" />
     <ClInclude Include="..\..\include\RigidBodyComponent.h" />
     <ClInclude Include="..\..\include\ScoreComponent.h" />
     <ClInclude Include="..\..\include\SetupState.h" />
