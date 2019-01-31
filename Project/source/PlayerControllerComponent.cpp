@@ -6,6 +6,9 @@
 #include "RigidBodyComponent.h"
 #include "MovementComponent.h"
 #include "BallComponent.h"
+#include "SpriteRenderComponent.h"
+#include "ResourceManager.h"
+#include "StunStarComponent.h"
 
 PlayerControllerComponent::PlayerControllerComponent(GameObject & owner) :Component(owner)
 {
@@ -18,12 +21,14 @@ void PlayerControllerComponent::initialize()
 	owner = gameObject.getComponent<MovementComponent>().get();
 	characterInfo = gameObject.getComponent<CharacterInfoComponent>().get();
 	clock = sf::Clock();
+	stunStar = gameObject.getComponent<StunStarComponent>().get();
 }
 
 void PlayerControllerComponent::update(float deltaTime)
 {
 	if (stunned)
-	{
+	{	
+		//stunStar->update(deltaTime);
 		if(clock.getElapsedTime().asSeconds() > unstunTime)
 		{
 			stunned = false;

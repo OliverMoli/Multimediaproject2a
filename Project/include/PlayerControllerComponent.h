@@ -2,6 +2,8 @@
 #include "Component.h"
 #include "IController.h"
 #include "CharacterInfoComponent.h"
+#include "StunStarComponent.h"
+
 
 
 class PlayerControllerComponent : public Component, public IController
@@ -22,5 +24,7 @@ private:
 	float deadZoneU = 20;
 	float deadZoneV = 20;
 	float unstunTime =0;
+	StunStarComponent* stunStar;
+	
 };
 

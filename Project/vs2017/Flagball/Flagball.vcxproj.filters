@@ -156,6 +156,9 @@
     <ClCompile Include="..\..\source\AnimatedSprite.cpp">
       <Filter>Source Files\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\StunStarComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\pch.h">
@@ -277,6 +280,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\AnimatedSprite.hpp">
       <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\StunStarComponent.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

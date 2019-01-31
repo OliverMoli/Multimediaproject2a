@@ -70,6 +70,7 @@ void GameObjectFactory::CreatePlayer(NLTmxMapObject object)
 	playerObject->addComponent(std::make_shared<AABBColliderComponent>(*playerObject, object.width, object.height, false, values.colOffset));
 	playerObject->addComponent(std::make_shared<MovementComponent>(*playerObject, 300000, 500000));
 	playerObject->addComponent(std::make_shared<SpriteAnimationComponent>(*playerObject, *ResourceManager::getInstance().getTexture(values.textureName), object.x, object.y));
+	playerObject->getComponent<SpriteAnimationComponent>()->animate(*ResourceManager::getInstance().getTexture(values.textureName));
 	GameStateManager::getInstance().getCurrentState()->addGameObject(playerObject);
 
 }

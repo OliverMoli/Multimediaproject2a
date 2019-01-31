@@ -31,4 +31,5 @@ private:
 	sf::Vector2f animationMovement;
 	float animationSpeed;
 	
+	
 };
