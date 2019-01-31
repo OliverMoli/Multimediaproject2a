@@ -1,6 +1,8 @@
 #pragma once
 #include "GameState.h"
 #include <TGUI/Widgets/Button.hpp>
+#include <TGUI/Widgets/Picture.hpp>
+#include <TGUI/Widgets/Panel.hpp>
 
 class MainMenuState : public GameState
 {
@@ -17,6 +19,8 @@ private:
 	float lastFocusChange = -100;
 	sf::Clock clock;
 	std::shared_ptr<tgui::Button> startButton, creditsButton, exitButton;
+	std::shared_ptr<tgui::Panel> panel;
+	std::shared_ptr<tgui::Picture> fhLogo;
 	bool inCredits = false;
 	std::string creditsText = "      Flagball  \n\nMichael Cenger\nOliver Moholi";
 };

@@ -6,6 +6,8 @@
 #include "Game.h"
 #include "RenderManager.h"
 
+
+
 void MainMenuState::initialize()
 {
 	clock = sf::Clock();
@@ -83,7 +85,29 @@ void MainMenuState::createMenuUi()
 	vert->addSpace(0.1f);
 	vert->add(exitButton, "button_exit");
 	vert->addSpace(1.0f);
+
+	
+	
+	auto hori = tgui::HorizontalLayout::create();
+	auto panel = tgui::Panel::create("100%");
+	hori->setSize("50%", "50%");
+	hori->setPosition("-20%", "10%");
+	hori->add(panel);
+	panel->setSize("100%", "100%");
+	panel->setPosition("0%", "0%");
+
+	
+	fhLogo = tgui::Picture::create("../assets/Logo_FHS_white_bg.png");
+	fhLogo->setSize("100%", "100%");
+	fhLogo->setPosition(10, "0%");
+	hori->add(fhLogo);
+	
+	
+	
+	
+
 	RenderManager::getInstance().getGui()->add(vert);
+	RenderManager::getInstance().getGui()->add(hori);
 	RenderManager::getInstance().getGui()->focusNextWidget();
 }
 

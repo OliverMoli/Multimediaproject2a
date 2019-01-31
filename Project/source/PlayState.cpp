@@ -33,6 +33,7 @@ void PlayState::initialize()
 	ResourceManager::getInstance().loadTextureWithTransparentColor("flagPickupRed", "../assets/FlagPickedUpRed.png", sf::Color(255, 128, 255));
 	ResourceManager::getInstance().loadTextureWithTransparentColor("stunStars", "../assets/Stunstars.png", sf::Color(255,128,255));
 	ResourceManager::getInstance().loadTextureWithTransparentColor("starAnimation", "../assets/StarAnimation.png", sf::Color(255, 128, 255));
+	ResourceManager::getInstance().loadTextureWithTransparentColor("aimArrow", "../assets/AimArrow.png", sf::Color(255, 128, 255));
 	createAnimations();
 	MapLoader::getInstance().loadMap("Map.tmx", sf::Vector2f(0, 0));
 	GameObjectFactory::CreateScore();
@@ -112,6 +113,7 @@ void PlayState::createAnimations()
 	createOrcAnimationHelper("ro1", "Player 1");
 	createOrcAnimationHelper("ro2", "Player 3");
 	createOrcAnimationHelper("ro3", "Player 5");
+	createStarAnimationHelper("starAnimation", "star");
 
 }
 
@@ -146,5 +148,13 @@ void PlayState::createOrcAnimationHelper(std::string textureName, std::string an
 void PlayState::createStarAnimationHelper(std::string textureName, std::string animName)
 {
 	Animation star;
-	//star.
+	star.setSpriteSheet(*ResourceManager::getInstance().getTexture(textureName));
+	star.addFrame(sf::IntRect(0, 0, 42, 32));
+	star.addFrame(sf::IntRect(42, 0, 42, 32));
+	star.addFrame(sf::IntRect(84, 0, 42, 32));
+	star.addFrame(sf::IntRect(126, 0, 42, 32));
+	star.addFrame(sf::IntRect(168, 0, 42, 32));
+	star.addFrame(sf::IntRect(210, 0, 42, 32));
+	ResourceManager::getInstance().addAnimation(animName, star);
+
 }

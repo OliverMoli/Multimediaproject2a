@@ -219,6 +219,12 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 	ballObject->getComponent<RigidBodyComponent>()->addObserver(ballObject->getComponent<BallComponent>());
 	ballObject->getComponent<RigidBodyComponent>()->setFriction(values.friction);
 	GameStateManager::getInstance().getCurrentState()->addGameObject(ballObject);
+
+	auto marker = make_shared<GameObject>();
+
+	marker->addComponent(std::make_shared<SpriteRenderComponent>(*marker, *ResourceManager::getInstance().getTexture("aimArrow"), 0,0, true));
+	marker->getComponent<SpriteRenderComponent>()->setLayer(Items);
+	GameStateManager::getInstance().getCurrentState()->addGameObject(marker);
 }
 
 void GameObjectFactory::CreatePlayField(NLTmxMapObject object)
@@ -245,7 +251,8 @@ void GameObjectFactory::CreateStunStar(GameObject* object, float duration)
 	star->addComponent(std::make_shared<SpriteRenderComponent>(*star, *ResourceManager::getInstance().getTexture("stunStars")));
 	star->getComponent<SpriteRenderComponent>()->setLayer(UI);
 	star->addComponent(std::make_shared<StunStarComponent>(*star, duration));
-	star->setPosition(object->getPosition() + sf::Vector2f(0,-40));
+	star->setPosition(object->getPosition() + sf::Vector2f(2.5,-20));
+	star->getComponent<StunStarComponent>()->initAnims("star");
 	GameStateManager::getInstance().getCurrentState()->addGameObject(star);
 }
 
