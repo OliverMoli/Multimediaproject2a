@@ -152,8 +152,8 @@ void SetupState::createSettingsUi()
 	player4->add(label);
 	player5->add(label);
 	player6->add(label);
-	label->setTextSize(25);
-	label->setPosition("17.0%", "45%");
+	label->setTextSize(45);
+	label->setPosition("16.0%", "45%");
 
 	players.push_back(player1);
 	players.push_back(player2);

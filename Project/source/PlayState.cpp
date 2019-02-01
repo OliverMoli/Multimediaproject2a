@@ -37,6 +37,8 @@ void PlayState::initialize()
 	ResourceManager::getInstance().loadTextureWithTransparentColor("stunStars", "../assets/Stunstars.png", sf::Color(255,128,255));
 	ResourceManager::getInstance().loadTextureWithTransparentColor("starAnimation", "../assets/StarAnimation.png", sf::Color(255, 128, 255));
 	ResourceManager::getInstance().loadTextureWithTransparentColor("aimArrow", "../assets/AimArrow.png", sf::Color(255, 128, 255));
+
+	ResourceManager::getInstance().loadSound("startMusic", "../assets/Music/Start/JDB Artist - Inspirational Vol.2 - 26 Every Bullet Counts - Loop.wav");
 	createAnimations();
 	MapLoader::getInstance().loadMap("Map.tmx", sf::Vector2f(0, 0));
 	GameObjectFactory::CreateScore();

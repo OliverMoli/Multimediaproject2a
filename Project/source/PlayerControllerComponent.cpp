@@ -9,6 +9,7 @@
 #include "ResourceManager.h"
 #include "GameObjectFactory.h"
 #include "DebugDraw.h"
+#include "SoundManager.h"
 
 PlayerControllerComponent::PlayerControllerComponent(GameObject & owner) :Component(owner)
 {
@@ -59,7 +60,7 @@ void PlayerControllerComponent::update(float deltaTime)
 	if (ball != nullptr && sf::Joystick::isButtonPressed(characterInfo->getPlayerIndex(), (int)InputManager::XboxButtons::LB) && MathHelper::length(aimOffset) > 0)
 	{
 		ball->getComponent<BallComponent>()->throwBall(aimOffset);
-		
+		//SoundManager::getInstance().playSound()
 		//gameObject.getPosition(), aimOffset, sf::Color(255, 255, 255), 1);
 	}
 

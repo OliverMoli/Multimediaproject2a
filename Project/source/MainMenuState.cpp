@@ -5,7 +5,7 @@
 #include "ResourceManager.h"
 #include "Game.h"
 #include "RenderManager.h"
-
+#include "SoundManager.h"
 
 
 void MainMenuState::initialize()
@@ -13,6 +13,7 @@ void MainMenuState::initialize()
 	clock = sf::Clock();
 	lastFocusChange = -100;
 	createMenuUi();
+	SoundManager::getInstance().playSound("startMusic", 20, 1, true);
 }
 
 void MainMenuState::update(float deltaTime)
@@ -70,6 +71,7 @@ void MainMenuState::exit()
 
 void MainMenuState::createMenuUi()
 {
+	
 	auto theme = std::make_shared<tgui::Theme>("../assets/Black.txt");
 	tgui::Theme::setDefault(theme.get());
 	auto vert = tgui::VerticalLayout::create();
@@ -78,6 +80,10 @@ void MainMenuState::createMenuUi()
 	startButton = tgui::Button::create("Start");
 	creditsButton = tgui::Button::create("Credits");
 	exitButton = tgui::Button::create("Exit");
+	startButton->setTextSize(50);
+	creditsButton->setTextSize(50);
+	exitButton->setTextSize(50);
+	
 	vert->addSpace(1.0f);
 	vert->add(startButton, "button_start");
 	vert->addSpace(0.1f);
@@ -85,7 +91,10 @@ void MainMenuState::createMenuUi()
 	vert->addSpace(0.1f);
 	vert->add(exitButton, "button_exit");
 	vert->addSpace(1.0f);
+	startButton->setTextSize(40);
+	
 
+	
 	
 	
 	/*auto hori = tgui::VerticalLayout::create();
@@ -109,6 +118,7 @@ void MainMenuState::createMenuUi()
 	RenderManager::getInstance().getGui()->add(vert);
 	//RenderManager::getInstance().getGui()->add(hori);
 	RenderManager::getInstance().getGui()->focusNextWidget();
+
 }
 
 void MainMenuState::createCreditsUi()
