@@ -8,6 +8,7 @@
 #include "fstream"
 #include "GameStateManager.h"
 #include "SpriteRenderComponent.h"
+#include "SetupState.h"
 
 
 void PlayState::initialize()
@@ -46,11 +47,29 @@ void PlayState::initialize()
 	ResourceManager::getInstance().loadTexture("marker", "../assets/marker.png");
 	ResourceManager::getInstance().loadTexture("smallFire", "../assets/FlameSmallAnim.png");
 	ResourceManager::getInstance().loadTexture("bigFire", "../assets/FlameBigAnim.png");
+	
+	ResourceManager::getInstance().loadSound("ballOnFire", "../assets/SFX/Ballonfire.wav");
+	ResourceManager::getInstance().loadSound("throwBall", "../assets/SFX/Impact 2.wav");
+	ResourceManager::getInstance().loadSound("ballFullCharged", "../assets/SFX/Throwballonfire.wav");
+	ResourceManager::getInstance().loadSound("matchend", "../assets/SFX/Match_ends.wav");
+	ResourceManager::getInstance().loadSound("orcstun", "../assets/SFX/Orcstunned.wav");
+	ResourceManager::getInstance().loadSound("orcdeath", "../assets/SFX/Orcdeath.wav");
+	
+	if (!music.openFromFile("../assets/Music/Ingame/JDB Artist - Inspirational Vol.2 - 28 Bring It On (Action).wav"))
+	{
+		return; // error
+	}
+
+	music.play();
+	music.setVolume(5.f);
+	music.setLoop(true);
+	
 	createAnimations();
 	MapLoader::getInstance().loadMap("Map.tmx", sf::Vector2f(0, 0));
 	GameObjectFactory::CreateScore();
 	loadSetup();
-	sf::View view(sf::FloatRect(0,0, 1232, 800));
+
+	sf::View view(sf::FloatRect(0, 0, 1232, 800));
 	GameStateManager::getInstance().getWindow()->setView(view);
 	
 }
@@ -58,6 +77,7 @@ void PlayState::initialize()
 void PlayState::update(float deltaTime)
 {
 	GameState::update(deltaTime);
+	
 }
 
 void PlayState::render(sf::RenderWindow & window)

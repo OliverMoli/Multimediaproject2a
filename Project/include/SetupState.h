@@ -4,6 +4,7 @@
 #include <tgui/Widgets/Label.hpp>
 #include <TGUI/Widgets/Picture.hpp>
 #include <SFML/System/Clock.hpp>
+#include <SFML/Audio/Music.hpp>
 
 class SetupState : public GameState
 {
@@ -12,6 +13,7 @@ public:
 	void update(float deltaTime) override;
 	void render(sf::RenderWindow& window) override;
 	void exit() override;
+	
 private:
 	void createSettingsUi();
 	int getNextFree(int index,bool right);
@@ -30,5 +32,7 @@ private:
 	int counter[6] = {-100,-100,-100,-100,-100,-100};
 	bool inPreCharState = true;
 	bool isSelected[6] = { false,false,false,false,false,false };
+	sf::Music music;
+
 };
 

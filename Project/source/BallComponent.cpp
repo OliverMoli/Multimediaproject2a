@@ -13,6 +13,7 @@
 #include "RespawnHelperComponent.h"
 #include "GameStateManager.h"
 #include <SFML/Window/Joystick.hpp>
+#include "SoundManager.h"
 
 BallComponent::BallComponent(GameObject& owner, std::string owningPlayFieldName, float ballVelocityPerCharge, float resetLastDelay, float stunDuration, float neutralVelocityCutoff, float velocityFactorOnEnemyHit, GameObject& arrow1, GameObject& arrow2) : Component(owner)
 {
@@ -82,6 +83,7 @@ void BallComponent::onPlayerPickup(CollisionInfo colInfo)
 	if (colInfo.otherCol->getComponent<PlayerControllerComponent>())
 	{
 		controller = colInfo.otherCol->getComponent<PlayerControllerComponent>().get();
+
 	}
 	else if (colInfo.otherCol->getComponent<AiControllerComponent>())
 	{
@@ -115,6 +117,8 @@ void BallComponent::onPlayerPickup(CollisionInfo colInfo)
 	gameObject.getComponent<RigidBodyComponent>()->setVelocity(sf::Vector2f(0, 0));
 	gameObject.getComponent<RigidBodyComponent>()->setAcceleration(sf::Vector2f(0, 0));
 	colInfo.otherCol->getComponent<CharacterInfoComponent>()->setBallComp(this);
+
+	
 }
 
 void BallComponent::onPlayerDamage(CollisionInfo colInfo)
@@ -126,6 +130,7 @@ void BallComponent::onPlayerDamage(CollisionInfo colInfo)
 		}
 		else {
 			respawnPlayer(5, colInfo.otherCol);
+			//SoundManager::getInstance().playSound("orcstun", 100, 1, false);
 		}
 	}
 	else if (colInfo.otherCol->getComponent<AiControllerComponent>())
@@ -162,6 +167,16 @@ void BallComponent::throwBall(sf::Vector2f direction)
 	characterInfo->setBallComp(nullptr);
 	gameObject.getComponent<AABBColliderComponent>()->setEnabled(true);
 	controller->setBall(nullptr);
+
+	if (chargeCounter == 1)
+	{
+		SoundManager::getInstance().playSound("ballOnFire", 100, 1, false);
+	}
+	if (chargeCounter == 2)
+	{
+		SoundManager::getInstance().playSound("ballFullCharged", 100, 1, false);
+	}
+		
 }
 
 void BallComponent::respawnPlayer(float delay, GameObject* player)

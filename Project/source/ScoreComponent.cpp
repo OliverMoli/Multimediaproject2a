@@ -3,6 +3,7 @@
 #include <SFML/Graphics/Text.hpp>
 #include "ResourceManager.h"
 #include "GameStateManager.h"
+#include "SoundManager.h"
 
 
 ScoreComponent::ScoreComponent(GameObject& owner):RenderComponent(owner)
@@ -34,6 +35,7 @@ void ScoreComponent::update(float deltaTime)
 {
 	if (clock.getElapsedTime().asSeconds() >= gameLength)
 	{
+
 		if (scoreBlueTeam > scoreRedTeam)
 		{
 			winnerText.setString("BLUE WON!");

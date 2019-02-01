@@ -9,6 +9,7 @@
 #include "ResourceManager.h"
 #include "GameObjectFactory.h"
 #include "DebugDraw.h"
+#include "SoundManager.h"
 
 PlayerControllerComponent::PlayerControllerComponent(GameObject & owner) :Component(owner)
 {
@@ -60,6 +61,7 @@ void PlayerControllerComponent::update(float deltaTime)
 	{
 		ball->getComponent<BallComponent>()->throwBall(aimOffset);
 		
+		SoundManager::getInstance().playSound("throwBall", 100, 1, false);
 		//gameObject.getPosition(), aimOffset, sf::Color(255, 255, 255), 1);
 	}
 
@@ -92,4 +94,5 @@ void PlayerControllerComponent::stun(float duration)
 	GameObjectFactory::CreateStunStar(&gameObject, duration);
 	gameObject.getComponent<RigidBodyComponent>()->setVelocity(sf::Vector2f(0, 0));
 	gameObject.getComponent<RigidBodyComponent>()->setAcceleration(sf::Vector2f(0, 0));
+	
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "GameState.h"
 #include "CharacterInfoComponent.h"
+#include <SFML/Audio/Music.hpp>
 
 class PlayState : public GameState
 {
@@ -17,5 +18,6 @@ private:
 	void createStarAnimationHelper(std::string textureName, std::string animName);
 	void createFireAnimationHelper();
 	int pHelper =0;
+	sf::Music music;
 };
 
