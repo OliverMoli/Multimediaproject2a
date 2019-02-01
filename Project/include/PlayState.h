@@ -15,6 +15,7 @@ private:
 	void createAnimations();
 	void createOrcAnimationHelper(std::string textureName,std::string animName);
 	void createStarAnimationHelper(std::string textureName, std::string animName);
+	void createFireAnimationHelper();
 	int pHelper =0;
 };
 

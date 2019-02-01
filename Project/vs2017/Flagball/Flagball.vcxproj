@@ -63,12 +63,14 @@
     <ClCompile Include="..\..\source\SpriteAnimationComponent.cpp" />
     <ClCompile Include="..\..\source\SpriteRenderComponent.cpp" />
     <ClCompile Include="..\..\source\StunStarComponent.cpp" />
+    <ClCompile Include="BallFireComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\AABBColliderComponent.h" />
     <ClInclude Include="..\..\include\AiControllerComponent.h" />
     <ClInclude Include="..\..\include\AnimatedSprite.h" />
     <ClInclude Include="..\..\include\Animation.h" />
+    <ClInclude Include="..\..\include\BallFireComponent.h" />
     <ClInclude Include="..\..\include\CharacterInfoComponent.h" />
     <ClInclude Include="..\..\include\ColliderComponent.h" />
     <ClInclude Include="..\..\include\Component.h" />

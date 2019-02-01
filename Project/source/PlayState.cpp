@@ -14,36 +14,38 @@ void PlayState::initialize()
 {
 	ResourceManager::getInstance().loadFont("arial", "../assets/arial.ttf");
 	ResourceManager::getInstance().loadFont("pixelFont", "../assets/Minimal5x7.ttf");
-	ResourceManager::getInstance().loadTextureWithTransparentColor("redOrc1", "../assets/RedPlayer1.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("redOrc2", "../assets/RedPlayer2.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("redOrc3", "../assets/RedPlayer3.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("blueOrc1", "../assets/BluePlayer1.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("blueOrc2", "../assets/BluePlayer2.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("blueOrc3", "../assets/BluePlayer3.png", sf::Color(255, 128, 255));
+	ResourceManager::getInstance().loadTexture("redOrc1", "../assets/RedPlayer1.png");
+	ResourceManager::getInstance().loadTexture("redOrc2", "../assets/RedPlayer2.png" );
+	ResourceManager::getInstance().loadTexture("redOrc3", "../assets/RedPlayer3.png");
+	ResourceManager::getInstance().loadTexture("blueOrc1", "../assets/BluePlayer1.png");
+	ResourceManager::getInstance().loadTexture("blueOrc2", "../assets/BluePlayer2.png");
+	ResourceManager::getInstance().loadTexture("blueOrc3", "../assets/BluePlayer3.png");
 
-	ResourceManager::getInstance().loadTextureWithTransparentColor("ro1", "../assets/RedOrc1.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("ro2", "../assets/RedOrc2.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("ro3", "../assets/RedOrc3.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("bo1", "../assets/BlueOrc1.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("bo2", "../assets/BlueOrc2.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("bo3", "../assets/BlueOrc3.png", sf::Color(255, 128, 255));
+	ResourceManager::getInstance().loadTexture("ro1", "../assets/RedOrc1.png");
+	ResourceManager::getInstance().loadTexture("ro2", "../assets/RedOrc2.png");
+	ResourceManager::getInstance().loadTexture("ro3", "../assets/RedOrc3.png");
+	ResourceManager::getInstance().loadTexture("bo1", "../assets/BlueOrc1.png");
+	ResourceManager::getInstance().loadTexture("bo2", "../assets/BlueOrc2.png");
+	ResourceManager::getInstance().loadTexture("bo3", "../assets/BlueOrc3.png");
 
-	ResourceManager::getInstance().loadTextureWithTransparentColor("P1", "../assets/P1.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("P2", "../assets/P2.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("P3", "../assets/P3.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("P4", "../assets/P4.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("P5", "../assets/P5.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("P6", "../assets/P6.png", sf::Color(255, 128, 255));
+	ResourceManager::getInstance().loadTexture("P1", "../assets/P1.png");
+	ResourceManager::getInstance().loadTexture("P2", "../assets/P2.png");
+	ResourceManager::getInstance().loadTexture("P3", "../assets/P3.png");
+	ResourceManager::getInstance().loadTexture("P4", "../assets/P4.png");
+	ResourceManager::getInstance().loadTexture("P5", "../assets/P5.png");
+	ResourceManager::getInstance().loadTexture("P6", "../assets/P6.png");
 
-	ResourceManager::getInstance().loadTextureWithTransparentColor("flag", "../assets/Flag.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("neutralBall", "../assets/Ballneutral32.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("redBall", "../assets/Ballred32.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("blueBall", "../assets/Ballblue32.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("flagPickupBlue", "../assets/FlagPickedUpBlue.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("flagPickupRed", "../assets/FlagPickedUpRed.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("stunStars", "../assets/Stunstars.png", sf::Color(255,128,255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("starAnimation", "../assets/StarAnimation.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("marker", "../assets/marker.png", sf::Color(255, 128, 255));
+	ResourceManager::getInstance().loadTexture("flag", "../assets/Flag.png");
+	ResourceManager::getInstance().loadTexture("neutralBall", "../assets/Ballneutral32.png");
+	ResourceManager::getInstance().loadTexture("redBall", "../assets/Ballred32.png");
+	ResourceManager::getInstance().loadTexture("blueBall", "../assets/Ballblue32.png");
+	ResourceManager::getInstance().loadTexture("flagPickupBlue", "../assets/FlagPickedUpBlue.png");
+	ResourceManager::getInstance().loadTexture("flagPickupRed", "../assets/FlagPickedUpRed.png");
+	ResourceManager::getInstance().loadTexture("stunStars", "../assets/Stunstars.png");
+	ResourceManager::getInstance().loadTexture("starAnimation", "../assets/StarAnimation.png");
+	ResourceManager::getInstance().loadTexture("marker", "../assets/marker.png");
+	ResourceManager::getInstance().loadTexture("smallFire", "../assets/FlameSmallAnim.png");
+	ResourceManager::getInstance().loadTexture("bigFire", "../assets/FlameBigAnim.png");
 	createAnimations();
 	MapLoader::getInstance().loadMap("Map.tmx", sf::Vector2f(0, 0));
 	GameObjectFactory::CreateScore();
@@ -132,7 +134,7 @@ void PlayState::createAnimations()
 	createOrcAnimationHelper("ro2", "Player 3");
 	createOrcAnimationHelper("ro3", "Player 5");
 	createStarAnimationHelper("starAnimation", "star");
-
+	createFireAnimationHelper();
 }
 
 void PlayState::createOrcAnimationHelper(std::string textureName, std::string animName)
@@ -175,4 +177,23 @@ void PlayState::createStarAnimationHelper(std::string textureName, std::string a
 	star.addFrame(sf::IntRect(210, 0, 42, 32));
 	ResourceManager::getInstance().addAnimation(animName, star);
 
+}
+
+void PlayState::createFireAnimationHelper()
+{
+	Animation smallFire;
+	smallFire.setSpriteSheet(*ResourceManager::getInstance().getTexture("smallFire"));
+	smallFire.addFrame(sf::IntRect(0, 0, 32, 32));
+	smallFire.addFrame(sf::IntRect(32, 0, 32, 32));
+	smallFire.addFrame(sf::IntRect(64, 0, 32, 32));
+	smallFire.addFrame(sf::IntRect(96, 0, 32, 32));
+	ResourceManager::getInstance().addAnimation("smallFireAnim", smallFire);
+
+	Animation bigFire;
+	bigFire.setSpriteSheet(*ResourceManager::getInstance().getTexture("bigFire"));
+	bigFire.addFrame(sf::IntRect(0, 0, 32, 32));
+	bigFire.addFrame(sf::IntRect(32, 0, 32, 32));
+	bigFire.addFrame(sf::IntRect(64, 0, 32, 32));
+	bigFire.addFrame(sf::IntRect(96, 0, 32, 32));
+	ResourceManager::getInstance().addAnimation("bigFireAnim", smallFire);
 }

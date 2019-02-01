@@ -236,5 +236,10 @@ void BallComponent::showNextMarker()
 	}
 }
 
+int BallComponent::getChargeCounter()
+{
+	return chargeCounter;
+}
+
 
 

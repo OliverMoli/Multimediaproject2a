@@ -18,6 +18,7 @@ public:
 	void resetChargeCounter();
 	void setBallHolder(GameObject* go);
 	void showNextMarker();
+	int getChargeCounter();
 private:
 	void onPlayerPickup(CollisionInfo colInfo);
 	void onPlayerDamage(CollisionInfo colInfo);

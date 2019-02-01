@@ -15,6 +15,7 @@
 #include "PlayFieldComponent.h"
 #include "SpriteAnimationComponent.h"
 #include "StunStarComponent.h"
+#include "BallFireComponent.h"
 
 
 void GameObjectFactory::CreatePlayer(NLTmxMapObject object)
@@ -98,7 +99,7 @@ void GameObjectFactory::CreatePlayer(NLTmxMapObject object)
 	playerObject->getComponent<RigidBodyComponent>()->setFriction(0.87f);
 	playerObject->addComponent(std::make_shared<CharacterInfoComponent>(*playerObject));
 	playerObject->addComponent(std::make_shared<AABBColliderComponent>(*playerObject, object.width, object.height, false, values.colOffset));
-	playerObject->addComponent(std::make_shared<MovementComponent>(*playerObject, values.normalMaxVelocity, values.normalMaxSteeringForce, values.flagHolderMaxVelocity, values.flagHolderMaxSteeringForce,values.normalDashForce,values.normalDashCooldown,values.flagHolderDashForce,values.flagHolderDashCooldown));
+	playerObject->addComponent(std::make_shared<MovementComponent>(*playerObject, values.normalMaxVelocity, values.normalMaxSteeringForce, values.flagHolderMaxVelocity, values.flagHolderMaxSteeringForce, values.normalDashForce, values.normalDashCooldown, values.flagHolderDashForce, values.flagHolderDashCooldown));
 	//playerObject->addComponent(std::make_shared<SpriteAnimationComponent>(*playerObject, *ResourceManager::getInstance().getTexture(values.textureName), object.x, object.y));
 	GameStateManager::getInstance().getCurrentState()->addGameObject(playerObject);
 
@@ -216,8 +217,8 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 	arrow1->addComponent(std::make_shared<SpriteRenderComponent>(*arrow1, *ResourceManager::getInstance().getTexture("marker"), 0, 0, true));
 	arrow1->getComponent<SpriteRenderComponent>()->setLayer(Items);
 	GameStateManager::getInstance().getCurrentState()->addGameObject(arrow1);
-	auto arrow2 = make_shared<GameObject>();
 
+	auto arrow2 = make_shared<GameObject>();
 	arrow2->addComponent(std::make_shared<SpriteRenderComponent>(*arrow2, *ResourceManager::getInstance().getTexture("marker"), 0, 0, true));
 	arrow2->getComponent<SpriteRenderComponent>()->setLayer(Items);
 	GameStateManager::getInstance().getCurrentState()->addGameObject(arrow2);
@@ -227,10 +228,10 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 	ballObject->getComponent<SpriteRenderComponent>()->setLayer(Items);
 	ballObject->addComponent(std::make_shared<RigidBodyComponent>(*ballObject, 1));
 	ballObject->addComponent(std::make_shared<AABBColliderComponent>(*ballObject, object.width, object.height, false));
-	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject, values.playField, values.ballVelocityPerCharge, values.resetLastDelay, values.stunDurationPerCharge, values.neutralVelocityCutoff, values.velocityFactorOnEnemyHit,*arrow1,*arrow2));
+	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject, values.playField, values.ballVelocityPerCharge, values.resetLastDelay, values.stunDurationPerCharge, values.neutralVelocityCutoff, values.velocityFactorOnEnemyHit, *arrow1, *arrow2));
 	ballObject->getComponent<RigidBodyComponent>()->addObserver(ballObject->getComponent<BallComponent>());
 	ballObject->getComponent<RigidBodyComponent>()->setFriction(values.friction);
-	GameStateManager::getInstance().getCurrentState()->addGameObject(ballObject);	
+	GameStateManager::getInstance().getCurrentState()->addGameObject(ballObject);
 }
 
 void GameObjectFactory::CreatePlayField(NLTmxMapObject object)
@@ -257,7 +258,7 @@ void GameObjectFactory::CreateStunStar(GameObject* object, float duration)
 	star->addComponent(std::make_shared<SpriteRenderComponent>(*star, *ResourceManager::getInstance().getTexture("stunStars")));
 	star->getComponent<SpriteRenderComponent>()->setLayer(UI);
 	star->addComponent(std::make_shared<StunStarComponent>(*star, duration));
-	star->setPosition(object->getPosition() + sf::Vector2f(2.5,-20));
+	star->setPosition(object->getPosition() + sf::Vector2f(2.5, -20));
 	star->getComponent<StunStarComponent>()->initAnims("star");
 	GameStateManager::getInstance().getCurrentState()->addGameObject(star);
 }
