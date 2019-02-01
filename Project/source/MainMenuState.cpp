@@ -88,26 +88,26 @@ void MainMenuState::createMenuUi()
 
 	
 	
-	auto hori = tgui::HorizontalLayout::create();
-	auto panel = tgui::Panel::create("100%");
-	hori->setSize("50%", "50%");
-	hori->setPosition("-20%", "10%");
+	/*auto hori = tgui::VerticalLayout::create();
+	
+	hori->setSize("10%", "10%");
+	hori->setPosition("20%", "10%");
 	hori->add(panel);
 	panel->setSize("100%", "100%");
 	panel->setPosition("0%", "0%");
 
 	
-	fhLogo = tgui::Picture::create("../assets/Logo_FHS_white_bg.png");
-	fhLogo->setSize("100%", "100%");
-	fhLogo->setPosition(10, "0%");
-	hori->add(fhLogo);
+	fhLogo = tgui::Picture::create("../assets/BluePlayer1.png");
+	fhLogo->setSize("10%", "10%");
+	fhLogo->setPosition("-20%", "0%");
+	hori->add(fhLogo); */
 	
 	
 	
 	
 
 	RenderManager::getInstance().getGui()->add(vert);
-	RenderManager::getInstance().getGui()->add(hori);
+	//RenderManager::getInstance().getGui()->add(hori);
 	RenderManager::getInstance().getGui()->focusNextWidget();
 }
 

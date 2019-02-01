@@ -11,6 +11,7 @@
 void PlayState::initialize()
 {
 	ResourceManager::getInstance().loadFont("arial", "../assets/arial.ttf");
+	ResourceManager::getInstance().loadFont("pixelFont", "../assets/Minimal5x7.ttf");
 	ResourceManager::getInstance().loadTextureWithTransparentColor("redOrc1", "../assets/RedPlayer1.png", sf::Color(255, 128, 255));
 	ResourceManager::getInstance().loadTextureWithTransparentColor("redOrc2", "../assets/RedPlayer2.png", sf::Color(255, 128, 255));
 	ResourceManager::getInstance().loadTextureWithTransparentColor("redOrc3", "../assets/RedPlayer3.png", sf::Color(255, 128, 255));
