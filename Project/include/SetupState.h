@@ -21,7 +21,7 @@ private:
 	sf::Clock clock;
 	std::shared_ptr<tgui::Panel> player1, player2, player3, player4, player5, player6;
 	void showUnit();
-	std::shared_ptr<tgui::Label> label;
+	std::shared_ptr<tgui::Label> label, labelStart;
 	std::shared_ptr<tgui::Picture> blueOrc1, blueOrc2, blueOrc3, redOrc1, redOrc2, redOrc3, arrowLeft, arrowRight;
 	std::vector<std::shared_ptr<tgui::Picture>> characters;
 	std::vector<std::shared_ptr<tgui::Panel>> players;

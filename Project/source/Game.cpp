@@ -23,7 +23,7 @@ void Game::initialize(int windowWidth, int windowHeight)
 	window.create(sf::VideoMode(windowWidth, windowHeight), gameTitle);
 	window.setFramerateLimit(60);
 	gui.setTarget(window);
-	gui.setFont("../assets/arial.ttf");
+	gui.setFont("../assets/Minimal5x7.ttf");
 	GameStateManager::getInstance().registerState("MainMenuState", std::make_shared<MainMenuState>());
 	GameStateManager::getInstance().registerState("SetupState", std::make_shared<SetupState>());
 	GameStateManager::getInstance().registerState("PlayState", std::make_shared<PlayState>());

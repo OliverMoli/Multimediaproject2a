@@ -11,16 +11,18 @@ ScoreComponent::ScoreComponent(GameObject& owner):RenderComponent(owner)
 
 void ScoreComponent::initialize()
 {
-	redText.setFont(*ResourceManager::getInstance().getFont("arial"));
+	redText.setFont(*ResourceManager::getInstance().getFont("pixelFont"));
 	redText.setFillColor(sf::Color::Red);
-	blueText.setFont(*ResourceManager::getInstance().getFont("arial"));
+	redText.setPosition(60, 115);
+	
+	blueText.setFont(*ResourceManager::getInstance().getFont("pixelFont"));
 	blueText.setFillColor(sf::Color::Blue);
-	blueText.setPosition(-50, 0);
-	redText.setPosition(100, 0);
+	blueText.setPosition(-50, 115);
+	
 
-	timeText.setFont(*ResourceManager::getInstance().getFont("arial"));
+	timeText.setFont(*ResourceManager::getInstance().getFont("pixelFont"));
 	timeText.setFillColor(sf::Color::Black);
-	timeText.setPosition(0, 0);
+	timeText.setPosition(-5, 90);
 
 	winnerText.setFont(*ResourceManager::getInstance().getFont("arial"));
 	winnerText.setFillColor(sf::Color::Black);
