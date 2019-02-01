@@ -17,6 +17,7 @@ public:
 	void setOwningTeam(Team team);
 	void resetChargeCounter();
 	void setBallHolder(GameObject* go);
+	void showNextMarker();
 private:
 	void onPlayerPickup(CollisionInfo colInfo);
 	void onPlayerDamage(CollisionInfo colInfo);
@@ -39,5 +40,5 @@ private:
 	float velocityFactorOnEnemyHit;
 	float ballVelocityPerCharge;
 	std::vector<GameObject*> hadBall;
-	GameObject* arrow1,* arrow2;
+	std::vector<GameObject*> arrows;
 };

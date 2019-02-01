@@ -11,4 +11,6 @@ public:
 	static void truncate(sf::Vector2f& in, float maxLength);
 	static sf::Vector2f getInverseVector(sf::Vector2f in);
 	static sf::Vector2f getRandomDir();
+	static float getAngle(sf::Vector2f a, sf::Vector2f b);
+	static sf::Vector2f getVectorFromAngle(float angle);
 };

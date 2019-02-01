@@ -28,6 +28,13 @@ void PlayState::initialize()
 	ResourceManager::getInstance().loadTextureWithTransparentColor("bo2", "../assets/BlueOrc2.png", sf::Color(255, 128, 255));
 	ResourceManager::getInstance().loadTextureWithTransparentColor("bo3", "../assets/BlueOrc3.png", sf::Color(255, 128, 255));
 
+	ResourceManager::getInstance().loadTextureWithTransparentColor("P1", "../assets/P1.png", sf::Color(255, 128, 255));
+	ResourceManager::getInstance().loadTextureWithTransparentColor("P2", "../assets/P2.png", sf::Color(255, 128, 255));
+	ResourceManager::getInstance().loadTextureWithTransparentColor("P3", "../assets/P3.png", sf::Color(255, 128, 255));
+	ResourceManager::getInstance().loadTextureWithTransparentColor("P4", "../assets/P4.png", sf::Color(255, 128, 255));
+	ResourceManager::getInstance().loadTextureWithTransparentColor("P5", "../assets/P5.png", sf::Color(255, 128, 255));
+	ResourceManager::getInstance().loadTextureWithTransparentColor("P6", "../assets/P6.png", sf::Color(255, 128, 255));
+
 	ResourceManager::getInstance().loadTextureWithTransparentColor("flag", "../assets/Flag.png", sf::Color(255, 128, 255));
 	ResourceManager::getInstance().loadTextureWithTransparentColor("neutralBall", "../assets/Ballneutral32.png", sf::Color(255, 128, 255));
 	ResourceManager::getInstance().loadTextureWithTransparentColor("redBall", "../assets/Ballred32.png", sf::Color(255, 128, 255));
@@ -111,10 +118,11 @@ void PlayState::possessCharacter(std::string characterName, int playerIndex, Tea
 		characterObj->addComponent(std::make_shared<PlayerControllerComponent>(*characterObj));
 	}
 	characterObj->getComponent<MovementComponent>()->initAnims(characterName);
-	auto playerText = std::make_shared<SpriteRenderComponent>(*characterObj, *ResourceManager::getInstance().getTexture("neutralBall"), 10, -25);
+	std::string test = "P" + to_string(pHelper+1);
+	auto playerText = std::make_shared<SpriteRenderComponent>(*characterObj, *ResourceManager::getInstance().getTexture("P" + to_string(pHelper+1)), 10, -25);
 	playerText->setLayer(Playfield);
 	characterObj->addComponent(playerText);
-
+	pHelper++;
 }
 
 void PlayState::createAnimations()

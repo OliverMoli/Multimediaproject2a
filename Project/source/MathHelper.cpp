@@ -47,7 +47,25 @@ sf::Vector2f MathHelper::getInverseVector(sf::Vector2f in)
 
 sf::Vector2f MathHelper::getRandomDir()
 {
-	return sf::Vector2f(random(-1,1),random(-1,1));
+	return sf::Vector2f(random(-1, 1), random(-1, 1));
+}
+
+float MathHelper::getAngle(sf::Vector2f a, sf::Vector2f b)
+{
+	float dot = a.x * b.x + a.y * b.y;
+	float det = a.x * b.y - a.y * b.x;
+	float angle = atan2(det, dot);
+	float deg = angle * 180 / (atan(1) * 4);
+	if(deg <0)
+	{
+		deg = 180 - deg;
+	}
+	return deg;
+}
+
+sf::Vector2f MathHelper::getVectorFromAngle(float angle)
+{
+	return sf::Vector2f(cos(angle), sin(angle));
 }
 
 
