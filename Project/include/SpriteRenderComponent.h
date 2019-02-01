@@ -12,6 +12,7 @@ public:
 	void render(sf::RenderWindow& window) override;
 	void setTexture(const sf::Texture& texture);
 	void setTextureAndBounds(const sf::Texture& texture,const sf::IntRect rect);
+	sf::Sprite* getSprite();
 private:
 	sf::Sprite sprite;
 };

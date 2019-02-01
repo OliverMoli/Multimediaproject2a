@@ -41,4 +41,9 @@ void SpriteRenderComponent::setTextureAndBounds(const sf::Texture & texture, con
 	sprite.setTextureRect(rect);
 }
 
+sf::Sprite * SpriteRenderComponent::getSprite()
+{
+	return &sprite;
+}
+
 

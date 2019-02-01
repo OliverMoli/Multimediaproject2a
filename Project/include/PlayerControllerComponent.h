@@ -2,7 +2,6 @@
 #include "Component.h"
 #include "IController.h"
 #include "CharacterInfoComponent.h"
-#include "StunStarComponent.h"
 #include <SFML/System/Clock.hpp>
 
 

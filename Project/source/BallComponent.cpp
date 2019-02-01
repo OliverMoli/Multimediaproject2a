@@ -12,6 +12,7 @@
 #include "ResourceManager.h"
 #include "RespawnHelperComponent.h"
 #include "GameStateManager.h"
+#include <SFML/Window/Joystick.hpp>
 
 BallComponent::BallComponent(GameObject& owner, std::string owningPlayFieldName, float ballVelocityPerCharge, float resetLastDelay, float stunDuration, float neutralVelocityCutoff, float velocityFactorOnEnemyHit, GameObject& arrow1, GameObject& arrow2) : Component(owner)
 {
@@ -21,8 +22,8 @@ BallComponent::BallComponent(GameObject& owner, std::string owningPlayFieldName,
 	this->stunDurationPerCharge = stunDuration;
 	this->neutralVelocityCutoff = neutralVelocityCutoff;
 	this->velocityFactorOnEnemyHit = velocityFactorOnEnemyHit;
-	this->arrow1 = &arrow1;
-	this->arrow2 = &arrow2;
+	arrows.push_back(&arrow1);
+	arrows.push_back(&arrow2);
 }
 
 void BallComponent::initialize()
@@ -32,27 +33,13 @@ void BallComponent::initialize()
 
 void BallComponent::update(float deltaTime)
 {
-	std::vector<GameObject*> needBall;
+	arrows[0]->setActive(false);
+	arrows[1]->setActive(false);
 	enableCollisionAfterDelay();
 	if (ballHolder != nullptr)
 	{
 		gameObject.setPosition(ballHolder->getPosition() + ballPositionOffset);
-		auto players = GameObjectManager::getInstance().GetByType("Player");
-		for(auto player:players)
-		{
-			if(player->getComponent<CharacterInfoComponent>()->getTeam() != owningTeam)
-			{
-				continue;
-			}
-			if(std::find(hadBall.begin(),hadBall.end(),player) == hadBall.end())
-			{
-				needBall.push_back(player);
-			}
-		}
-		for(auto need: needBall)
-		{
-			//arrow1->setRotation()
-		}
+		showNextMarker();
 	}
 	else
 	{
@@ -61,6 +48,7 @@ void BallComponent::update(float deltaTime)
 			chargeCounter = 0;
 			owningTeam = Team::Neutral;
 			gameObject.getComponent<SpriteRenderComponent>()->setTexture(*ResourceManager::getInstance().getTexture("neutralBall"));
+				
 		}
 	}
 	if (owningTeam == Team::Neutral)
@@ -144,7 +132,6 @@ void BallComponent::onPlayerDamage(CollisionInfo colInfo)
 	{
 		if (chargeCounter < 2) {
 			colInfo.otherCol->getComponent<AiControllerComponent>()->stun(stunDurationPerCharge*(chargeCounter + 1));
-			respawnPlayer(5, colInfo.otherCol);
 		}
 		else
 		{
@@ -218,6 +205,41 @@ void BallComponent::resetChargeCounter()
 void BallComponent::setBallHolder(GameObject * go)
 {
 	ballHolder = go;
+}
+
+void BallComponent::showNextMarker()
+{
+	std::vector<GameObject*> needBall;
+	auto players = GameObjectManager::getInstance().GetByType("Player");
+	for (auto player : players)
+	{
+		if (player->getComponent<CharacterInfoComponent>()->getTeam() != owningTeam)
+		{
+			continue;
+		}
+		if (std::find(hadBall.begin(), hadBall.end(), player) == hadBall.end())
+		{
+			needBall.push_back(player);
+		}
+	}
+	for (int i=0;i<needBall.size();i++)
+	{
+		arrows[i]->setActive(true);
+		arrows[i]->setPosition(gameObject.getPosition() + sf::Vector2f(20, 0));
+		sf::Vector2f curPos = arrows[i]->getPosition();
+		sf::Vector2f position = needBall[i]->getPosition();
+		const float PI = 3.14159265;
+
+		float dx = curPos.x - position.x;
+		float dy = curPos.y - position.y;
+
+		float rotation = (atan2(dy, dx)) * 180 / PI;
+		//arrows[i]->getComponent<SpriteRenderComponent>()->getSprite()->setRotation(rotation);
+	}
+	needBall.clear();
+	
+
+	
 }
 
 

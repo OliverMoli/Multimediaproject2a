@@ -14,6 +14,7 @@
 #include "BallComponent.h"
 #include "PlayFieldComponent.h"
 #include "SpriteAnimationComponent.h"
+#include "StunStarComponent.h"
 
 
 void GameObjectFactory::CreatePlayer(NLTmxMapObject object)
@@ -217,9 +218,9 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 	GameStateManager::getInstance().getCurrentState()->addGameObject(arrow1);
 	auto arrow2 = make_shared<GameObject>();
 
-	arrow1->addComponent(std::make_shared<SpriteRenderComponent>(*arrow1, *ResourceManager::getInstance().getTexture("aimArrow"), 0, 0, true));
-	arrow1->getComponent<SpriteRenderComponent>()->setLayer(Items);
-	GameStateManager::getInstance().getCurrentState()->addGameObject(arrow1);
+	arrow2->addComponent(std::make_shared<SpriteRenderComponent>(*arrow1, *ResourceManager::getInstance().getTexture("aimArrow"), 0, 0, true));
+	arrow2->getComponent<SpriteRenderComponent>()->setLayer(Items);
+	GameStateManager::getInstance().getCurrentState()->addGameObject(arrow2);
 
 	ballObject->setPosition(object.x, object.y);
 	ballObject->addComponent(std::make_shared<SpriteRenderComponent>(*ballObject, *ResourceManager::getInstance().getTexture(values.textureName)));
