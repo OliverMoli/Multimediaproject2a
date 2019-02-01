@@ -43,7 +43,7 @@ void PlayState::initialize()
 	ResourceManager::getInstance().loadTextureWithTransparentColor("flagPickupRed", "../assets/FlagPickedUpRed.png", sf::Color(255, 128, 255));
 	ResourceManager::getInstance().loadTextureWithTransparentColor("stunStars", "../assets/Stunstars.png", sf::Color(255,128,255));
 	ResourceManager::getInstance().loadTextureWithTransparentColor("starAnimation", "../assets/StarAnimation.png", sf::Color(255, 128, 255));
-	ResourceManager::getInstance().loadTextureWithTransparentColor("aimArrow", "../assets/AimArrow.png", sf::Color(255, 128, 255));
+	ResourceManager::getInstance().loadTextureWithTransparentColor("marker", "../assets/marker.png", sf::Color(255, 128, 255));
 	createAnimations();
 	MapLoader::getInstance().loadMap("Map.tmx", sf::Vector2f(0, 0));
 	GameObjectFactory::CreateScore();

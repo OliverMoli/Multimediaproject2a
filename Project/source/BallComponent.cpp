@@ -225,21 +225,15 @@ void BallComponent::showNextMarker()
 	for (int i=0;i<needBall.size();i++)
 	{
 		arrows[i]->setActive(true);
-		arrows[i]->setPosition(gameObject.getPosition() + sf::Vector2f(20, 0));
+		arrows[i]->setPosition(gameObject.getPosition()+sf::Vector2f(16,16));
 		sf::Vector2f curPos = arrows[i]->getPosition();
-		sf::Vector2f position = needBall[i]->getPosition();
+		sf::Vector2f position = needBall[i]->getPosition()+sf::Vector2f(24,36);
 		const float PI = 3.14159265;
-
 		float dx = curPos.x - position.x;
 		float dy = curPos.y - position.y;
-
 		float rotation = (atan2(dy, dx)) * 180 / PI;
-		//arrows[i]->getComponent<SpriteRenderComponent>()->getSprite()->setRotation(rotation);
+		arrows[i]->getComponent<SpriteRenderComponent>()->getSprite()->setRotation(rotation+180);
 	}
-	needBall.clear();
-	
-
-	
 }
 
 

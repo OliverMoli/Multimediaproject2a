@@ -213,12 +213,12 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 
 	auto arrow1 = make_shared<GameObject>();
 
-	arrow1->addComponent(std::make_shared<SpriteRenderComponent>(*arrow1, *ResourceManager::getInstance().getTexture("aimArrow"), 0, 0, true));
+	arrow1->addComponent(std::make_shared<SpriteRenderComponent>(*arrow1, *ResourceManager::getInstance().getTexture("marker"), 0, 0, true));
 	arrow1->getComponent<SpriteRenderComponent>()->setLayer(Items);
 	GameStateManager::getInstance().getCurrentState()->addGameObject(arrow1);
 	auto arrow2 = make_shared<GameObject>();
 
-	arrow2->addComponent(std::make_shared<SpriteRenderComponent>(*arrow1, *ResourceManager::getInstance().getTexture("aimArrow"), 0, 0, true));
+	arrow2->addComponent(std::make_shared<SpriteRenderComponent>(*arrow2, *ResourceManager::getInstance().getTexture("marker"), 0, 0, true));
 	arrow2->getComponent<SpriteRenderComponent>()->setLayer(Items);
 	GameStateManager::getInstance().getCurrentState()->addGameObject(arrow2);
 
@@ -230,9 +230,7 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject, values.playField, values.ballVelocityPerCharge, values.resetLastDelay, values.stunDurationPerCharge, values.neutralVelocityCutoff, values.velocityFactorOnEnemyHit,*arrow1,*arrow2));
 	ballObject->getComponent<RigidBodyComponent>()->addObserver(ballObject->getComponent<BallComponent>());
 	ballObject->getComponent<RigidBodyComponent>()->setFriction(values.friction);
-	GameStateManager::getInstance().getCurrentState()->addGameObject(ballObject);
-
-	
+	GameStateManager::getInstance().getCurrentState()->addGameObject(ballObject);	
 }
 
 void GameObjectFactory::CreatePlayField(NLTmxMapObject object)
