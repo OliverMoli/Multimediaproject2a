@@ -135,7 +135,7 @@ void GameObjectFactory::CreateFlag(NLTmxMapObject object)
 
 	flagObject->setPosition(object.x, object.y);
 	flagObject->addComponent(std::make_shared<SpriteRenderComponent>(*flagObject, *ResourceManager::getInstance().getTexture(values.textureName)));
-	flagObject->getComponent<SpriteRenderComponent>()->setLayer(Items);
+	flagObject->getComponent<SpriteRenderComponent>()->setLayer(UI);
 	flagObject->addComponent(std::make_shared<RigidBodyComponent>(*flagObject, 1));
 	flagObject->getComponent<RigidBodyComponent>()->setFriction(0.9);
 	flagObject->addComponent(std::make_shared<AABBColliderComponent>(*flagObject, object.width, object.height, false));
@@ -210,21 +210,28 @@ void GameObjectFactory::CreateBall(NLTmxMapObject object)
 
 	}
 
+	auto arrow1 = make_shared<GameObject>();
+
+	arrow1->addComponent(std::make_shared<SpriteRenderComponent>(*arrow1, *ResourceManager::getInstance().getTexture("aimArrow"), 0, 0, true));
+	arrow1->getComponent<SpriteRenderComponent>()->setLayer(Items);
+	GameStateManager::getInstance().getCurrentState()->addGameObject(arrow1);
+	auto arrow2 = make_shared<GameObject>();
+
+	arrow1->addComponent(std::make_shared<SpriteRenderComponent>(*arrow1, *ResourceManager::getInstance().getTexture("aimArrow"), 0, 0, true));
+	arrow1->getComponent<SpriteRenderComponent>()->setLayer(Items);
+	GameStateManager::getInstance().getCurrentState()->addGameObject(arrow1);
+
 	ballObject->setPosition(object.x, object.y);
 	ballObject->addComponent(std::make_shared<SpriteRenderComponent>(*ballObject, *ResourceManager::getInstance().getTexture(values.textureName)));
 	ballObject->getComponent<SpriteRenderComponent>()->setLayer(Items);
 	ballObject->addComponent(std::make_shared<RigidBodyComponent>(*ballObject, 1));
 	ballObject->addComponent(std::make_shared<AABBColliderComponent>(*ballObject, object.width, object.height, false));
-	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject, values.playField, values.ballVelocityPerCharge, values.resetLastDelay, values.stunDurationPerCharge, values.neutralVelocityCutoff, values.velocityFactorOnEnemyHit));
+	ballObject->addComponent(std::make_shared<BallComponent>(*ballObject, values.playField, values.ballVelocityPerCharge, values.resetLastDelay, values.stunDurationPerCharge, values.neutralVelocityCutoff, values.velocityFactorOnEnemyHit,*arrow1,*arrow2));
 	ballObject->getComponent<RigidBodyComponent>()->addObserver(ballObject->getComponent<BallComponent>());
 	ballObject->getComponent<RigidBodyComponent>()->setFriction(values.friction);
 	GameStateManager::getInstance().getCurrentState()->addGameObject(ballObject);
 
-	auto marker = make_shared<GameObject>();
-
-	marker->addComponent(std::make_shared<SpriteRenderComponent>(*marker, *ResourceManager::getInstance().getTexture("aimArrow"), 0,0, true));
-	marker->getComponent<SpriteRenderComponent>()->setLayer(Items);
-	GameStateManager::getInstance().getCurrentState()->addGameObject(marker);
+	
 }
 
 void GameObjectFactory::CreatePlayField(NLTmxMapObject object)

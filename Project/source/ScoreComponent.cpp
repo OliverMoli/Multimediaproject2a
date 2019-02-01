@@ -16,7 +16,7 @@ void ScoreComponent::initialize()
 	blueText.setFont(*ResourceManager::getInstance().getFont("arial"));
 	blueText.setFillColor(sf::Color::Blue);
 	blueText.setPosition(-50, 0);
-	redText.setPosition(50, 0);
+	redText.setPosition(100, 0);
 
 	timeText.setFont(*ResourceManager::getInstance().getFont("arial"));
 	timeText.setFillColor(sf::Color::Black);

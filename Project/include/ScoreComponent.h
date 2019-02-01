@@ -15,6 +15,6 @@ public:
 private:
 	int scoreRedTeam =0, scoreBlueTeam=0;
 	sf::Text redText, blueText,timeText,winnerText;
-	float gameLength = 5;
+	float gameLength = 180;
 	sf::Clock clock;
 };

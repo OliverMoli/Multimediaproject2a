@@ -6,6 +6,8 @@
 #include "PlayerControllerComponent.h"
 #include "AiControllerComponent.h"
 #include "fstream"
+#include "GameStateManager.h"
+#include "SpriteRenderComponent.h"
 
 
 void PlayState::initialize()
@@ -38,6 +40,9 @@ void PlayState::initialize()
 	MapLoader::getInstance().loadMap("Map.tmx", sf::Vector2f(0, 0));
 	GameObjectFactory::CreateScore();
 	loadSetup();
+	sf::View view(sf::FloatRect(0,0, 1232, 800));
+	GameStateManager::getInstance().getWindow()->setView(view);
+	
 }
 
 void PlayState::update(float deltaTime)
@@ -103,6 +108,10 @@ void PlayState::possessCharacter(std::string characterName, int playerIndex, Tea
 		characterObj->addComponent(std::make_shared<PlayerControllerComponent>(*characterObj));
 	}
 	characterObj->getComponent<MovementComponent>()->initAnims(characterName);
+	auto playerText = std::make_shared<SpriteRenderComponent>(*characterObj, *ResourceManager::getInstance().getTexture("neutralBall"), 10, -25);
+	playerText->setLayer(Playfield);
+	characterObj->addComponent(playerText);
+
 }
 
 void PlayState::createAnimations()

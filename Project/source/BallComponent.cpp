@@ -13,7 +13,7 @@
 #include "RespawnHelperComponent.h"
 #include "GameStateManager.h"
 
-BallComponent::BallComponent(GameObject& owner, std::string owningPlayFieldName, float ballVelocityPerCharge, float resetLastDelay, float stunDuration, float neutralVelocityCutoff, float velocityFactorOnEnemyHit) : Component(owner)
+BallComponent::BallComponent(GameObject& owner, std::string owningPlayFieldName, float ballVelocityPerCharge, float resetLastDelay, float stunDuration, float neutralVelocityCutoff, float velocityFactorOnEnemyHit, GameObject& arrow1, GameObject& arrow2) : Component(owner)
 {
 	this->playfield = GameObjectManager::getInstance().GetGameObjectByName(owningPlayFieldName);
 	this->ballVelocityPerCharge = ballVelocityPerCharge;
@@ -21,6 +21,8 @@ BallComponent::BallComponent(GameObject& owner, std::string owningPlayFieldName,
 	this->stunDurationPerCharge = stunDuration;
 	this->neutralVelocityCutoff = neutralVelocityCutoff;
 	this->velocityFactorOnEnemyHit = velocityFactorOnEnemyHit;
+	this->arrow1 = &arrow1;
+	this->arrow2 = &arrow2;
 }
 
 void BallComponent::initialize()
@@ -30,10 +32,27 @@ void BallComponent::initialize()
 
 void BallComponent::update(float deltaTime)
 {
+	std::vector<GameObject*> needBall;
 	enableCollisionAfterDelay();
 	if (ballHolder != nullptr)
 	{
 		gameObject.setPosition(ballHolder->getPosition() + ballPositionOffset);
+		auto players = GameObjectManager::getInstance().GetByType("Player");
+		for(auto player:players)
+		{
+			if(player->getComponent<CharacterInfoComponent>()->getTeam() != owningTeam)
+			{
+				continue;
+			}
+			if(std::find(hadBall.begin(),hadBall.end(),player) == hadBall.end())
+			{
+				needBall.push_back(player);
+			}
+		}
+		for(auto need: needBall)
+		{
+			//arrow1->setRotation()
+		}
 	}
 	else
 	{
