@@ -60,7 +60,8 @@ void PlayerControllerComponent::update(float deltaTime)
 	if (ball != nullptr && sf::Joystick::isButtonPressed(characterInfo->getPlayerIndex(), (int)InputManager::XboxButtons::LB) && MathHelper::length(aimOffset) > 0)
 	{
 		ball->getComponent<BallComponent>()->throwBall(aimOffset);
-		//SoundManager::getInstance().playSound()
+		
+		SoundManager::getInstance().playSound("throwBall", 100, 1, false);
 		//gameObject.getPosition(), aimOffset, sf::Color(255, 255, 255), 1);
 	}
 
@@ -93,4 +94,5 @@ void PlayerControllerComponent::stun(float duration)
 	GameObjectFactory::CreateStunStar(&gameObject, duration);
 	gameObject.getComponent<RigidBodyComponent>()->setVelocity(sf::Vector2f(0, 0));
 	gameObject.getComponent<RigidBodyComponent>()->setAcceleration(sf::Vector2f(0, 0));
+	
 }

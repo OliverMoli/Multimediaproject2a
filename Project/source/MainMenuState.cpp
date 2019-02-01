@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "RenderManager.h"
 #include "SoundManager.h"
+#include "SpriteRenderComponent.h"
 
 
 void MainMenuState::initialize()
@@ -13,7 +14,11 @@ void MainMenuState::initialize()
 	clock = sf::Clock();
 	lastFocusChange = -100;
 	createMenuUi();
-	SoundManager::getInstance().playSound("startMusic", 20, 1, true);
+
+	ResourceManager::getInstance().loadTexture("background", "../assets/Titlescreen.png");
+	background = std::make_shared<GameObject>();
+	GameStateManager::getInstance().getCurrentState()->addGameObject(background);
+	background->addComponent(std::make_shared<SpriteRenderComponent>(*background, *ResourceManager::getInstance().getTexture("background")));
 }
 
 void MainMenuState::update(float deltaTime)
@@ -75,8 +80,8 @@ void MainMenuState::createMenuUi()
 	auto theme = std::make_shared<tgui::Theme>("../assets/Black.txt");
 	tgui::Theme::setDefault(theme.get());
 	auto vert = tgui::VerticalLayout::create();
-	vert->setSize("50%", "100%");
-	vert->setPosition("25%", 0);
+	vert->setSize("20%", "40%");
+	vert->setPosition("75%", "60%");
 	startButton = tgui::Button::create("Start");
 	creditsButton = tgui::Button::create("Credits");
 	exitButton = tgui::Button::create("Exit");
@@ -91,32 +96,10 @@ void MainMenuState::createMenuUi()
 	vert->addSpace(0.1f);
 	vert->add(exitButton, "button_exit");
 	vert->addSpace(1.0f);
-	startButton->setTextSize(40);
-	
-
-	
-	
-	
-	/*auto hori = tgui::VerticalLayout::create();
-	
-	hori->setSize("10%", "10%");
-	hori->setPosition("20%", "10%");
-	hori->add(panel);
-	panel->setSize("100%", "100%");
-	panel->setPosition("0%", "0%");
-
-	
-	fhLogo = tgui::Picture::create("../assets/BluePlayer1.png");
-	fhLogo->setSize("10%", "10%");
-	fhLogo->setPosition("-20%", "0%");
-	hori->add(fhLogo); */
-	
-	
 	
 	
 
 	RenderManager::getInstance().getGui()->add(vert);
-	//RenderManager::getInstance().getGui()->add(hori);
 	RenderManager::getInstance().getGui()->focusNextWidget();
 
 }
@@ -127,9 +110,10 @@ void MainMenuState::createCreditsUi()
 	tgui::Theme::setDefault(theme.get());
 	auto vert = tgui::VerticalLayout::create();
 	vert->setSize("33%", "100%");
-	vert->setPosition("33%", 0);
+	vert->setPosition("80%", "70%");
 	std::shared_ptr<tgui::Label> creditsLabel = tgui::Label::create(creditsText);
 	creditsLabel->setTextSize(50);
+	
 	vert->add(creditsLabel);
 	RenderManager::getInstance().getGui()->add(vert);
 }

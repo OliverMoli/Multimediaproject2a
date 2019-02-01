@@ -10,6 +10,7 @@
 #include <tgui/Widgets/Label.hpp>
 #include <fstream>
 
+
 void SetupState::initialize()
 {
 	clock = sf::Clock();
@@ -21,6 +22,16 @@ void SetupState::initialize()
 		isSelected[i] = false;
 	}
 	createSettingsUi();
+
+	if (!music.openFromFile("../assets/Music/Start/JDB Artist - Inspirational Vol.2 - 26 Every Bullet Counts - Loop.wav"))
+	{
+		return; // error
+	}
+
+	music.play();
+	music.setVolume(50.f);
+
+	
 }
 
 void SetupState::update(float deltaTime)
@@ -29,6 +40,7 @@ void SetupState::update(float deltaTime)
 	if (sf::Joystick::isButtonPressed(0, (int)InputManager::XboxButtons::Start))
 	{
 		createSetupFile();
+		music.stop();
 		RenderManager::getInstance().getGui()->removeAllWidgets();
 		GameStateManager::getInstance().setState("PlayState");
 	}

@@ -23,5 +23,6 @@ private:
 	std::shared_ptr<tgui::Picture> fhLogo;
 	bool inCredits = false;
 	std::string creditsText = "      Flagball  \n\nMichael Cenger\nOliver Moholi";
+	std::shared_ptr<GameObject> background;
 };
 
