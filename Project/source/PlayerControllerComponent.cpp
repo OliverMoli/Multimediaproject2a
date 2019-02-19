@@ -6,7 +6,6 @@
 #include "RigidBodyComponent.h"
 #include "MovementComponent.h"
 #include "BallComponent.h"
-#include "ResourceManager.h"
 #include "GameObjectFactory.h"
 #include "DebugDraw.h"
 #include "SoundManager.h"

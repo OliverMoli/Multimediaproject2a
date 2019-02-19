@@ -20,7 +20,7 @@ Game::Game(std::string gameTitle)
 
 void Game::initialize(int windowWidth, int windowHeight)
 {
-	window.create(sf::VideoMode(windowWidth, windowHeight), gameTitle,sf::Style::Fullscreen);
+	window.create(sf::VideoMode(windowWidth, windowHeight), gameTitle);
 	window.setFramerateLimit(60);
 	gui.setTarget(window);
 	gui.setFont("../assets/Minimal5x7.ttf");
